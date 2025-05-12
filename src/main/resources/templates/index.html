@@ -82,69 +82,14 @@
     <section class="fleet-section container py-5" id="car">
         <h1 class="text-center hero-title mt-5 mb-4" style="font-family: javanese;">Danh mục xe</h1>
         <div class="row g-4">
-            <div class="col-md-4">
+            <div class="col-md-4" th:each="car : ${cars}">
                 <div class="fleet-card">
-                    <img src="./img/lcAvatar.jpg" alt="Cadillac Escalade" class="img-fluid">
+                    <img th:src="@{${car.getImage()}}" th:alt="${car.getName()}" class="img-fluid">
                     <div class="fleet-details">
-                        <h3>Cadillac Escalade</h3>
-                        <p>Seat: 7 seats</p>
-                        <p>$810/day</p>
-                        <button class="btn btn-primary details-btn">Details</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fleet-card">
-                    <img src="./img/cadilacavt.jpg" alt="Cadillac Escalade" class="img-fluid">
-                    <div class="fleet-details">
-                        <h3>Cadillac Escalade</h3>
-                        <p>Seat: 7 seats</p>
-                        <p>$810/day</p>
-                        <button class="btn btn-primary details-btn">Details</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fleet-card">
-                    <img src="./img/rangeroveravt.jpg" alt="Range Rover LWB" class="img-fluid">
-                    <div class="fleet-details">
-                        <h3>Range Rover LWB</h3>
-                        <p>Seat: 7 seats</p>
-                        <p>$810/day</p>
-                        <button class="btn btn-primary details-btn">Details</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fleet-card">
-                    <img src="./img/linconavt.jpg" alt="Lincoln Navigator" class="img-fluid">
-                    <div class="fleet-details">
-                        <h3>Lincoln Navigator</h3>
-                        <p>Seat: 7 seats</p>
-                        <p>$810/day</p>
-                        <button class="btn btn-primary details-btn">Details</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fleet-card">
-                    <img src="./img/fordavt.jpg" alt="Toyota Land Cruiser" class="img-fluid">
-                    <div class="fleet-details">
-                        <h3>Toyota Land Cruiser</h3>
-                        <p>Seat: 7 seats</p>
-                        <p>$810/day</p>
-                        <button class="btn btn-primary details-btn">Details</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="fleet-card">
-                    <img src="./img/fordavt2.jpg" alt="Toyota Land Cruiser" class="img-fluid">
-                    <div class="fleet-details">
-                        <h3>Toyota Land Cruiser</h3>
-                        <p>Seat: 7 seats</p>
-                        <p>$810/day</p>
-                        <button class="btn btn-primary details-btn">Details</button>
+                        <h3 th:text="${car.getName()}">Tên xe</h3>
+                        <p th:text="'Seat: ' + ${car.getSeat()} + ' seats'">Số ghế</p>
+                        <p th:text="'$' + ${car.getPrice()} + '/day'">Giá thuê</p>
+                        <button class="btn btn-primary details-btn" th:data-car-id="${car.id}">Details</button>
                     </div>
                 </div>
             </div>
@@ -157,84 +102,63 @@
             <div class="modal-content">
                 <div class="modal-body p-0">
                     <div class="row g-0">
+
                         <!-- Left Column: Car Image -->
                         <div class="col-md-6 position-relative">
-                            <img src="./img/bimlogo.jpg" alt="Toyota Land Cruiser" class="car-image p-3 w-100 ">
-                            <div class="thumbnail-images m-3">
-                                <img src="./img/99f9d679947f99dd404243add5863d80.jpg" alt="Thumbnail 1">
-                                <img src="./img/cadilacavt.jpg" alt="Thumbnail 2">
-                                <img src="./img/cat-sir.jpg" alt="Thumbnail 3">
-                                <img src="./img/back.jpg" alt="Thumbnail 4">
-                            </div>
+                            <img id="car-image" src="./img/bimlogo.jpg" alt="Car Image" class="car-image p-3 w-100">
                         </div>
-                        
+
                         <!-- Middle Column: Rental Details -->
                         <div class="col-md-3 car-details border-end">
-                            <h2 class="fw-bold">TOYOTA LAND CRUISER</h2>
-                            <p class="text-muted mb-3">$810 per day*</p>
-                            
-                            <div class="color-option">
-                                <span class="color-dot color-dot-white"></span>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="carColor" id="whiteColor" checked>
-                                    <label class="form-check-label" for="whiteColor">White</label>
-                                </div>
-                            </div>
-                            
-                            <div class="color-option">
-                                <span class="color-dot color-dot-pearl-white"></span>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="carColor" id="pearlWhiteColor">
-                                    <label class="form-check-label" for="pearlWhiteColor">Pearl White</label>
-                                </div>
-                            </div>
-                            
+                            <h2 class="fw-bold" id="car-name">TOYOTA LAND CRUISER</h2>
+                            <p class="text-muted mb-3" id="car-price">$810 per day*</p>
+
                             <div class="mb-3">
-                                <label for="rentalPeriod" class="form-label">How long will you be in Vietnam?</label>
+                                <label for="rentalPeriod" class="form-label">Thời gian thuê</label>
                                 <input type="text" class="form-control" id="rentalPeriod" placeholder="06/24/2021 - 06/24/2021">
                             </div>
 
-                            <h3 class="mb-4">Service</h3>
+                            <h3 class="mb-4">Dịch vụ kèm</h3>
                             <div class="d-grid gap-2">
-                              <button class="btn btn-outline-secondary">SERVICE I</button>
-                              <button class="btn btn-outline-secondary">SERVICE II</button>
-                              <button class="btn btn-outline-secondary">SERVICE III</button>
-                          </div>
+                                <button class="btn btn-outline-secondary">SERVICE I</button>
+                                <button class="btn btn-outline-secondary">SERVICE II</button>
+                                <button class="btn btn-outline-secondary">SERVICE III</button>
+                            </div>
                         </div>
-                        
-                        <!-- Right Column: Services -->
+
+                        <!-- Right Column: Car Details -->
                         <div class="col-md-3 car-details">
                             <div class="car-details">
-                              <h3 class="mb-3">Details:</h3>
-                              <div class="mb-2">
-                                  <span class="car-info-label">Engine:</span> 3.5L V6 Twin - Turbo
-                              </div>
-                              <div class="mb-2">
-                                  <span class="car-info-label">Seat:</span> 7 seats
-                              </div>
-                              <div class="mb-2">
-                                  <span class="car-info-label">Model:</span> Toyota Land Cruiser (2022)
-                              </div>
-                              <div class="mb-2">
-                                  <span class="car-info-label">Type:</span> SUV
-                              </div>
-                              <div class="mb-2">
-                                  <span class="car-info-label">Body style:</span> 5-door style
-                              </div>
-                              <div class="mb-2">
-                                  <span class="car-info-label">Fuel type:</span> Diesel
-                              </div>
-                          </div>
+                                <h3 class="mb-3">Chi tiết:</h3>
+                                <div class="mb-2">
+                                    <span class="car-info-label">Engine:</span>
+                                    <span id="car-engine">3.5L V6 Twin - Turbo</span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="car-info-label">Seat:</span>
+                                    <span id="car-seat">7 seats</span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="car-info-label">Model:</span>
+                                    <span id="car-model">Toyota Land Cruiser (2022)</span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="car-info-label">Body style:</span>
+                                    <span id="car-style">5-door style</span>
+                                </div>
+                            </div>
+
                             <div class="mt-4 text-muted small">
-                                <p class="mb-2">Last 1 car left in this day, make it yours!</p>
+                                <p class="mb-2">Số lượng</p>
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-outline-secondary me-2">-</button>
                                     <span class="mx-2">1</span>
                                     <button class="btn btn-outline-secondary ms-2">+</button>
                                 </div>
-                                <button class="btn btn-primary mt-3 w-100">I choose this pokemon</button>
+                                <button class="btn btn-primary mt-3 w-100">Đặt xe</button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
