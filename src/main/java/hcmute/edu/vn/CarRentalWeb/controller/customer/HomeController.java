@@ -1,7 +1,9 @@
 package hcmute.edu.vn.CarRentalWeb.controller.customer;
 
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
+import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Services;
+import hcmute.edu.vn.CarRentalWeb.service.CarService;
 import hcmute.edu.vn.CarRentalWeb.service.ServicesService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class HomeController {
 
     @Autowired
     private ServicesService servicesService;
+    @Autowired
+    private CarService carService;
 
     @GetMapping("/home")
     public String home(@RequestParam(defaultValue = "0") int page,
@@ -31,6 +35,9 @@ public class HomeController {
         model.addAttribute("services", services);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", services.getTotalPages());
+
+        List<Car> cars = carService.getAllCars();
+        model.addAttribute("cars", cars);
 
         return "index";
     }

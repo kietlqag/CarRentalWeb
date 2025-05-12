@@ -5,27 +5,27 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-
 @Entity
 @Table(name = "cars")
 public class Car {
-        @Id
-        private Integer id;
-        private String name;
-        private String brand;
-        private int price;
-        private String status = "1";
-        private String engine;
-        private Integer seat;
-        private String model;
-        private String bodystyle;
-        private String image;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String brand;
+    private int price;
+    private String status = "1";
+    private String engine;
+    private int seat;
+    private String model;
+    private String bodystyle;
+    private String image;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,11 +69,11 @@ public class Car {
         this.engine = engine;
     }
 
-    public Integer getSeat() {
+    public int getSeat() {
         return seat;
     }
 
-    public void setSeat(Integer seat) {
+    public void setSeat(int seat) {
         this.seat = seat;
     }
 
