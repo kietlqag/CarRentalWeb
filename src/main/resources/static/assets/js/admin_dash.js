@@ -74,7 +74,36 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
+function deleteCar(id) {
+    if (confirm("Bạn có chắc chắn muốn xóa xe này?")) {
+        fetch(`/admin/cars/delete/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text || 'Xóa thất bại!');
+                });
+            }
+            return response;
+        })
+        .then(() => {
+            // Remove the car row from the table without reloading
+            const carRow = document.querySelector(`tr[data-car-id="${id}"]`);
+            if (carRow) {
+                carRow.remove();
+            }
+            alert("Xóa xe thành công!");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(error.message || "Có lỗi xảy ra khi xóa xe!");
+        });
+    }
+}
 function attachSectionToggleEvents() {
     const sectionButtons = document.querySelectorAll('[data-section]');
     const sections = document.querySelectorAll('.content-section');

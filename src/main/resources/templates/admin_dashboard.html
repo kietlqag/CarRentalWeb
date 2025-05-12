@@ -483,7 +483,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="car : ${cars}">
+                            <tr th:each="car : ${cars}" th:attr="data-car-id=${car.id}">
                                 <td th:text="${car.id}">1</td>
                                 <td>
                                     <img th:src="@{${car.getImage()}}" th:alt="${car.name}" class="img-thumbnail car-img" width="100"/>
@@ -493,19 +493,21 @@
                                 <td th:text="${car.bodystyle}">Loại xe</td>
                                 <td th:text="${#numbers.formatInteger(car.price, 0, 'POINT')} + 'đ'">1,000,000đ</td>
                                 <td>
-            <span th:classappend="
-                ${car.status} == '1' ? 'badge bg-success' :
-                (${car.status} == '2' ? 'badge bg-danger' : 'badge bg-warning')">
-                <span th:text="
-                    ${car.status} == '1' ? 'Sẵn sàng' :
-                    (${car.status} == '2' ? 'Đang thuê' : 'Bảo dưỡng')">Trạng thái</span>
-            </span>
+                                    <span th:classappend="
+                                        ${car.status} == '1' ? 'badge bg-success' :
+                                        (${car.status} == '2' ? 'badge bg-danger' : 'badge bg-warning')">
+                                        <span th:text="
+                                            ${car.status} == '1' ? 'Sẵn sàng' :
+                                            (${car.status} == '2' ? 'Đang thuê' : 'Bảo dưỡng')">Trạng thái</span>
+                                    </span>
                                 </td>
                                 <td>
                                     <div class="table-action">
                                         <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                         <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        <button th:attr="onclick=|deleteCar(${car.id})|" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
