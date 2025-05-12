@@ -18,7 +18,7 @@
                 <div class="card-body text-center">
                     <h2 class="mb-4">Hi!</h2>
                     <form id="loginForm" action="/login" method="post">
-                        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                        <div th:if="${message}" id="messageBox" class="alert success"><p th:text="${message}"></p></div>
                         <div class="mb-3">
                             <input type="email" class="form-control" name="email" placeholder="Email" required>
                         </div>

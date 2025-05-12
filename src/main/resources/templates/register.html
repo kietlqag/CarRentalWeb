@@ -20,7 +20,7 @@
                     <form id="registerForm" action="/register" method="post">
                         <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="name" placeholder="Tên hiển thị" required>
+                            <input type="text" class="form-control" name="fullName" placeholder="Tên hiển thị" required>
                         </div>
                         <div class="mb-3">
                             <input type="email" class="form-control" name="email" placeholder="Email" required>
