@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Xác nhận OTP</title>
+</head>
+<body>
+<h2>Nhập mã xác nhận</h2>
+
+<!-- Debug xem có đúng email/OTP không -->
+<p>Email: <span th:text="${email}"></span></p>
+<p>OTP hệ thống tạo: <span th:text="${otp}"></span></p>
+
+<form th:action="@{/}" method="post">
+    <input type="text" name="otp" placeholder="Nhập OTP" required />
+
+    <div th:if="${error}">
+        <p th:text="${error}" style="color:red;"></p>
+    </div>
+
+    <button type="submit">Xác nhận</button>
+</form>
+</body>
+</html>

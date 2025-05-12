@@ -1,0 +1,83 @@
+/* Tổng thể */
+body {
+    background-color: #f4f7fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Additional styles for tab transitions */
+.nav-tabs {
+    border-bottom: none;
+}
+.nav-link {
+    display: none;
+}
+.tab-content {
+    width: 100%;
+}
+
+/* Card đăng nhập / đăng ký */
+.login-card {
+    width: 750px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hình ảnh */
+.img-fluid {
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+}
+
+/* Phần nội dung */
+.card-body {
+    padding: 50px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Input */
+.form-control {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 5px rgba(255, 193, 7, 0.5);
+}
+
+/* Nút bấm */
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    font-weight: bold;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* Liên kết */
+.text-muted {
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.text-muted:hover {
+    color: #ff9800;
+}

@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="/assets/dashboard.css">
+
+<!-- sidebar.html -->
+<div th:fragment="sidebar" id="sidebar" class="bg-dark text-white">
+    <div class="sidebar-brand">
+        <i class="fas fa-car-side mr-2"></i>
+        <span>QUẢN LÝ XE</span>
+    </div>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">Trang chính</div>
+    <ul class="nav flex-column">
+        <li class="nav-item active">
+            <a class="nav-link" href="#" data-section="mainDashboard">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+    </ul>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">Quản lý</div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-section="users">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Quản lý người dùng</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-section="cars">
+                <i class="fas fa-fw fa-car"></i>
+                <span>Quản lý xe</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-section="contracts">
+                <i class="fas fa-fw fa-file-contract"></i>
+                <span>Quản lý Order</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-section="promotions">
+                <i class="fas fa-fw fa-tags"></i>
+                <span>Quản lý khuyến mãi</span>
+            </a>
+        </li>
+        <li class="nav-item">
+        </li>
+    </ul>
+
+    <hr class="sidebar-divider">
+
+    <div class="sidebar-heading">Báo cáo</div>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-section="reports">
+                <i class="fas fa-fw fa-chart-line"></i>
+                <span>Báo cáo doanh số</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-section="staff-activity">
+                <i class="fas fa-fw fa-user-clock"></i>
+                <span>Hoạt động nhân viên</span>
+            </a>
+        </li>
+    </ul>
+
+    <hr class="sidebar-divider">
+
+</div>
+
+

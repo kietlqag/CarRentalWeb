@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cho thuê xe ô tô</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Javanese+Text&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/assets/index.css}">
+</head>
+<body>
+    <!-- Previous sections remain the same as in your original code -->
+    <div id="header"></div>
+
+    <section class="hero-section">
+    <div class="hero">
+        <div class="row" >
+            <!-- Bên trái -->
+            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center">
+                <h1 class="hero-title" style="font-family: javanese;">Xin chào</h1>
+                <p class="hero-decs">Hệ thống cho thuê xe ô toàn quốc</p>
+                <a href="#" class="btn btn-booking">
+                    <svg>
+                        <rect x="0" y="0" width="100%" height="100%"></rect>
+                    </svg>
+                    Đặt xe ngay
+                </a>
+                
+            </div>
+
+            <!-- Bên phải -->
+            <div class="col-md-6 p-0">
+                <img src="./img/Road Trip_edited_edited.jpg" class="img-fluid w-100" style="height: 100vh; object-fit: cover; border-radius: 15px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- Services Section -->
+    <section class="services text-center mt-5" id="service">
+        <h1 class="hero-title" style="font-family: javanese;">Dịch vụ</h1>
+        <div class="container">
+            <div class="row">
+                <!-- Left Column: Description and Button -->
+                <div class="col-md-6 d-flex flex-column justify-content-center align-items-start text-start">
+                    <h2 class="service-title">Offering top-tier service at its best.</h2>
+                    <p class="service-desc">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    </p>
+                    <a href="#" class="btn btn-service-booking mt-3">
+                        <svg>
+                            <rect x="0" y="0" width="100%" height="100%"></rect>
+                        </svg>
+                        Book Now
+                    </a>
+                </div>
+                <!-- Right Column: Service Cards -->
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="service-card">
+                                <img src="./img/back.jpg" alt="Service 1" class="img-fluid">
+                                <h3>Airport Transfer</h3>
+                                <p class="service-price">$5.00</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="service-card">
+                                <img src="./img/dcar-limousine-vip-lounge-7_edited.jpg" alt="Service 2" class="img-fluid">
+                                <h3>Lorem Ipsum</h3>
+                                <p class="service-price">$5.00</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="service-card">
+                                <img src="./img/cat-sir.jpg" alt="Service 3" class="img-fluid">
+                                <h3>Lorem Ipsum</h3>
+                                <p class="service-price">$5.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us text-center mt-5" id="aboutus">
+        <h1 class="hero-title" style="font-family: javanese;">Về chúng tôi</h1>
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Cột chứa hình ảnh -->
+                <div class="col-md-6 position-relative">
+                    <div class="img-hold">
+                        <img src="./img/cadilaclogo.jpg" alt="About 1" class="img-abs image1">
+                        <img src="./img/bimlogo.jpg" alt="About 2" class="img-abs image2">
+                        <img src="./img/potchelogo.jpg" alt="About 3" class="img-abs image3">
+                    </div>
+                </div>
+                <!-- Cột chứa nội dung chữ -->
+                <div class="col-md-6 text-start">
+                    <h2 class="fw-bold">Cửa hàng xe của chúng tôi</h2>
+                    <p class="mt-3">
+                        Chuyên cho thuê các loại xe ô tô trên toàn quốc.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Fleet Section -->
+    <section class="fleet-section container py-5" id="car">
+        <h1 class="text-center hero-title mt-5 mb-4" style="font-family: javanese;">Danh mục xe</h1>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="fleet-card">
+                    <img src="./img/lcAvatar.jpg" alt="Cadillac Escalade" class="img-fluid">
+                    <div class="fleet-details">
+                        <h3>Cadillac Escalade</h3>
+                        <p>Seat: 7 seats</p>
+                        <p>$810/day</p>
+                        <button class="btn btn-primary details-btn">Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="fleet-card">
+                    <img src="./img/cadilacavt.jpg" alt="Cadillac Escalade" class="img-fluid">
+                    <div class="fleet-details">
+                        <h3>Cadillac Escalade</h3>
+                        <p>Seat: 7 seats</p>
+                        <p>$810/day</p>
+                        <button class="btn btn-primary details-btn">Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="fleet-card">
+                    <img src="./img/rangeroveravt.jpg" alt="Range Rover LWB" class="img-fluid">
+                    <div class="fleet-details">
+                        <h3>Range Rover LWB</h3>
+                        <p>Seat: 7 seats</p>
+                        <p>$810/day</p>
+                        <button class="btn btn-primary details-btn">Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="fleet-card">
+                    <img src="./img/linconavt.jpg" alt="Lincoln Navigator" class="img-fluid">
+                    <div class="fleet-details">
+                        <h3>Lincoln Navigator</h3>
+                        <p>Seat: 7 seats</p>
+                        <p>$810/day</p>
+                        <button class="btn btn-primary details-btn">Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="fleet-card">
+                    <img src="./img/fordavt.jpg" alt="Toyota Land Cruiser" class="img-fluid">
+                    <div class="fleet-details">
+                        <h3>Toyota Land Cruiser</h3>
+                        <p>Seat: 7 seats</p>
+                        <p>$810/day</p>
+                        <button class="btn btn-primary details-btn">Details</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="fleet-card">
+                    <img src="./img/fordavt2.jpg" alt="Toyota Land Cruiser" class="img-fluid">
+                    <div class="fleet-details">
+                        <h3>Toyota Land Cruiser</h3>
+                        <p>Seat: 7 seats</p>
+                        <p>$810/day</p>
+                        <button class="btn btn-primary details-btn">Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Car Details Modal -->
+    <div class="modal fade" id="carRentalModal" tabindex="-1">
+        <div class="modal-dialog modal-custom modal-xl">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <!-- Left Column: Car Image -->
+                        <div class="col-md-6 position-relative">
+                            <img src="./img/bimlogo.jpg" alt="Toyota Land Cruiser" class="car-image p-3 w-100 ">
+                            <div class="thumbnail-images m-3">
+                                <img src="./img/99f9d679947f99dd404243add5863d80.jpg" alt="Thumbnail 1">
+                                <img src="./img/cadilacavt.jpg" alt="Thumbnail 2">
+                                <img src="./img/cat-sir.jpg" alt="Thumbnail 3">
+                                <img src="./img/back.jpg" alt="Thumbnail 4">
+                            </div>
+                        </div>
+                        
+                        <!-- Middle Column: Rental Details -->
+                        <div class="col-md-3 car-details border-end">
+                            <h2 class="fw-bold">TOYOTA LAND CRUISER</h2>
+                            <p class="text-muted mb-3">$810 per day*</p>
+                            
+                            <div class="color-option">
+                                <span class="color-dot color-dot-white"></span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="carColor" id="whiteColor" checked>
+                                    <label class="form-check-label" for="whiteColor">White</label>
+                                </div>
+                            </div>
+                            
+                            <div class="color-option">
+                                <span class="color-dot color-dot-pearl-white"></span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="carColor" id="pearlWhiteColor">
+                                    <label class="form-check-label" for="pearlWhiteColor">Pearl White</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="rentalPeriod" class="form-label">How long will you be in Vietnam?</label>
+                                <input type="text" class="form-control" id="rentalPeriod" placeholder="06/24/2021 - 06/24/2021">
+                            </div>
+
+                            <h3 class="mb-4">Service</h3>
+                            <div class="d-grid gap-2">
+                              <button class="btn btn-outline-secondary">SERVICE I</button>
+                              <button class="btn btn-outline-secondary">SERVICE II</button>
+                              <button class="btn btn-outline-secondary">SERVICE III</button>
+                          </div>
+                        </div>
+                        
+                        <!-- Right Column: Services -->
+                        <div class="col-md-3 car-details">
+                            <div class="car-details">
+                              <h3 class="mb-3">Details:</h3>
+                              <div class="mb-2">
+                                  <span class="car-info-label">Engine:</span> 3.5L V6 Twin - Turbo
+                              </div>
+                              <div class="mb-2">
+                                  <span class="car-info-label">Seat:</span> 7 seats
+                              </div>
+                              <div class="mb-2">
+                                  <span class="car-info-label">Model:</span> Toyota Land Cruiser (2022)
+                              </div>
+                              <div class="mb-2">
+                                  <span class="car-info-label">Type:</span> SUV
+                              </div>
+                              <div class="mb-2">
+                                  <span class="car-info-label">Body style:</span> 5-door style
+                              </div>
+                              <div class="mb-2">
+                                  <span class="car-info-label">Fuel type:</span> Diesel
+                              </div>
+                          </div>
+                            <div class="mt-4 text-muted small">
+                                <p class="mb-2">Last 1 car left in this day, make it yours!</p>
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-outline-secondary me-2">-</button>
+                                    <span class="mx-2">1</span>
+                                    <button class="btn btn-outline-secondary ms-2">+</button>
+                                </div>
+                                <button class="btn btn-primary mt-3 w-100">I choose this pokemon</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Contact Section -->
+    <section class="contact mt-5" id="contactid">
+        <h1 class="text-center hero-title mt-5 mb-4" style="font-family: javanese;">Liên hệ</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Address</h3>
+                    <p>123 Car Street, City, Country</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Contact Information</h3>
+                    <p>Email: info@mihocarrental.com</p>
+                    <p>Phone: +84 123 456 789</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Opening Hours</h3>
+                    <p>Mon-Sun: 8:00 AM - 10:00 PM</p>
+                </div>
+            </div>
+            <div class="map mt-4">
+                <!-- Placeholder for Google Maps -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4439.782300867072!2d106.70243669999999!3d10.7916869!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528b5a9d00001%3A0x875bb9add2fac11e!2sIndochina%20Park%20Tower!5e1!3m2!1svi!2s!4v1742973530724!5m2!1svi!2s" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>&copy; 2025 Miho Car Rental. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        fetch('/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+    </script>
+
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/fleet.js"></script>
+
+
+</body>
+</html>

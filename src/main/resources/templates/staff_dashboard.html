@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Nhân Viên</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Javanese+Text&display=swap" rel="stylesheet">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Custom CSS (assuming similar styling to admin/customer dashboards) -->
+    <link href="/assets/dashboard.css" rel="stylesheet">
+    <!-- Bootstrap JS (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div th:replace="fragments/staff_sb :: sidebar"></div>
+
+    <!-- Main Content -->
+    <div id="content" class="p-4">
+        <!-- Topbar -->
+        <div class="topbar rounded d-flex justify-content-between align-items-center mb-4">
+            <button id="sidebarToggle" class="btn btn-link d-md-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="d-flex align-items-center">
+                <h4 class="mb-0">Chào mừng, <span id="staffName">Nhân Viên</span>!</h4>
+            </div>
+            <div class="d-flex align-items-center">
+                <!-- Notifications Dropdown -->
+                <div class="dropdown mx-3">
+                    <a class="dropdown-toggle" href="#" role="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw text-gray-600"></i>
+                        <span class="badge bg-danger badge-counter">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="notificationsDropdown">
+                        <h6 class="dropdown-header">Thông báo</h6>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="me-3">
+                                <div class="icon-circle bg-success">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">20/04/2025</div>
+                                <span>Đặt xe #BK1234 đã được xác nhận.</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="me-3">
+                                <div class="icon-circle bg-warning">
+                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">20/04/2025</div>
+                                <span>Xe Toyota Camry cần bảo dưỡng.</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="me-3">
+                                <div class="icon-circle bg-primary">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">19/04/2025</div>
+                                <span>Khách hàng mới yêu cầu tư vấn.</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item text-center small text-gray-500" href="#" data-section="notifications">Xem tất cả thông báo</a>
+                    </div>
+                </div>
+                <!-- Staff Profile -->
+                <div class="user-profile">
+                    <img src="./img/staff_avatar.jpg" alt="Staff Profile" class="rounded-circle" style="width: 40px; height: 40px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <!-- Dashboard Section -->
+        <div class="content-section active" id="dashboard">
+            <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Tổng quan</h1>
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-primary">
+                            <div>
+                                <div class="text">Đặt xe hôm nay</div>
+                                <div class="value">8</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-car text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-success">
+                            <div>
+                                <div class="text">Xe sẵn sàng</div>
+                                <div class="value">15</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-car-side text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-info">
+                            <div>
+                                <div class="text">Yêu cầu tư vấn</div>
+                                <div class="value">3</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-headset text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-warning">
+                            <div>
+                                <div class="text">Xe cần bảo dưỡng</div>
+                                <div class="value">2</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-wrench text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Bookings -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Đặt xe gần đây</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đặt xe</th>
+                                    <th>Khách hàng</th>
+                                    <th>Xe</th>
+                                    <th>Ngày bắt đầu</th>
+                                    <th>Ngày kết thúc</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#BK1234</td>
+                                    <td>Nguyễn Văn A</td>
+                                    <td>Toyota Camry</td>
+                                    <td>20/04/2025</td>
+                                    <td>25/04/2025</td>
+                                    <td>5,000,000đ</td>
+                                    <td><span class="badge bg-success">Xác nhận</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editBookingModal" data-booking-id="BK1234"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1233</td>
+                                    <td>Trần Thị B</td>
+                                    <td>Honda Civic</td>
+                                    <td>15/04/2025</td>
+                                    <td>20/04/2025</td>
+                                    <td>4,500,000đ</td>
+                                    <td><span class="badge bg-warning">Chờ xác nhận</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editBookingModal" data-booking-id="BK1233"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Section -->
+        <div class="content-section" id="notifications">
+            <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Thông báo</h1>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách thông báo</h6>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Đặt xe mới</h6>
+                                <small>20/04/2025</small>
+                            </div>
+                            <p class="mb-1">Khách hàng Nguyễn Văn A đã đặt xe Toyota Camry (#BK1234).</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Xe cần bảo dưỡng</h6>
+                                <small>20/04/2025</small>
+                            </div>
+                            <p class="mb-1">Xe Toyota Camry (51F-123.45) cần bảo dưỡng định kỳ.</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Yêu cầu tư vấn</h6>
+                                <small>19/04/2025</small>
+                            </div>
+                            <p class="mb-1">Khách hàng Trần Thị B yêu cầu tư vấn về xe SUV.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bookings Section -->
+        <div class="content-section" id="bookings">
+            <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Quản lý đặt xe</h1>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách đặt xe</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đặt xe</th>
+                                    <th>Khách hàng</th>
+                                    <th>Xe</th>
+                                    <th>Ngày bắt đầu</th>
+                                    <th>Ngày kết thúc</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#BK1234</td>
+                                    <td>Nguyễn Văn A</td>
+                                    <td>Toyota Camry</td>
+                                    <td>20/04/2025</td>
+                                    <td>25/04/2025</td>
+                                    <td>5,000,000đ</td>
+                                    <td><span class="badge bg-success">Xác nhận</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editBookingModal" data-booking-id="BK1234"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1233</td>
+                                    <td>Trần Thị B</td>
+                                    <td>Honda Civic</td>
+                                    <td>15/04/2025</td>
+                                    <td>20/04/2025</td>
+                                    <td>4,500,000đ</td>
+                                    <td><span class="badge bg-warning">Chờ xác nhận</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editBookingModal" data-booking-id="BK1233"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#BK1232</td>
+                                    <td>Lê Văn C</td>
+                                    <td>Ford Ranger</td>
+                                    <td>10/04/2025</td>
+                                    <td>15/04/2025</td>
+                                    <td>6,000,000đ</td>
+                                    <td><span class="badge bg-danger">Đã hoàn thành</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Section -->
+        <div class="content-section" id="activity">
+            <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Hoạt động</h1>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lịch sử hoạt động</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Hành động</th>
+                                    <th>Thời gian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Xác nhận đặt xe #BK1234</td>
+                                    <td>20/04/2025 14:30</td>
+                                </tr>
+                                <tr>
+                                    <td>Cập nhật trạng thái xe Toyota Camry thành "Bảo dưỡng"</td>
+                                    <td>20/04/2025 13:50</td>
+                                </tr>
+                                <tr>
+                                    <td>Phản hồi yêu cầu tư vấn của khách hàng Trần Thị B</td>
+                                    <td>19/04/2025 16:22</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="content-section" id="profile">
+            <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Thông tin cá nhân</h1>
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center">
+                            <img src="./img/staff_avatar.jpg" class="rounded-circle img-thumbnail" alt="Avatar" style="width: 100px; height: 100px;">
+                        </div>
+                        <div class="col-md-9">
+                            <h4>Trần Thị Nhân Viên</h4>
+                            <p class="text-muted">Nhân viên tư vấn</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <div class="form-control">staff@example.com</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Số điện thoại</label>
+                            <div class="form-control">0912345678</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Vai trò</label>
+                            <div class="form-control">Nhân viên</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Ngày tham gia</label>
+                            <div class="form-control">01/01/2024</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-animated mt-3" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                        <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
+                        <i class="fas fa-user-edit fa-sm"></i> Chỉnh sửa
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProfileModalLabel">Chỉnh sửa thông tin cá nhân</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editProfileForm">
+                            <div class="mb-3">
+                                <label for="profileName" class="form-label">Họ và tên</label>
+                                <input type="text" class="form-control" id="profileName" value="Trần Thị Nhân Viên" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="profileEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="profileEmail" value="staff@example.com" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="profilePhone" class="form-label">Số điện thoại</label>
+                                <input type="text" class="form-control" id="profilePhone" value="0912345678">
+                            </div>
+                            <div class="mb-3">
+                                <label for="profileRole" class="form-label">Vai trò</label>
+                                <input type="text" class="form-control" id="profileRole" value="Nhân viên" disabled>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-animated">
+                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
+                                Lưu thay đổi
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Booking Modal -->
+        <div class="modal fade" id="editBookingModal" tabindex="-1" aria-labelledby="editBookingModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editBookingModalLabel">Chỉnh sửa đặt xe</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editBookingForm">
+                            <div class="mb-3">
+                                <label for="bookingId" class="form-label">Mã đặt xe</label>
+                                <input type="text" class="form-control" id="bookingId" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bookingCustomer" class="form-label">Khách hàng</label>
+                                <input type="text" class="form-control" id="bookingCustomer" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bookingCar" class="form-label">Xe</label>
+                                <select class="form-control" id="bookingCar" required>
+                                    <option value="">Chọn xe</option>
+                                    <option value="Toyota Camry">Toyota Camry</option>
+                                    <option value="Honda Civic">Honda Civic</option>
+                                    <option value="Ford Ranger">Ford Ranger</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bookingStartDate" class="form-label">Ngày bắt đầu</label>
+                                <input type="text" class="form-control date-picker" id="bookingStartDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bookingEndDate" class="form-label">Ngày kết thúc</label>
+                                <input type="text" class="form-control date-picker" id="bookingEndDate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bookingTotal" class="form-label">Tổng tiền</label>
+                                <input type="number" class="form-control" id="bookingTotal" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bookingStatus" class="form-label">Trạng thái</label>
+                                <select class="form-control" id="bookingStatus" required>
+                                    <option value="Xác nhận">Xác nhận</option>
+                                    <option value="Chờ xác nhận">Chờ xác nhận</option>
+                                    <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                    <option value="Hủy">Hủy</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-animated">
+                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
+                                Lưu thay đổi
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Car Modal -->
+        <div class="modal fade" id="editCarModal" tabindex="-1" aria-labelledby="editCarModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCarModalLabel">Chỉnh sửa xe</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editCarForm">
+                            <div class="mb-3">
+                                <label for="carId" class="form-label">ID xe</label>
+                                <input type="text" class="form-control" id="carId" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carName" class="form-label">Tên xe</label>
+                                <input type="text" class="form-control" id="carName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carLicensePlate" class="form-label">Biển số</label>
+                                <input type="text" class="form-control" id="carLicensePlate" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carType" class="form-label">Loại xe</label>
+                                <select class="form-control" id="carType" required>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="SUV">SUV</option>
+                                    <option value="Bán tải">Bán tải</option>
+                                    <option value="MPV">MPV</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carRentalPrice" class="form-label">Giá thuê/ngày</label>
+                                <input type="number" class="form-control" id="carRentalPrice" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="carStatus" class="form-label">Trạng thái</label>
+                                <select class="form-control" id="carStatus" required>
+                                    <option value="Sẵn sàng">Sẵn sàng</option>
+                                    <option value="Đang thuê">Đang thuê</option>
+                                    <option value="Bảo dưỡng">Bảo dưỡng</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-animated">
+                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
+                                Lưu thay đổi
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/staff_dash.js">
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Quản Lý Cửa Hàng Xe</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/dashboard.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar">
+    
+    </div>
+
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Topbar -->
+        <div class="topbar rounded">
+            <button id="sidebarToggle" class="btn btn-link d-md-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="d-flex align-items-center">
+                <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex align-items-center">
+                <!-- Alerts Dropdown -->
+                <div class="dropdown mx-3">
+                    <a class="dropdown-toggle" href="#" role="button" id="alertsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw text-gray-600"></i>
+                        <span class="badge bg-danger badge-counter">3+</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">
+                            Thông báo
+                        </h6>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-primary">
+                                    <i class="fas fa-file-alt text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">12/04/2023</div>
+                                <span>Hợp đồng mới #12345 đã được tạo!</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-success">
+                                    <i class="fas fa-donate text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">10/04/2023</div>
+                                <span>Thanh toán mới 5.000.000đ từ Nguyễn Văn A</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-warning">
+                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">09/04/2023</div>
+                                <span>Xe Toyota Camry cần bảo dưỡng!</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item text-center small text-gray-500" href="#">Xem tất cả thông báo</a>
+                    </div>
+                </div>
+
+                <!-- User Profile Dropdown -->
+                <div class="dropdown">
+                    <a class="dropdown-toggle d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="d-none d-lg-inline text-gray-600 small me-2">Admin</span>
+                        <div class="user-profile">
+                            <img src="/api/placeholder/50/50" alt="User Profile">
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#" data-section="profile">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Thông tin cá nhân
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Cài đặt
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Lịch sử hoạt động
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" id="dropdownLogoutBtn">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Sections -->
+        <!-- Dashboard Section -->
+        <div class="content-section active" id="mainDashboard">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-download fa-sm text-white-50"></i> Tải báo cáo
+                </a>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-primary">
+                            <div>
+                                <div class="text">Doanh thu tháng</div>
+                                <div class="value">351,000,000đ</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-calendar text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-success">
+                            <div>
+                                <div class="text">Hợp đồng mới</div>
+                                <div class="value">12</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-contract text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-info">
+                            <div>
+                                <div class="text">Xe đang thuê</div>
+                                <div class="value">25</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-car text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-warning">
+                            <div>
+                                <div class="text">Khách hàng mới</div>
+                                <div class="value">18</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-users text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="row">
+                <!-- Doanh Thu Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Doanh thu theo tháng</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Phân loại xe đang thuê</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="carTypeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Contracts -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Hợp đồng gần đây</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã HĐ</th>
+                                    <th>Khách hàng</th>
+                                    <th>Xe</th>
+                                    <th>Ngày bắt đầu</th>
+                                    <th>Ngày kết thúc</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#HD1234</td>
+                                    <td>Nguyễn Văn A</td>
+                                    <td>Toyota Camry</td>
+                                    <td>05/04/2025</td>
+                                    <td>10/04/2025</td>
+                                    <td>5,000,000đ</td>
+                                    <td><span class="badge bg-success">Đang thuê</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#HD1233</td>
+                                    <td>Trần Thị B</td>
+                                    <td>Honda Civic</td>
+                                    <td>04/04/2025</td>
+                                    <td>11/04/2025</td>
+                                    <td>6,500,000đ</td>
+                                    <td><span class="badge bg-success">Đang thuê</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#HD1232</td>
+                                    <td>Lê Văn C</td>
+                                    <td>Ford Ranger</td>
+                                    <td>03/04/2025</td>
+                                    <td>08/04/2025</td>
+                                    <td>7,000,000đ</td>
+                                    <td><span class="badge bg-danger">Đã kết thúc</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#HD1231</td>
+                                    <td>Phạm Thị D</td>
+                                    <td>Hyundai Tucson</td>
+                                    <td>02/04/2025</td>
+                                    <td>07/04/2025</td>
+                                    <td>6,200,000đ</td>
+                                    <td><span class="badge bg-warning">Chờ xác nhận</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#HD1230</td>
+                                    <td>Vũ Văn E</td>
+                                    <td>Mazda CX-5</td>
+                                    <td>01/04/2025</td>
+                                    <td>06/04/2025</td>
+                                    <td>5,800,000đ</td>
+                                    <td><span class="badge bg-danger">Đã kết thúc</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users Management Section -->
+        <div class="content-section" id="users">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Quản lý người dùng</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <i class="fas fa-plus fa-sm"></i> Thêm người dùng
+                </button>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Họ và tên</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Vai trò</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Nguyễn Văn Quản Lý</td>
+                                    <td>admin@example.com</td>
+                                    <td>0901234567</td>
+                                    <td>Admin</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Trần Thị Nhân Viên</td>
+                                    <td>staff@example.com</td>
+                                    <td>0912345678</td>
+                                    <td>Nhân viên</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Lê Văn Tư Vấn</td>
+                                    <td>consultant@example.com</td>
+                                    <td>0923456789</td>
+                                    <td>Tư vấn viên</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Phạm Thị Khách Hàng</td>
+                                    <td>customer@example.com</td>
+                                    <td>0934567890</td>
+                                    <td>Khách hàng</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Hoàng Văn Khóa</td>
+                                    <td>blocked@example.com</td>
+                                    <td>0945678901</td>
+                                    <td>Khách hàng</td>
+                                    <td><span class="badge bg-danger">Bị khóa</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cars Management Section -->
+        <div class="content-section" id="cars">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Quản lý xe</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCarModal">
+                    <i class="fas fa-plus fa-sm"></i> Thêm xe mới
+                </button>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách xe</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên xe</th>
+                                    <th>Biển số</th>
+                                    <th>Loại xe</th>
+                                    <th>Giá thuê/ngày</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><img src="/api/placeholder/50/30" alt="Toyota Camry" class="img-thumbnail"></td>
+                                    <td>Toyota Camry</td>
+                                    <td>51F-123.45</td>
+                                    <td>Sedan</td>
+                                    <td>1,000,000đ</td>
+                                    <td><span class="badge bg-success">Sẵn sàng</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><img src="./img/21fe9c67cc9c285528f900816c1c8199.jpg" alt="Honda Civic" class="img-thumbnail"></td>
+                                    <td>Honda Civic</td>
+                                    <td>51F-234.56</td>
+                                    <td>Sedan</td>
+                                    <td>900,000đ</td>
+                                    <td><span class="badge bg-danger">Đang thuê</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><img src="/api/placeholder/50/30" alt="Ford Ranger" class="img-thumbnail"></td>
+                                    <td>Ford Ranger</td>
+                                    <td>51F-345.67</td>
+                                    <td>Bán tải</td>
+                                    <td>1,200,000đ</td>
+                                    <td><span class="badge bg-danger">Đang thuê</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><img src="/api/placeholder/50/30" alt="Hyundai Tucson" class="img-thumbnail"></td>
+                                    <td>Hyundai Tucson</td>
+                                    <td>51F-456.78</td>
+                                    <td>SUV</td>
+                                    <td>1,100,000đ</td>
+                                    <td><span class="badge bg-warning">Bảo dưỡng</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><img src="/api/placeholder/50/30" alt="Mazda CX-5" class="img-thumbnail"></td>
+                                    <td>Mazda CX-5</td>
+                                    <td>51F-567.89</td>
+                                    <td>SUV</td>
+                                    <td>1,050,000đ</td>
+                                    <td><span class="badge bg-success">Sẵn sàng</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contracts Management Section -->
+        <div class="content-section" id="contracts">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Quản lý hợp đồng</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContractModal">
+                    <i class="fas fa-plus fa-sm"></i> Tạo hợp đồng mới
+                </button>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách hợp đồng</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã HĐ</th>
+                                    <th>Khách hàng</th>
+                                    <th>Xe</th>
+                                    <th>Ngày bắt đầu</th>
+                                    <th>Ngày kết thúc</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thanh toán</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#HD1234</td>
+                                    <td>Nguyễn Văn A</td>
+                                    <td>Toyota Camry</td>
+                                    <td>05/04/2025</td>
+                                    <td>10/04/2025</td>
+                                    <td>5,000,000đ</td>
+                                    <td><span class="badge bg-success">Đã thanh toán</span></td>
+                                    <td><span class="badge bg-success">Đang thuê</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#HD1233</td>
+                                    <td>Trần Thị B</td>
+                                    <td>Honda Civic</td>
+                                    <td>04/04/2025</td>
+                                    <td>11/04/2025</td>
+                                    <td>6,500,000đ</td>
+                                    <td><span class="badge bg-warning">Đặt cọc</span></td>
+                                    <td><span class="badge bg-success">Đang thuê</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#HD1232</td>
+                                    <td>Lê Văn C</td>
+                                    <td>Ford Ranger</td>
+                                    <td>03/04/2025</td>
+                                    <td>08/04/2025</td>
+                                    <td>7,000,000đ</td>
+                                    <td><span class="badge bg-success">Đã thanh toán</span></td>
+                                    <td><span class="badge bg-danger">Đã kết thúc</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#HD1231</td>
+                                    <td>Phạm Thị D</td>
+                                    <td>Hyundai Tucson</td>
+                                    <td>02/04/2025</td>
+                                    <td>07/04/2025</td>
+                                    <td>6,200,000đ</td>
+                                    <td><span class="badge bg-danger">Chưa thanh toán</span></td>
+                                    <td><span class="badge bg-warning">Chờ xác nhận</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#HD1230</td>
+                                    <td>Vũ Văn E</td>
+                                    <td>Mazda CX-5</td>
+                                    <td>01/04/2025</td>
+                                    <td>06/04/2025</td>
+                                    <td>5,800,000đ</td>
+                                    <td><span class="badge bg-success">Đã thanh toán</span></td>
+                                    <td><span class="badge bg-danger">Đã kết thúc</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Promotions Management Section -->
+        <div class="content-section" id="promotions">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Quản lý khuyến mãi</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPromotionModal">
+                    <i class="fas fa-plus fa-sm"></i> Tạo khuyến mãi mới
+                </button>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách khuyến mãi</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Mã KM</th>
+                                    <th>Tên khuyến mãi</th>
+                                    <th>Loại</th>
+                                    <th>Giá trị</th>
+                                    <th>Ngày bắt đầu</th>
+                                    <th>Ngày kết thúc</th>
+                                    <th>Giới hạn</th>
+                                    <th>Đã dùng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SUMMER2025</td>
+                                    <td>Khuyến mãi hè 2025</td>
+                                    <td>Phần trăm</td>
+                                    <td>15%</td>
+                                    <td>01/04/2025</td>
+                                    <td>30/06/2025</td>
+                                    <td>100</td>
+                                    <td>23</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>NEWUSER</td>
+                                    <td>Người dùng mới</td>
+                                    <td>Cố định</td>
+                                    <td>500,000đ</td>
+                                    <td>01/01/2025</td>
+                                    <td>31/12/2025</td>
+                                    <td>Không giới hạn</td>
+                                    <td>45</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>LONGTERM</td>
+                                    <td>Thuê dài hạn</td>
+                                    <td>Phần trăm</td>
+                                    <td>20%</td>
+                                    <td>01/03/2025</td>
+                                    <td>31/05/2025</td>
+                                    <td>50</td>
+                                    <td>12</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>WEEKEND</td>
+                                    <td>Cuối tuần vui vẻ</td>
+                                    <td>Phần trăm</td>
+                                    <td>10%</td>
+                                    <td>01/04/2025</td>
+                                    <td>30/04/2025</td>
+                                    <td>200</td>
+                                    <td>53</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>SPRING2025</td>
+                                    <td>Mùa xuân 2025</td>
+                                    <td>Cố định</td>
+                                    <td>300,000đ</td>
+                                    <td>01/01/2025</td>
+                                    <td>31/03/2025</td>
+                                    <td>80</td>
+                                    <td>80</td>
+                                    <td><span class="badge bg-danger">Đã hết</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Methods Section -->
+        <div class="content-section" id="payments">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Quản lý phương thức thanh toán</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPaymentMethodModal">
+                    <i class="fas fa-plus fa-sm"></i> Thêm phương thức mới
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Phương thức thanh toán hiện tại</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tên phương thức</th>
+                                            <th>Loại</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Tiền mặt</td>
+                                            <td>Offline</td>
+                                            <td><span class="badge bg-success">Hoạt động</span></td>
+                                            <td>
+                                                <div class="table-action">
+                                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-danger"><i class="fas fa-toggle-off"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Thẻ tín dụng/Ghi nợ</td>
+                                            <td>Online</td>
+                                            <td><span class="badge bg-success">Hoạt động</span></td>
+                                            <td>
+                                                <div class="table-action">
+                                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-danger"><i class="fas fa-toggle-off"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Chuyển khoản ngân hàng</td>
+                                            <td>Offline</td>
+                                            <td><span class="badge bg-success">Hoạt động</span></td>
+                                            <td>
+                                                <div class="table-action">
+                                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-danger"><i class="fas fa-toggle-off"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>MoMo</td>
+                                            <td>Online</td>
+                                            <td><span class="badge bg-success">Hoạt động</span></td>
+                                            <td>
+                                                <div class="table-action">
+                                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-danger"><i class="fas fa-toggle-off"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>ZaloPay</td>
+                                            <td>Online</td>
+                                            <td><span class="badge bg-danger">Không hoạt động</span></td>
+                                            <td>
+                                                <div class="table-action">
+                                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-success"><i class="fas fa-toggle-on"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content Management Section -->
+<div class="content-section" id="content">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Quản lý nội dung</h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addContentModal">
+            <i class="fas fa-plus fa-sm"></i> Thêm nội dung mới
+        </button>
+    </div>
+
+    <div class="row">
+        <!-- Static Pages Management -->
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Trang tĩnh</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Đường dẫn</th>
+                                    <th>Cập nhật cuối</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Trang chủ</td>
+                                    <td>/</td>
+                                    <td>15/04/2025</td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Giới thiệu</td>
+                                    <td>/gioi-thieu</td>
+                                    <td>10/04/2025</td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Liên hệ</td>
+                                    <td>/lien-he</td>
+                                    <td>12/04/2025</td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Chính sách bảo mật</td>
+                                    <td>/chinh-sach-bao-mat</td>
+                                    <td>05/04/2025</td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog/News Management -->
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Tin tức & Bài viết</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tiêu đề</th>
+                                    <th>Tác giả</th>
+                                    <th>Ngày đăng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Top 10 xe phổ biến nhất năm 2025</td>
+                                    <td>Admin</td>
+                                    <td>18/04/2025</td>
+                                    <td><span class="badge bg-success">Đã đăng</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Hướng dẫn bảo dưỡng xe định kỳ</td>
+                                    <td>Kỹ thuật viên</td>
+                                    <td>15/04/2025</td>
+                                    <td><span class="badge bg-success">Đã đăng</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Kinh nghiệm thuê xe dài ngày tiết kiệm</td>
+                                    <td>Tư vấn viên</td>
+                                    <td>12/04/2025</td>
+                                    <td><span class="badge bg-success">Đã đăng</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Sắp ra mắt: Dòng xe điện mới</td>
+                                    <td>Admin</td>
+                                    <td>10/04/2025</td>
+                                    <td><span class="badge bg-warning">Bản nháp</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Banner Management -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Quản lý banner</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/api/placeholder/300/150" class="card-img-top" alt="Banner 1">
+                        <div class="card-body">
+                            <h5 class="card-title">Banner trang chủ</h5>
+                            <p class="card-text small">Vị trí: Trang chủ - Đầu trang</p>
+                            <p class="card-text small">Trạng thái: <span class="badge bg-success">Đang hiển thị</span></p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Sửa</button>
+                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/api/placeholder/300/150" class="card-img-top" alt="Banner 2">
+                        <div class="card-body">
+                            <h5 class="card-title">Banner khuyến mãi</h5>
+                            <p class="card-text small">Vị trí: Trang chủ - Giữa trang</p>
+                            <p class="card-text small">Trạng thái: <span class="badge bg-success">Đang hiển thị</span></p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Sửa</button>
+                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <img src="/api/placeholder/300/150" class="card-img-top" alt="Banner 3">
+                        <div class="card-body">
+                            <h5 class="card-title">Banner xe mới</h5>
+                            <p class="card-text small">Vị trí: Trang danh sách xe</p>
+                            <p class="card-text small">Trạng thái: <span class="badge bg-success">Đang hiển thị</span></p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Sửa</button>
+                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Xóa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+                            <i class="fas fa-plus fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">Thêm banner mới</h5>
+                            <button class="btn btn-primary mt-3"><i class="fas fa-plus"></i> Tạo mới</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reports Section -->
+<div class="content-section" id="reports">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Báo cáo doanh số</h1>
+        <div>
+            <button class="btn btn-sm btn-outline-primary me-2">
+                <i class="fas fa-calendar fa-sm"></i> Chọn khoảng thời gian
+            </button>
+            <button class="btn btn-sm btn-primary">
+                <i class="fas fa-download fa-sm"></i> Xuất báo cáo
+            </button>
+        </div>
+    </div>
+
+    <!-- Report Overview Cards -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body dashboard-card card-primary">
+                    <div>
+                        <div class="text">Tổng doanh thu năm</div>
+                        <div class="value">4,285,000,000đ</div>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign text-primary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body dashboard-card card-success">
+                    <div>
+                        <div class="text">So với năm trước</div>
+                        <div class="value">+15.7%</div>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-chart-line text-success"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body dashboard-card card-info">
+                    <div>
+                        <div class="text">Số xe đã cho thuê</div>
+                        <div class="value">534</div>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-car text-info"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body dashboard-card card-warning">
+                    <div>
+                        <div class="text">Khách hàng mới</div>
+                        <div class="value">212</div>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-plus text-warning"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Yearly Revenue Chart -->
+    <div class="row">
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-primary">Doanh thu hàng năm</h6>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="yearDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            2025
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="yearDropdown">
+                            <li><a class="dropdown-item" href="#">2025</a></li>
+                            <li><a class="dropdown-item" href="#">2024</a></li>
+                            <li><a class="dropdown-item" href="#">2023</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="yearlyRevenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Revenue Cars -->
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Xe mang lại doanh thu cao nhất</h6>
+                </div>
+                <div class="card-body">
+                    <div class="revenue-cars">
+                        <div class="revenue-car-item">
+                            <div class="car-info">
+                                <img src="/api/placeholder/50/30" alt="Toyota Camry" class="img-thumbnail">
+                                <div>
+                                    <h6 class="mb-0">Toyota Camry</h6>
+                                    <small class="text-muted">51F-123.45</small>
+                                </div>
+                            </div>
+                            <div class="revenue-value">
+                                <span>82,400,000đ</span>
+                                <div class="progress" style="height: 5px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="revenue-car-item">
+                            <div class="car-info">
+                                <img src="/api/placeholder/50/30" alt="Ford Ranger" class="img-thumbnail">
+                                <div>
+                                    <h6 class="mb-0">Ford Ranger</h6>
+                                    <small class="text-muted">51F-345.67</small>
+                                </div>
+                            </div>
+                            <div class="revenue-value">
+                                <span>76,800,000đ</span>
+                                <div class="progress" style="height: 5px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 93%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="revenue-car-item">
+                            <div class="car-info">
+                                <img src="/api/placeholder/50/30" alt="Honda Civic" class="img-thumbnail">
+                                <div>
+                                    <h6 class="mb-0">Honda Civic</h6>
+                                    <small class="text-muted">51F-234.56</small>
+                                </div>
+                            </div>
+                            <div class="revenue-value">
+                                <span>63,000,000đ</span>
+                                <div class="progress" style="height: 5px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 76%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="revenue-car-item">
+                            <div class="car-info">
+                                <img src="/api/placeholder/50/30" alt="Mazda CX-5" class="img-thumbnail">
+                                <div>
+                                    <h6 class="mb-0">Mazda CX-5</h6>
+                                    <small class="text-muted">51F-567.89</small>
+                                </div>
+                            </div>
+                            <div class="revenue-value">
+                                <span>57,750,000đ</span>
+                                <div class="progress" style="height: 5px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="revenue-car-item">
+                            <div class="car-info">
+                                <img src="/api/placeholder/50/30" alt="Hyundai Tucson" class="img-thumbnail">
+                                <div>
+                                    <h6 class="mb-0">Hyundai Tucson</h6>
+                                    <small class="text-muted">51F-456.78</small>
+                                </div>
+                            </div>
+                            <div class="revenue-value">
+                                <span>49,500,000đ</span>
+                                <div class="progress" style="height: 5px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue by Vehicle Type & Customer Demographics -->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Doanh thu theo loại xe</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="vehicleTypeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Thống kê khách hàng</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="customerDemographicsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promotion Effectiveness -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Hiệu quả chương trình khuyến mãi</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Mã KM</th>
+                            <th>Tên khuyến mãi</th>
+                            <th>Thời gian</th>
+                            <th>Số lượng sử dụng</th>
+                            <th>Tổng giảm giá</th>
+                            <th>Doanh thu tạo ra</th>
+                            <th>Hiệu quả</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SUMMER2025</td>
+                            <td>Khuyến mãi hè 2025</td>
+                            <td>01/04 - 30/06/2025</td>
+                            <td>23</td>
+                            <td>12,650,000đ</td>
+                            <td>84,300,000đ</td>
+                            <td>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
+                                </div>
+                                <small class="text-success">Rất tốt</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>NEWUSER</td>
+                            <td>Người dùng mới</td>
+                            <td>01/01 - 31/12/2025</td>
+                            <td>45</td>
+                            <td>22,500,000đ</td>
+                            <td>135,000,000đ</td>
+                            <td>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 90%"></div>
+                                </div>
+                                <small class="text-success">Rất tốt</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>LONGTERM</td>
+                            <td>Thuê dài hạn</td>
+                            <td>01/03 - 31/05/2025</td>
+                            <td>12</td>
+                            <td>28,800,000đ</td>
+                            <td>144,000,000đ</td>
+                            <td>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%"></div>
+                                </div>
+                                <small class="text-success">Tốt</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>WEEKEND</td>
+                            <td>Cuối tuần vui vẻ</td>
+                            <td>01/04 - 30/04/2025</td>
+                            <td>53</td>
+                            <td>15,900,000đ</td>
+                            <td>159,000,000đ</td>
+                            <td>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"></div>
+                                </div>
+                                <small class="text-warning">Trung bình</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SPRING2025</td>
+                            <td>Mùa xuân 2025</td>
+                            <td>01/01 - 31/03/2025</td>
+                            <td>80</td>
+                            <td>24,000,000đ</td>
+                            <td>96,000,000đ</td>
+                            <td>
+                                <div class="progress" style="height: 6px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 40%"></div>
+                                </div>
+                                <small class="text-danger">Kém hiệu quả</small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Staff Activity Section -->
+<div class="content-section" id="staff-activity">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Hoạt động nhân viên</h1>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lịch sử hoạt động gần đây</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nhân viên</th>
+                            <th>Vai trò</th>
+                            <th>Hành động</th>
+                            <th>Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Trần Thị Nhân Viên</td>
+                            <td>Nhân viên</td>
+                            <td>Chỉnh sửa hợp đồng #HD1234</td>
+                            <td>18/04/2025 14:30</td>
+                        </tr>
+                        <tr>
+                            <td>Lê Văn Tư Vấn</td>
+                            <td>Tư vấn viên</td>
+                            <td>Tạo mới khách hàng</td>
+                            <td>18/04/2025 13:50</td>
+                        </tr>
+                        <tr>
+                            <td>Nguyễn Văn Quản Lý</td>
+                            <td>Admin</td>
+                            <td>Xóa xe Ford Ranger</td>
+                            <td>17/04/2025 16:22</td>
+                        </tr>
+                        <tr>
+                            <td>Phạm Thị Khách Hàng</td>
+                            <td>Khách hàng</td>
+                            <td>Gửi yêu cầu thuê xe</td>
+                            <td>17/04/2025 09:10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Section -->
+<div class="content-section" id="profile">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Thông tin cá nhân</h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+            <i class="fas fa-user-edit fa-sm"></i> Chỉnh sửa
+        </button>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-3 text-center">
+                    <img src="/api/placeholder/100/100" class="rounded-circle img-thumbnail" alt="Avatar">
+                </div>
+                <div class="col-md-9">
+                    <h4>Nguyễn Văn Quản Lý</h4>
+                    <p class="text-muted">Quản trị viên hệ thống</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Email</label>
+                    <div class="form-control">admin@example.com</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Số điện thoại</label>
+                    <div class="form-control">0901234567</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Vai trò</label>
+                    <div class="form-control">Admin</div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Ngày tham gia</label>
+                    <div class="form-control">01/01/2023</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editProfileModalLabel">Chỉnh sửa thông tin cá nhân</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="profileName" class="form-label">Họ và tên</label>
+              <input type="text" class="form-control" id="profileName" value="Nguyễn Văn Quản Lý">
+            </div>
+            <div class="mb-3">
+              <label for="profileEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="profileEmail" value="admin@example.com">
+            </div>
+            <div class="mb-3">
+              <label for="profilePhone" class="form-label">Số điện thoại</label>
+              <input type="text" class="form-control" id="profilePhone" value="0901234567">
+            </div>
+            <div class="mb-3">
+              <label for="profileRole" class="form-label">Vai trò</label>
+              <input type="text" class="form-control" id="profileRole" value="Admin" disabled>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+</body>
+
+
+
+
+
+    <script src="./assets/js/switched-sb.js"></script>
+
+                            <!-- <script src="./assets/js/switched-sb.js"></script> -->
+

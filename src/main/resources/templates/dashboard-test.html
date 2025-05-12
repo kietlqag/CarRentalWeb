@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Quản Lý Cửa Hàng Xe</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/dashboard.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar">
+    
+    </div>
+
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Topbar -->
+        <div class="topbar rounded">
+            <button id="sidebarToggle" class="btn btn-link d-md-none">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="d-flex align-items-center">
+                <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex align-items-center">
+                <!-- Alerts Dropdown -->
+                <div class="dropdown mx-3">
+                    <a class="dropdown-toggle" href="#" role="button" id="alertsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw text-gray-600"></i>
+                        <span class="badge bg-danger badge-counter">3+</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">
+                            Thông báo
+                        </h6>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-primary">
+                                    <i class="fas fa-file-alt text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">12/04/2023</div>
+                                <span>Hợp đồng mới #12345 đã được tạo!</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-success">
+                                    <i class="fas fa-donate text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">10/04/2023</div>
+                                <span>Thanh toán mới 5.000.000đ từ Nguyễn Văn A</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-warning">
+                                    <i class="fas fa-exclamation-triangle text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">09/04/2023</div>
+                                <span>Xe Toyota Camry cần bảo dưỡng!</span>
+                            </div>
+                        </a>
+                        <a class="dropdown-item text-center small text-gray-500" href="#">Xem tất cả thông báo</a>
+                    </div>
+                </div>
+
+                <!-- User Profile Dropdown -->
+                <div class="dropdown">
+                    <a class="dropdown-toggle d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="d-none d-lg-inline text-gray-600 small me-2">Admin</span>
+                        <div class="user-profile">
+                            <img src="/api/placeholder/50/50" alt="User Profile">
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#" data-section="profile">
+                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Thông tin cá nhân
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Cài đặt
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Lịch sử hoạt động
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" id="dropdownLogoutBtn">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Đăng xuất
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+         <!-- Dashboard Section -->
+         <div class="content-section active" id="mainDashboard">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-download fa-sm text-white-50"></i> Tải báo cáo
+                </a>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-primary">
+                            <div>
+                                <div class="text">Doanh thu tháng</div>
+                                <div class="value">351,000,000đ</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-calendar text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-success">
+                            <div>
+                                <div class="text">Hợp đồng mới</div>
+                                <div class="value">12</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-file-contract text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-info">
+                            <div>
+                                <div class="text">Xe đang thuê</div>
+                                <div class="value">25</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-car text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card shadow h-100">
+                        <div class="card-body dashboard-card card-warning">
+                            <div>
+                                <div class="text">Khách hàng mới</div>
+                                <div class="value">18</div>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-users text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+        
+         <div class="content-section" id="users">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Quản lý người dùng</h1>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                    <i class="fas fa-plus fa-sm"></i> Thêm người dùng
+                </button>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách người dùng</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Họ và tên</th>
+                                    <th>Email</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Vai trò</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Nguyễn Văn Quản Lý</td>
+                                    <td>admin@example.com</td>
+                                    <td>0901234567</td>
+                                    <td>Admin</td>
+                                    <td><span class="badge bg-success">Hoạt động</span></td>
+                                    <td>
+                                        <div class="table-action">
+                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- <script src="./assets/js/admin-dash.js"></script> -->
+        <script src="./assets/js/switched-sb.js"></script>
+
