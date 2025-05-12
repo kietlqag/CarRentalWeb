@@ -475,7 +475,7 @@
                                     <th>ID</th>
                                     <th>Hình ảnh</th>
                                     <th>Tên xe</th>
-                                    <th>Biển số</th>
+                                    <th>Model</th>
                                     <th>Loại xe</th>
                                     <th>Giá thuê/ngày</th>
                                     <th>Trạng thái</th>
@@ -483,86 +483,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><img src="/img/lcAvatar.jpg" alt="Toyota Camry" class="img-thumbnail car-img"></td>
-                                    <td>Toyota Camry</td>
-                                    <td>51F-123.45</td>
-                                    <td>Sedan</td>
-                                    <td>1,000,000đ</td>
-                                    <td><span class="badge bg-success">Sẵn sàng</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><img src="/img/21fe9c67cc9c285528f900816c1c8199.jpg" alt="Honda Civic" class="img-thumbnail car-img"></td>
-                                    <td>Honda Civic</td>
-                                    <td>51F-234.56</td>
-                                    <td>Sedan</td>
-                                    <td>900,000đ</td>
-                                    <td><span class="badge bg-danger">Đang thuê</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><img src="/img/rangeroveravt.jpg" alt="Ford Ranger" class="img-thumbnail car-img"></td>
-                                    <td>Ford Ranger</td>
-                                    <td>51F-345.67</td>
-                                    <td>Bán tải</td>
-                                    <td>1,200,000đ</td>
-                                    <td><span class="badge bg-danger">Đang thuê</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><img src="/img/linconavt.jpg" alt="Hyundai Tucson" class="img-thumbnail car-img"></td>
-                                    <td>Hyundai Tucson</td>
-                                    <td>51F-456.78</td>
-                                    <td>SUV</td>
-                                    <td>1,100,000đ</td>
-                                    <td><span class="badge bg-warning">Bảo dưỡng</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><img src="/img/fordavt.jpg" alt="Mazda CX-5" class="img-thumbnail car-img"></td>
-                                    <td>Mazda CX-5</td>
-                                    <td>51F-567.89</td>
-                                    <td>SUV</td>
-                                    <td>1,050,000đ</td>
-                                    <td><span class="badge bg-success">Sẵn sàng</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr th:each="car : ${cars}">
+                                <td th:text="${car.id}">1</td>
+                                <td>
+                                    <img th:src="@{${car.getImage()}}" th:alt="${car.name}" class="img-thumbnail car-img" width="100"/>
+                                </td>
+                                <td th:text="${car.name}">Tên xe</td>
+                                <td th:text="${car.model}">Biển số</td>
+                                <td th:text="${car.bodystyle}">Loại xe</td>
+                                <td th:text="${#numbers.formatInteger(car.price, 0, 'POINT')} + 'đ'">1,000,000đ</td>
+                                <td>
+            <span th:classappend="
+                ${car.status} == '1' ? 'badge bg-success' :
+                (${car.status} == '2' ? 'badge bg-danger' : 'badge bg-warning')">
+                <span th:text="
+                    ${car.status} == '1' ? 'Sẵn sàng' :
+                    (${car.status} == '2' ? 'Đang thuê' : 'Bảo dưỡng')">Trạng thái</span>
+            </span>
+                                </td>
+                                <td>
+                                    <div class="table-action">
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
