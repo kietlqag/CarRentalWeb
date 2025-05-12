@@ -1,0 +1,15 @@
+<div id="service-list" th:fragment="serviceList(services, totalPages)">
+    <input type="hidden" id="totalPagesHidden" th:attr="data-total-pages=${totalPages}" />
+    <div class="row">
+        <div class="col-md-6 mb-4" th:each="service : ${services}">
+            <div class="service-card">
+                <img th:src="@{${service.picture}}" th:alt="${service.nameService}" class="img-fluid">
+                <h3 th:text="${service.nameService}">Service Name</h3>
+                <p class="service-price" th:text="'$' + ${service.price}">0.00</p>
+            </div>
+        </div>
+        <div class="col-12" th:if="${#lists.isEmpty(services)}">
+            <p>Hiện tại chưa có dịch vụ nào.</p>
+        </div>
+    </div>
+</div>

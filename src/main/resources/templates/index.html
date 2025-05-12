@@ -24,7 +24,8 @@
             <!-- Bên trái -->
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center">
                 <h1 class="hero-title" style="font-family: javanese;">Xin chào</h1>
-                <p class="hero-decs">Hệ thống cho thuê xe ô toàn quốc</p>
+                <p class="hero-decs">Hệ thống cho thuê xe ô tô toàn quốc</p>
+                <p>Chúng tôi cung cấp dịch vụ cho thuê xe ô tô uy tín, nhanh chóng và tiện lợi trên toàn quốc. Với đa dạng dòng xe từ phổ thông đến cao cấp, hệ thống đặt xe thông minh và đội ngũ hỗ trợ tận tâm, bạn có thể dễ dàng thuê xe mọi lúc, mọi nơi cho công việc, du lịch hay sự kiện.</p>
                 <a href="#" class="btn btn-booking">
                     <svg>
                         <rect x="0" y="0" width="100%" height="100%"></rect>
@@ -42,16 +43,16 @@
     </div>
 </section>
 
-  <!-- Services Section -->
+    <!-- Services Section -->
     <section class="services text-center mt-5" id="service">
         <h1 class="hero-title" style="font-family: javanese;">Dịch vụ</h1>
         <div class="container">
             <div class="row">
                 <!-- Left Column: Description and Button -->
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-start text-start">
-                    <h2 class="service-title">Offering top-tier service at its best.</h2>
+                    <h2 class="service-title">Cung cấp dịch vụ hàng đầu với chất lượng tốt nhất.</h2>
                     <p class="service-desc">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                        "Để đạt được sự hài lòng tối đa, chúng tôi luôn nỗ lực không ngừng để mang đến trải nghiệm tuyệt vời nhất cho khách hàng. Chúng tôi cam kết cung cấp dịch vụ tận tâm, chuyên nghiệp và đáng tin cậy nhằm đáp ứng mọi nhu cầu của bạn. Hãy tận hưởng dịch vụ đẳng cấp, nơi bạn luôn là ưu tiên hàng đầu."
                     </p>
                     <a href="#" class="btn btn-service-booking mt-3">
                         <svg>
@@ -60,56 +61,19 @@
                         Book Now
                     </a>
                 </div>
-                <!-- Right Column: Service Cards -->
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-4 mb-4">
-                            <div class="service-card">
-                                <img src="./img/back.jpg" alt="Service 1" class="img-fluid">
-                                <h3>Airport Transfer</h3>
-                                <p class="service-price">$5.00</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="service-card">
-                                <img src="./img/dcar-limousine-vip-lounge-7_edited.jpg" alt="Service 2" class="img-fluid">
-                                <h3>Lorem Ipsum</h3>
-                                <p class="service-price">$5.00</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="service-card">
-                                <img src="./img/cat-sir.jpg" alt="Service 3" class="img-fluid">
-                                <h3>Lorem Ipsum</h3>
-                                <p class="service-price">$5.00</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- About Us Section -->
-    <section class="about-us text-center mt-5" id="aboutus">
-        <h1 class="hero-title" style="font-family: javanese;">Về chúng tôi</h1>
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Cột chứa hình ảnh -->
-                <div class="col-md-6 position-relative">
-                    <div class="img-hold">
-                        <img src="./img/cadilaclogo.jpg" alt="About 1" class="img-abs image1">
-                        <img src="./img/bimlogo.jpg" alt="About 2" class="img-abs image2">
-                        <img src="./img/potchelogo.jpg" alt="About 3" class="img-abs image3">
+                <div class="col-md-6">
+                    <div id="service-list">
+                        <div th:replace="fragments/service_list_fragment :: serviceList(${services}, ${totalPages})"></div>
+                    </div>
+
+                    <div class="pagination mt-3 d-flex justify-content-center">
+                        <button class="btn btn-secondary me-2" id="prev-btn" onclick="changePage(-1)">Trước</button>
+                        <span id="page-info">Trang 1</span>
+                        <button class="btn btn-secondary ms-2" id="next-btn" onclick="changePage(1)">Sau</button>
                     </div>
                 </div>
-                <!-- Cột chứa nội dung chữ -->
-                <div class="col-md-6 text-start">
-                    <h2 class="fw-bold">Cửa hàng xe của chúng tôi</h2>
-                    <p class="mt-3">
-                        Chuyên cho thuê các loại xe ô tô trên toàn quốc.
-                    </p>
-                </div>
+
             </div>
         </div>
     </section>
@@ -276,25 +240,25 @@
             </div>
         </div>
     </div>
-    
 
     <!-- Contact Section -->
     <section class="contact mt-5" id="contactid">
-        <h1 class="text-center hero-title mt-5 mb-4" style="font-family: javanese;">Liên hệ</h1>
-        <div class="container">
+        <div class="container" >
             <div class="row">
-                <div class="col-md-4">
-                    <h3>Address</h3>
-                    <p>123 Car Street, City, Country</p>
+                <div class="col-md-4 text-center">
+                    <h3>Địa chỉ</h3>
+                    <p>Số 1 Võ Văn Ngân, Linh Chiểu, Thủ Đức, TPHCM</p>
                 </div>
-                <div class="col-md-4">
-                    <h3>Contact Information</h3>
-                    <p>Email: info@mihocarrental.com</p>
-                    <p>Phone: +84 123 456 789</p>
+                <div class="col-md-4 text-center">
+                    <h3>Thông tin liên hệ</h3>
+                    <p>Email: kietdobi3300@gmail.com</p>
+                    <p>Phone: +84 356 146 325</p>
                 </div>
-                <div class="col-md-4">
-                    <h3>Opening Hours</h3>
-                    <p>Mon-Sun: 8:00 AM - 10:00 PM</p>
+                <div class="col-md-4 text-center">
+                    <h3>Chính sách</h3>
+                    <p>Bảo hiểm</p>
+                    <p>Hoàn tiền, huỷ đơn</p>
+                    <p>Bảo hành dịch vụ</p>
                 </div>
             </div>
             <div class="map mt-4">
@@ -328,7 +292,11 @@
 
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/fleet.js"></script>
-
-
+    <script src="./assets/js/fragment.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadServices(0); // Gọi ban đầu
+        });
+    </script>
 </body>
 </html>
