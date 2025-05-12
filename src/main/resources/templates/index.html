@@ -24,7 +24,8 @@
             <!-- Bên trái -->
             <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-center">
                 <h1 class="hero-title" style="font-family: javanese;">Xin chào</h1>
-                <p class="hero-decs">Hệ thống cho thuê xe ô toàn quốc</p>
+                <p class="hero-decs">Hệ thống cho thuê xe ô tô toàn quốc</p>
+                <p>Chúng tôi cung cấp dịch vụ cho thuê xe ô tô uy tín, nhanh chóng và tiện lợi trên toàn quốc. Với đa dạng dòng xe từ phổ thông đến cao cấp, hệ thống đặt xe thông minh và đội ngũ hỗ trợ tận tâm, bạn có thể dễ dàng thuê xe mọi lúc, mọi nơi cho công việc, du lịch hay sự kiện.</p>
                 <a href="#" class="btn btn-booking">
                     <svg>
                         <rect x="0" y="0" width="100%" height="100%"></rect>
@@ -42,16 +43,16 @@
     </div>
 </section>
 
-  <!-- Services Section -->
+    <!-- Services Section -->
     <section class="services text-center mt-5" id="service">
         <h1 class="hero-title" style="font-family: javanese;">Dịch vụ</h1>
         <div class="container">
             <div class="row">
                 <!-- Left Column: Description and Button -->
                 <div class="col-md-6 d-flex flex-column justify-content-center align-items-start text-start">
-                    <h2 class="service-title">Offering top-tier service at its best.</h2>
+                    <h2 class="service-title">Cung cấp dịch vụ hàng đầu với chất lượng tốt nhất.</h2>
                     <p class="service-desc">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                        "Để đạt được sự hài lòng tối đa, chúng tôi luôn nỗ lực không ngừng để mang đến trải nghiệm tuyệt vời nhất cho khách hàng. Chúng tôi cam kết cung cấp dịch vụ tận tâm, chuyên nghiệp và đáng tin cậy nhằm đáp ứng mọi nhu cầu của bạn. Hãy tận hưởng dịch vụ đẳng cấp, nơi bạn luôn là ưu tiên hàng đầu."
                     </p>
                     <a href="#" class="btn btn-service-booking mt-3">
                         <svg>
@@ -60,32 +61,20 @@
                         Book Now
                     </a>
                 </div>
-                <!-- Right Column: Service Cards -->
+
                 <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-4 mb-4">
-                            <div class="service-card">
-                                <img src="./img/back.jpg" alt="Service 1" class="img-fluid">
-                                <h3>Airport Transfer</h3>
-                                <p class="service-price">$5.00</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="service-card">
-                                <img src="./img/dcar-limousine-vip-lounge-7_edited.jpg" alt="Service 2" class="img-fluid">
-                                <h3>Lorem Ipsum</h3>
-                                <p class="service-price">$5.00</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="service-card">
-                                <img src="./img/cat-sir.jpg" alt="Service 3" class="img-fluid">
-                                <h3>Lorem Ipsum</h3>
-                                <p class="service-price">$5.00</p>
-                            </div>
-                        </div>
+                    <div id="service-list">
+                        <div th:replace="fragments/service_list_fragment :: serviceList(${services}, ${totalPages})"></div>
+                    </div>
+
+                    <div class="pagination mt-3">
+                        <button class="btn btn-secondary me-2" id="prev-btn" onclick="changePage(-1)">Trước</button>
+                        <span id="page-info">Trang 1</span>
+                        <button class="btn btn-secondary ms-2" id="next-btn" onclick="changePage(1)">Sau</button>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </section>
@@ -328,7 +317,11 @@
 
     <script src="./assets/js/index.js"></script>
     <script src="./assets/js/fleet.js"></script>
-
-
+    <script src="./assets/js/fragment.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            loadServices(0); // Gọi ban đầu
+        });
+    </script>
 </body>
 </html>
