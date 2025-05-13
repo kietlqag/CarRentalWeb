@@ -1,4 +1,4 @@
-package hcmute.edu.vn.CarRentalWeb;
+package hcmute.edu.vn.CarRentalWeb.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;

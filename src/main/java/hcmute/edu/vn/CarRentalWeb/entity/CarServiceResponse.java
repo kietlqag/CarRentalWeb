@@ -1,7 +1,5 @@
 package hcmute.edu.vn.CarRentalWeb.entity;
 
-import hcmute.edu.vn.CarRentalWeb.Car;
-
 public class CarServiceResponse {
     private Car car;
     private Services service;

@@ -1,6 +1,6 @@
 package hcmute.edu.vn.CarRentalWeb.controller.customer;
 
-import hcmute.edu.vn.CarRentalWeb.Car;
+import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Services;
 import hcmute.edu.vn.CarRentalWeb.service.CarService;
