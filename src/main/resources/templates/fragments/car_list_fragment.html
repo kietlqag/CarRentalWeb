@@ -1,0 +1,23 @@
+<th:block th:fragment="carList(cars, totalPages)">
+    <!-- Tổng số trang (dùng cho JavaScript) -->
+    <input type="hidden" id="totalCarPagesHidden" th:attr="data-total-pages=${totalPages}" />
+
+    <div class="row g-4">
+        <div class="col-md-4" th:each="car : ${cars}">
+            <div class="fleet-card">
+                <img th:src="@{${car.image}}" th:alt="${car.name}" class="img-fluid">
+                <div class="fleet-details">
+                    <h3 th:text="${car.name}">Tên xe</h3>
+                    <p th:text="'Seat: ' + ${car.seat} + ' seats'">Số ghế</p>
+                    <p th:text="'$' + ${car.price} + '/day'">Giá thuê</p>
+                    <button class="btn btn-primary details-btn" th:data-car-id="${car.id}">Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nếu danh sách rỗng -->
+        <div class="col-12" th:if="${#lists.isEmpty(cars)}">
+            <p class="text-center">Hiện tại chưa có xe nào.</p>
+        </div>
+    </div>
+</th:block>

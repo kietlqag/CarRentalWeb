@@ -3,6 +3,8 @@ package hcmute.edu.vn.CarRentalWeb.service;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +17,7 @@ public class CarService {
 
     public List<Car> getAllCars() {
 
-        return carRepository.findAll();
+        return carRepository.findAllByStatus("Sẵn sàng");
     }
 
     public Car getCarById(int id) {
@@ -23,11 +25,12 @@ public class CarService {
         return carRepository.findCarById(id);
     }
 
-    @Transactional
     public void deleteCarById(int id) {
-        Car car = carRepository.findCarById(id);
+        carRepository.deleteById(id);
     }
-    public void save(Car car) {
-        carRepository.save(car);
+
+    public Page<Car> getCarPage(String status, Pageable pageable) {
+        return carRepository.findAllByStatus(status, pageable);
     }
+
 }

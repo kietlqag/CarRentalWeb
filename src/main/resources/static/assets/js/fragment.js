@@ -1,5 +1,6 @@
 let currentPage = 0;
-let totalPages = 1; // mặc định 1, sẽ cập nhật sau
+let totalPages = 1;
+let currentCarPage = 0;
 
 function loadServices(page) {
     fetch('/home/services?page=' + page)
@@ -39,4 +40,31 @@ function changePage(delta) {
         loadServices(nextPage);
     }
 }
+
+function loadCars(page) {
+    fetch(`/home/cars?page=${page}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('car-list').innerHTML = html;
+        })
+        .catch(err => {
+            console.error("Lỗi khi tải xe:", err);
+        });
+}
+
+function changeCarPage(delta) {
+    console.log("Car page clicked with delta:", delta); // DEBUG
+    const totalCarPages = parseInt(document.getElementById('totalCarPagesHidden').getAttribute('data-total-pages'));
+
+    const nextPage = currentCarPage + delta;
+    if (nextPage >= 0 && nextPage < totalCarPages) {
+        loadCars(nextPage);
+        currentCarPage = nextPage;
+
+        // Cập nhật số trang hiển thị
+        document.getElementById('car-page-info').innerText = `Trang ${currentCarPage + 1} / ${totalCarPages}`;
+    }
+}
+
+
 
