@@ -45,6 +45,37 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     });
 });
+document.getElementById('createPromotionButton').addEventListener('click', function () {
+    const payload = {
+        code: document.getElementById('newPromotionCode').value,
+        description: document.getElementById('newPromotionDescription').value,
+        discountpercent: parseInt(document.getElementById('newPromotionDiscountPercent').value),
+        type: parseInt(document.getElementById('newPromotionType').value),
+        isactive: parseInt(document.getElementById('newPromotionStatus').value)
+    };
+
+    fetch('/admin/promotions/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('Tạo khuyến mãi thành công');
+                $('#addPromotionModal').modal('hide');
+                // Optional: reload danh sách hoặc reset form
+                document.getElementById('addPromotionForm').reset();
+            } else {
+                alert('Tạo khuyến mãi thất bại');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi tạo khuyến mãi:', error);
+        });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     // Load sidebar
     fetch("/admin_sb.html")

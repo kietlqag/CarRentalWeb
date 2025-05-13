@@ -1640,6 +1640,50 @@
             </div>
         </div>
     </div>
+    <!-- Add Promotion Modal -->
+    <div class="modal fade" id="addPromotionModal" tabindex="-1" aria-labelledby="addPromotionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="addPromotionForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPromotionModalLabel">Tạo khuyến mãi mới</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="newPromotionCode" class="form-label">Mã khuyến mãi</label>
+                            <input type="text" class="form-control" id="newPromotionCode" name="code" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPromotionDescription" class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="newPromotionDescription" name="description" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPromotionDiscountPercent" class="form-label">Giảm giá (%)</label>
+                            <input type="number" class="form-control" id="newPromotionDiscountPercent" name="discountpercent" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPromotionType" class="form-label">Loại</label>
+                            <input type="number" class="form-control" id="newPromotionType" name="discountpercent" required>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPromotionStatus" class="form-label">Trạng thái</label>
+                            <select class="form-control" id="newPromotionStatus" name="isactive" required>
+                                <option value="1">Khả dụng</option>
+                                <option value="0">Không khả dụng</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="createPromotionButton">Tạo mới</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script src="/assets/js/admin_dash.js"></script>
 <!-- <script src="/assets/js/switched-sb.js"></script> -->
