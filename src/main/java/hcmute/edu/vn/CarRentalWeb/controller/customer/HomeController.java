@@ -68,6 +68,5 @@ public class HomeController {
 
         return "fragments/car_list_fragment :: carList";
     }
-
 }
 

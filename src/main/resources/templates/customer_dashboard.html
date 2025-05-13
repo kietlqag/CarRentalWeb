@@ -31,7 +31,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="d-flex align-items-center">
-                <h4 class="mb-0">Chào mừng, <span id="customerName">Khách Hàng</span>!</h4>
+                <h5 class="mb-0">Chào mừng, <span id="customerName">Khách Hàng</span>!</h5>
             </div>
             <div class="d-flex align-items-center">
                 <!-- Notifications Dropdown -->
@@ -78,13 +78,13 @@
         <!-- Dashboard Section -->
         <div class="content-section active" id="dashboard">
             <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Tổng quan</h1>
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-xl-4 col-md-6 mb-4">
                     <div class="card shadow h-100">
                         <div class="card-body dashboard-card card-primary">
                             <div>
                                 <div class="text">Số lần đặt xe</div>
-                                <div class="value">5</div>
+                                <div class="value" th:text="${countOrder}">0</div>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-car text-primary"></i>
@@ -105,19 +105,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-md-6 mb-4">
-                    <div class="card shadow h-100">
-                        <div class="card-body dashboard-card card-info">
-                            <div>
-                                <div class="text">Đánh giá gần đây</div>
-                                <div class="value">4.8/5</div>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-star text-info"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- Recent Bookings -->
             <div class="card shadow mb-4">
@@ -129,44 +116,42 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Mã đặt xe</th>
+                                    <th>Mã đơn hàng</th>
                                     <th>Xe</th>
                                     <th>Ngày bắt đầu</th>
                                     <th>Ngày kết thúc</th>
                                     <th>Tổng tiền</th>
                                     <th>Trạng thái</th>
+                                    <th>Trạng thái thanh toán</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#BK1234</td>
-                                    <td>Toyota Camry</td>
-                                    <td>20/04/2025</td>
-                                    <td>25/04/2025</td>
-                                    <td>5,000,000đ</td>
-                                    <td><span class="badge bg-success">Xác nhận</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modifyBookingModal" data-booking-id="BK1234"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1234')"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#BK1233</td>
-                                    <td>Honda Civic</td>
-                                    <td>15/04/2025</td>
-                                    <td>20/04/2025</td>
-                                    <td>4,500,000đ</td>
-                                    <td><span class="badge bg-warning">Chờ xác nhận</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modifyBookingModal" data-booking-id="BK1233"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1233')"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr th:each="order : ${Orders}">
+                                <td th:text="${order.getId()}">#BK1233</td>
+                                <td th:text="${order.getName()}">Honda Civic</td>
+                                <td th:text="${#dates.format(order.getReceivedate(), 'dd/MM/yyyy')}">15/04/2025</td>
+                                <td th:text="${#dates.format(order.getReturndate(), 'dd/MM/yyyy')}">20/04/2025</td>
+                                <td th:text="${order.getTotal()}">4,500,000đ</td>
+
+                                <td>
+                                <span class="badge"
+                                      th:classappend="' bg-' + (${order.getStatus()} == 'Đã xác nhận' ? 'success' : (${order.getStatus()} == 'Đã huỷ' ? 'danger' : ''))"
+                                      th:text="${order.getStatus()}">Chờ xác nhận</span>
+                                </td>
+
+                                <td>
+                                <span class="badge"
+                                      th:classappend="${order.getPaymentstatus()} == 'Đã thanh toán' ? ' bg-success' : ''"
+                                      th:text="${order.getPaymentstatus()}">Chưa thanh toán</span>
+                                </td>
+                                <td>
+                                    <div class="table-action">
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modifyBookingModal" data-booking-id="BK1234"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1234')"><i class="fas fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -274,52 +259,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Reviews Section -->
-        <div class="content-section" id="reviews">
-            <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Đánh giá dịch vụ</h1>
-            <div class="card shadow mb-4">
-                <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">Đánh giá của bạn</h6>
-                    <button class="btn btn-primary btn-animated" data-bs-toggle="modal" data-bs-target="#addReviewModal">
-                        <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
-                        <i class="fas fa-plus fa-sm"></i> Viết đánh giá
-                    </button>
-                </div>
-                <div class="card-body">
-                    <div class="list-group">
-                        <div class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">Toyota Camry - #BK1234</h6>
-                                <small>20/04/2025</small>
-                            </div>
-                            <div class="star-rating mb-2">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                            </div>
-                            <p class="mb-1">Dịch vụ tuyệt vời, xe sạch sẽ và nhân viên rất thân thiện!</p>
-                        </div>
-                        <div class="list-group-item">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">Honda Civic - #BK1233</h6>
-                                <small>15/04/2025</small>
-                            </div>
-                            <div class="star-rating mb-2">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="far fa-star text-warning"></i>
-                            </div>
-                            <p class="mb-1">Xe tốt, nhưng thời gian xác nhận hơi lâu.</p>
-                        </div>
                     </div>
                 </div>
             </div>

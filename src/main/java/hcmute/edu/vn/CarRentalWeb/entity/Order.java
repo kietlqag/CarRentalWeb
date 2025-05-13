@@ -1,32 +1,102 @@
 package hcmute.edu.vn.CarRentalWeb.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "orders")
 public class Order {
+
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String name;
+    private String brand;
+    private int price;
+    private int seat;
+    private String model;
+    private String bodystyle;
+    private String engine;
     private String accountemail;
     private String status;
-    private String createdat;
-    private String updatedat;
-    private int total;
+    private LocalDateTime createdat;
+    private LocalDateTime updatedat;
+    private BigDecimal total;
     private String paymentstatus;
     private String paymentmethod;
-    private String discountpercent;
+    private BigDecimal discountpercent;
     private String service;
+    private Date receivedate;
+    private Date returndate;
 
     public Order() {}
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getSeat() {
+        return seat;
+    }
+
+    public void setSeat(int seat) {
+        this.seat = seat;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getBodystyle() {
+        return bodystyle;
+    }
+
+    public void setBodystyle(String bodystyle) {
+        this.bodystyle = bodystyle;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
     }
 
     public String getAccountemail() {
@@ -45,27 +115,27 @@ public class Order {
         this.status = status;
     }
 
-    public String getCreatedat() {
+    public LocalDateTime getCreatedat() {
         return createdat;
     }
 
-    public void setCreatedat(String createdat) {
+    public void setCreatedat(LocalDateTime createdat) {
         this.createdat = createdat;
     }
 
-    public String getUpdatedat() {
+    public LocalDateTime getUpdatedat() {
         return updatedat;
     }
 
-    public void setUpdatedat(String updatedat) {
+    public void setUpdatedat(LocalDateTime updatedat) {
         this.updatedat = updatedat;
     }
 
-    public int getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
@@ -85,11 +155,11 @@ public class Order {
         this.paymentmethod = paymentmethod;
     }
 
-    public String getDiscountpercent() {
+    public BigDecimal getDiscountpercent() {
         return discountpercent;
     }
 
-    public void setDiscountpercent(String discountpercent) {
+    public void setDiscountpercent(BigDecimal discountpercent) {
         this.discountpercent = discountpercent;
     }
 
@@ -99,5 +169,21 @@ public class Order {
 
     public void setService(String service) {
         this.service = service;
+    }
+
+    public Date getReceivedate() {
+        return receivedate;
+    }
+
+    public void setReceivedate(Date receivedate) {
+        this.receivedate = receivedate;
+    }
+
+    public Date getReturndate() {
+        return returndate;
+    }
+
+    public void setReturndate(Date returndate) {
+        this.returndate = returndate;
     }
 }
