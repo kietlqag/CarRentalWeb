@@ -90,6 +90,19 @@ document.querySelectorAll('.details-btn').forEach(button => {
     });
 });
 
+const discountSelect = document.getElementById('discountSelect');
+const totalSpan = document.getElementById('totalAmount');
+let originalTotal = parseFloat(totalSpan.innerText.replace(/[^\d]/g, '')); // số gốc
+
+discountSelect.addEventListener('change', function () {
+    const selectedOption = discountSelect.options[discountSelect.selectedIndex];
+    const percent = parseFloat(selectedOption.getAttribute('data-percent')) || 0;
+
+    const discountedTotal = originalTotal - originalTotal*percent;
+    totalSpan.innerText = discountedTotal.toLocaleString('vi-VN') + ' đ';
+});
+
+
 
 
 
