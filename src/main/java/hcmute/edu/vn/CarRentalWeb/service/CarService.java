@@ -32,5 +32,8 @@ public class CarService {
     public Page<Car> getCarPage(String status, Pageable pageable) {
         return carRepository.findAllByStatus(status, pageable);
     }
+    public void save(Car car) {
+        carRepository.save(car);
+    }
 
 }
