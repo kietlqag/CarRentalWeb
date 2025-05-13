@@ -74,6 +74,84 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("carForm");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const car = {};
+
+        for (let [key, value] of formData.entries()) {
+            car[key] = value;
+        }
+
+        fetch("/admin/cars/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(car)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Tạo xe thành công");
+                    form.reset();
+                } else {
+                    alert("Lỗi khi tạo xe");
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi:", error);
+                alert("Lỗi mạng hoặc server");
+            });
+    });
+});
+document.addEventListener("DOMContentLoaded", () => {
+    // Khi bấm nút Edit
+    const editModal = document.getElementById("editCarModal");
+    editModal.addEventListener("show.bs.modal", function (event) {
+        const button = event.relatedTarget;
+        const id = button.getAttribute("data-id");
+        const price = button.getAttribute("data-price");
+        const status = button.getAttribute("data-status");
+
+        document.getElementById("editCarId").value = id;
+        document.getElementById("editCarPrice").value = price;
+        document.getElementById("editCarStatus").value = status;
+    });
+
+    // Gửi dữ liệu cập nhật khi submit
+    const editCarForm = document.getElementById("editCarForm");
+    editCarForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const id = document.getElementById("editCarId").value;
+        const price = document.getElementById("editCarPrice").value;
+        const status = document.getElementById("editCarStatus").value;
+
+        fetch(`/admin/cars/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ price, status })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert("Cập nhật thành công!");
+                    location.reload(); // hoặc cập nhật bảng dữ liệu nếu dùng JS
+                } else {
+                    return res.text().then(t => { throw new Error(t) });
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Cập nhật thất bại!");
+            });
+    });
+});
 function deleteCar(id) {
     if (confirm("Bạn có chắc chắn muốn xóa xe này?")) {
         fetch(`/admin/cars/delete/${id}`, {

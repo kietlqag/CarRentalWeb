@@ -26,13 +26,8 @@ public class CarService {
     @Transactional
     public void deleteCarById(int id) {
         Car car = carRepository.findCarById(id);
-        if (car == null) {
-            throw new RuntimeException("Không tìm thấy xe với ID: " + id);
-        }
-        try {
-            carRepository.deleteById(id);
-        } catch (Exception e) {
-            throw new RuntimeException("Không thể xóa xe. Có thể xe đang được sử dụng trong hợp đồng: " + e.getMessage());
-        }
+    }
+    public void save(Car car) {
+        carRepository.save(car);
     }
 }

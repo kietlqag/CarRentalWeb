@@ -503,8 +503,16 @@
                                 </td>
                                 <td>
                                     <div class="table-action">
-                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                        <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                        <button
+                                                class="btn btn-sm btn-warning"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editCarModal"
+                                                th:attr="
+                                                        data-id=${car.id},
+                                                        data-price=${car.price},
+                                                        data-status=${car.status}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
                                         <button th:attr="onclick=|deleteCar(${car.id})|" class="btn btn-sm btn-danger">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -1511,44 +1519,53 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="addCarForm">
-                            <div class="mb-3">
-                                <label for="carImage" class="form-label">Hình ảnh</label>
-                                <input type="file" class="form-control" id="carImage" accept="image/*">
+                        <form id="carForm" class="p-4 rounded shadow bg-light">
+                            <h4 class="mb-4">Tạo xe mới</h4>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Tên xe *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="brand" class="form-label">Hãng *</label>
+                                    <input type="text" class="form-control" id="brand" name="brand" required />
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="carName" class="form-label">Tên xe</label>
-                                <input type="text" class="form-control" id="carName" required>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="price" class="form-label">Giá *</label>
+                                    <input type="number" class="form-control" id="price" name="price" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="seat" class="form-label">Số chỗ</label>
+                                    <input type="number" class="form-control" id="seat" name="seat" />
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="carLicensePlate" class="form-label">Biển số</label>
-                                <input type="text" class="form-control" id="carLicensePlate" required>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="engine" class="form-label">Động cơ</label>
+                                    <input type="text" class="form-control" id="engine" name="engine" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="model" class="form-label">Model</label>
+                                    <input type="text" class="form-control" id="model" name="model" />
+                                </div>
                             </div>
+
                             <div class="mb-3">
-                                <label for="carType" class="form-label">Loại xe</label>
-                                <select class="form-control" id="carType" required>
-                                    <option value="Sedan">Sedan</option>
-                                    <option value="SUV">SUV</option>
-                                    <option value="Bán tải">Bán tải</option>
-                                    <option value="MPV">MPV</option>
-                                </select>
+                                <label for="bodystyle" class="form-label">Kiểu dáng</label>
+                                <input type="text" class="form-control" id="bodystyle" name="bodystyle" />
                             </div>
+
                             <div class="mb-3">
-                                <label for="carRentalPrice" class="form-label">Giá thuê/ngày</label>
-                                <input type="number" class="form-control" id="carRentalPrice" required>
+                                <label for="image" class="form-label">URL ảnh</label>
+                                <input type="url" class="form-control" id="image" name="image" placeholder="https://example.com/image.jpg" />
                             </div>
-                            <div class="mb-3">
-                                <label for="carStatus" class="form-label">Trạng thái</label>
-                                <select class="form-control" id="carStatus" required>
-                                    <option value="Sẵn sàng">Sẵn sàng</option>
-                                    <option value="Đang thuê">Đang thuê</option>
-                                    <option value="Bảo dưỡng">Bảo dưỡng</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-animated">
-                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
-                                Thêm xe
-                            </button>
+
+                            <button type="submit" class="btn btn-primary w-100">Tạo xe</button>
                         </form>
                     </div>
                 </div>
@@ -1737,6 +1754,37 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- Edit Car Modal -->
+    <div class="modal fade" id="editCarModal" tabindex="-1" aria-labelledby="editCarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="editCarForm" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCarModalLabel">Cập nhật xe</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editCarId" name="id">
+
+                    <div class="mb-3">
+                        <label for="editCarPrice" class="form-label">Giá tiền</label>
+                        <input type="number" class="form-control" id="editCarPrice" name="price" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editCarStatus" class="form-label">Trạng thái</label>
+                        <select class="form-select" id="editCarStatus" name="status" required>
+                            <option value="1">Sẵn sàng</option>
+                            <option value="2">Đang thuê</option>
+                            <option value="3">Bảo dưỡng</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </form>
         </div>
     </div>
 
