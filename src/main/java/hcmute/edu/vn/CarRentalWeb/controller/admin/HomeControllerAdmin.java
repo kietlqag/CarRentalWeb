@@ -3,8 +3,10 @@ package hcmute.edu.vn.CarRentalWeb.controller.admin;
 import hcmute.edu.vn.CarRentalWeb.dto.AccountUpdateRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
+import hcmute.edu.vn.CarRentalWeb.entity.Promotion;
 import hcmute.edu.vn.CarRentalWeb.service.AccountService;
 import hcmute.edu.vn.CarRentalWeb.service.CarService;
+import hcmute.edu.vn.CarRentalWeb.service.PromotionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,6 +27,8 @@ public class HomeControllerAdmin {
     private CarService carService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private PromotionService promotionService;
 
     @GetMapping("/admin/dashboard")
     public String home(HttpSession session, Model model) {
@@ -32,6 +38,8 @@ public class HomeControllerAdmin {
         model.addAttribute("cars", cars);
         List<Account> accounts = accountService.getAllAccount();
         model.addAttribute("accounts", accounts);
+        List<Promotion> promotions = promotionService.getAllPromotion();
+        model.addAttribute("promotions", promotions);
         return "admin_dashboard";
     }
 
@@ -73,5 +81,33 @@ public class HomeControllerAdmin {
         accountService.save(account);
         return ResponseEntity.ok("Đã cập nhật vai trò");
     }
+
+
+
+    @DeleteMapping("/admin/promotions/delete/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deletePromotion(@PathVariable int id) {
+        promotionService.deletePromotionById(id);
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/admin/promotions/create")
+    @ResponseBody
+    public ResponseEntity<String> createCar(@RequestBody Promotion promotion) {
+        promotionService.save(promotion);
+        return ResponseEntity.ok("Car created");
+    }
+    @PutMapping("/admin/promotions/update/{id}")
+    @ResponseBody
+    public ResponseEntity<?> updatePromotion(@PathVariable int id, @RequestBody Map<String, String> payload) {
+        Promotion promotion = promotionService.getPromotionById(id);
+        promotion.setDiscountpercent(Integer.parseInt(payload.get("discountpercent")));
+        promotion.setDescription(payload.get("description"));
+        promotion.setCode(payload.get("code"));
+        promotion.setType(Integer.parseInt(payload.get("type")));
+        promotion.setIsactive(Integer.parseInt(payload.get("isactive")));
+        promotionService.save(promotion);
+        return ResponseEntity.ok().build();
+    }
+
 
 }

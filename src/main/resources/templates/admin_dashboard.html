@@ -98,8 +98,7 @@
                 <!-- User Profile Dropdown -->
                 <div class="dropdown">
                     <a class="dropdown-toggle d-flex align-items-center" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-lg-inline text-gray-600 small me-2"
-                              th:text="${session.account.getFullName()}">Admin</span>
+                       <!-- <span class="d-none d-lg-inline text-gray-600 small me-2" th:text="${session.account.getFullName()}">Admin</span>-->
                         <div class="user-profile">
                             <img src="/img/cadilacavt.jpg" alt="User Profile">
                         </div>
@@ -611,110 +610,39 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>Mã KM</th>
-                                    <th>Tên khuyến mãi</th>
-                                    <th>Loại</th>
-                                    <th>Giá trị</th>
-                                    <th>Ngày bắt đầu</th>
-                                    <th>Ngày kết thúc</th>
-                                    <th>Giới hạn</th>
-                                    <th>Đã dùng</th>
-                                    <th>Trạng thái</th>
-                                    <th>Thao tác</th>
-                                </tr>
+                            <tr>
+                                <th>Mã KM</th>
+                                <th>Tên khuyến mãi</th>
+                                <th>Giảm giá</th>
+                                <th>Loại</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>SUMMER2025</td>
-                                    <td>Khuyến mãi hè 2025</td>
-                                    <td>Phần trăm</td>
-                                    <td>15%</td>
-                                    <td>01/04/2025</td>
-                                    <td>30/06/2025</td>
-                                    <td>100</td>
-                                    <td>23</td>
-                                    <td><span class="badge bg-success">Hoạt động</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>NEWUSER</td>
-                                    <td>Người dùng mới</td>
-                                    <td>Cố định</td>
-                                    <td>500,000đ</td>
-                                    <td>01/01/2025</td>
-                                    <td>31/12/2025</td>
-                                    <td>Không giới hạn</td>
-                                    <td>45</td>
-                                    <td><span class="badge bg-success">Hoạt động</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>LONGTERM</td>
-                                    <td>Thuê dài hạn</td>
-                                    <td>Phần trăm</td>
-                                    <td>20%</td>
-                                    <td>01/03/2025</td>
-                                    <td>31/05/2025</td>
-                                    <td>50</td>
-                                    <td>12</td>
-                                    <td><span class="badge bg-success">Hoạt động</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>WEEKEND</td>
-                                    <td>Cuối tuần vui vẻ</td>
-                                    <td>Phần trăm</td>
-                                    <td>10%</td>
-                                    <td>01/04/2025</td>
-                                    <td>30/04/2025</td>
-                                    <td>200</td>
-                                    <td>53</td>
-                                    <td><span class="badge bg-success">Hoạt động</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>SPRING2025</td>
-                                    <td>Mùa xuân 2025</td>
-                                    <td>Cố định</td>
-                                    <td>300,000đ</td>
-                                    <td>01/01/2025</td>
-                                    <td>31/03/2025</td>
-                                    <td>80</td>
-                                    <td>80</td>
-                                    <td><span class="badge bg-danger">Đã hết</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <!-- Thymeleaf iteration to list all promotions -->
+                            <tr th:each="promotion : ${promotions}">
+                                <td th:text="${promotion.code}">SUMMER2025</td>
+                                <td th:text="${promotion.description}">Khuyến mãi hè 2025</td>
+                                <td th:text="${promotion.discountpercent + '%'}">15%</td>
+                                <td th:text="${promotion.type}">1</td>
+                                <td>
+                                <span th:classappend="${promotion.isactive == 1} ? 'badge bg-success' : 'badge bg-danger'"
+                                th:text="${promotion.isactive == 1 ? 'Khả dụng' : 'Không khả dụng'}">
+                                Khả dụng
+                                </span>
+                                </td>
+                                 <td>
+                                    <div class="table-action">
+                                        <button>
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button th:onclick="|deletePromotion(${promotion.id})|" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -1707,6 +1635,7 @@
             </div>
         </div>
     </div>
+
 </body>
 <script src="/assets/js/admin_dash.js"></script>
 <!-- <script src="/assets/js/switched-sb.js"></script> -->

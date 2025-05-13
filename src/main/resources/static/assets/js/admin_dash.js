@@ -217,6 +217,26 @@ function deleteAccount(email) {
             });
     }
 }
+function deletePromotion(id) {
+    if (confirm("Bạn có chắc chắn muốn xóa khuyến mãi này không?")) {
+        fetch(`/admin/promotions/delete/${id}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Đã xóa thành công!");
+                    location.reload(); // reload lại trang
+                } else {
+                    alert("Xóa thất bại. Vui lòng thử lại!");
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi gửi yêu cầu xóa:", error);
+                alert("Đã xảy ra lỗi.");
+            });
+    }
+}
+
 function deleteCar(id) {
     if (confirm("Bạn có chắc chắn muốn xóa xe này?")) {
         fetch(`/admin/cars/delete/${id}`, {
