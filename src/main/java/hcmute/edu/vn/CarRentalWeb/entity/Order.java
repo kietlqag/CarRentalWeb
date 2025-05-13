@@ -15,12 +15,6 @@ public class Order {
     private int id;
 
     private String name;
-    private String brand;
-    private int price;
-    private int seat;
-    private String model;
-    private String bodystyle;
-    private String engine;
     private String accountemail;
     private String status;
     private LocalDateTime createdat;
@@ -32,14 +26,19 @@ public class Order {
     private String service;
     private Date receivedate;
     private Date returndate;
+    private int countdate;
+    private String customer;
+    private String phone;
+    private String picklocation;
+    private String note;
 
     public Order() {}
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -51,53 +50,6 @@ public class Order {
         this.name = name;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getSeat() {
-        return seat;
-    }
-
-    public void setSeat(int seat) {
-        this.seat = seat;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getBodystyle() {
-        return bodystyle;
-    }
-
-    public void setBodystyle(String bodystyle) {
-        this.bodystyle = bodystyle;
-    }
-
-    public String getEngine() {
-        return engine;
-    }
-
-    public void setEngine(String engine) {
-        this.engine = engine;
-    }
 
     public String getAccountemail() {
         return accountemail;
@@ -185,5 +137,45 @@ public class Order {
 
     public void setReturndate(Date returndate) {
         this.returndate = returndate;
+    }
+
+    public int getCountdate() {
+        return countdate;
+    }
+
+    public void setCountdate(int countdate) {
+        this.countdate = countdate;
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer = customer;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPicklocation() {
+        return picklocation;
+    }
+
+    public void setPicklocation(String picklocation) {
+        this.picklocation = picklocation;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

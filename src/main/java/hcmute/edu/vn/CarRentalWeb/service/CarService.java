@@ -29,13 +29,16 @@ public class CarService {
     }
 
     public void deleteCarById(int id) {
+
         carRepository.deleteById(id);
     }
 
     public Page<Car> getCarPage(String status, Pageable pageable) {
         return carRepository.findAllByStatus(status, pageable);
     }
+
     public void save(Car car) {
+
         carRepository.save(car);
     }
 

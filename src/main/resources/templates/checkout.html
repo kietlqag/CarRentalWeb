@@ -18,24 +18,33 @@
       <form id="bookingForm">
         <div class="mb-3">
           <label class="form-label">Họ và tên</label>
-          <input type="text" class="form-control" placeholder="Nhập họ tên" required>
+          <input type="text" class="form-control" placeholder="Nhập họ tên"
+                 th:value="${account != null} ? ${account.getFullName()} : ''" required>
         </div>
+
         <div class="mb-3">
           <label class="form-label">Email</label>
-          <input type="email" class="form-control" placeholder="Địa chỉ Gmail" required>
+          <input type="email" class="form-control" placeholder="Địa chỉ Gmail"
+                 th:value="${account != null} ? ${account.getEmail()} : ''" required>
         </div>
+
         <div class="mb-3">
           <label class="form-label">Số điện thoại</label>
-          <input type="tel" class="form-control" placeholder="Số điện thoại" required>
+          <input type="tel" class="form-control" placeholder="Số điện thoại"
+                 th:value="${account != null} ? ${account.getPhone()} : ''" required>
         </div>
+
         <div class="mb-3">
           <label class="form-label">Địa điểm nhận xe</label>
-          <input type="text" class="form-control" placeholder="Nhập địa điểm" required>
+          <input type="text" class="form-control" placeholder="Nhập địa điểm"
+                 th:value="${account != null} ? ${account.getAddress()} : ''" required>
         </div>
+
         <div class="mb-3">
           <label class="form-label">Ghi chú</label>
           <textarea class="form-control" rows="3" placeholder="Ghi chú thêm..."></textarea>
         </div>
+
         <div class="mb-3">
           <label class="form-label">Khuyến mãi</label>
           <select class="form-select" id="discountSelect">
@@ -57,9 +66,12 @@
     <div class="col-md-5">
       <h5 class="section-title">Tóm Tắt Đặt Xe</h5>
       <div class="summary-box">
-        <img src="https://via.placeholder.com/350x200" alt="Car Image" id="summaryImage" class="mb-3">
-        <h5 id="summaryCarName">Toyota Land Cruiser (2022)</h5>
-        <p><strong>Dịch vụ:</strong> <span id="summaryService">Airport Transfer</span></p>
+        <img id="summaryImage" th:src="${car.image}" class="mb-3" alt="Ảnh xe">
+        <h4 id="summaryCarName" th:text="${car.getName()}">Toyota Land Cruiser (2022)</h4>
+        <p><strong>Dịch vụ:</strong>
+          <span id="summaryService"
+                th:text="${service != null ? service.getNameService() : ''}">Airport Transfer</span>
+        </p>
         <p><strong>Ngày nhận:</strong>
           <span id="summaryDate" th:text="${#temporals.format(startDate, 'dd/MM/yyyy')}">12/06/2025</span>
         </p>
@@ -67,10 +79,11 @@
           <span id="summaryPeriod" th:text="${#temporals.format(endDate, 'dd/MM/yyyy')}">14/06/2025</span>
         </p>
 
-        <p><strong>Số ngày thuê:</strong> <span id="summaryDays">2 ngày</span></p>
-        <p><strong>VAT:</strong> <span id="summaryVAT">10%</span></p>
+        <p><strong>Số ngày thuê:</strong>
+          <span id="summaryDays" th:text="${countdate}">2 ngày</span>
+        </p>
         <hr>
-        <h5 class="text-primary">Tổng tiền: <span id="summaryTotal">3.300.000đ</span></h5>
+        <h5 class="text-primary">Tổng tiền: <span id="summaryTotal" th:text="${total}">3.300.000đ</span></h5>
       </div>
     </div>
   </div>
