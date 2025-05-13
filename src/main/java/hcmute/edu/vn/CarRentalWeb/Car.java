@@ -1,9 +1,7 @@
-package hcmute.edu.vn.CarRentalWeb.entity;
+package hcmute.edu.vn.CarRentalWeb;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "cars")

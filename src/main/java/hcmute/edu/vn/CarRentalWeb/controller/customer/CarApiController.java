@@ -1,6 +1,6 @@
 package hcmute.edu.vn.CarRentalWeb.controller.customer;
 
-import hcmute.edu.vn.CarRentalWeb.entity.Car;
+import hcmute.edu.vn.CarRentalWeb.Car;
 import hcmute.edu.vn.CarRentalWeb.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

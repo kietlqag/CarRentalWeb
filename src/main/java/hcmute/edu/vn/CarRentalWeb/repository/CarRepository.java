@@ -1,6 +1,6 @@
 package hcmute.edu.vn.CarRentalWeb.repository;
 
-import hcmute.edu.vn.CarRentalWeb.entity.Car;
+import hcmute.edu.vn.CarRentalWeb.Car;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

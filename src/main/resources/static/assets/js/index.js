@@ -50,5 +50,47 @@ function populateCarModal(car) {
     document.getElementById("car-style").textContent = car.bodystyle;
 }
 
+const bookNowBtn = document.getElementById('bookNowBtn');
+
+bookNowBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const carId = document.getElementById('car-name').getAttribute('data-car-id');
+    const serviceId = document.getElementById('services').value;
+    const finalServiceId = (serviceId === "none") ? 0 : serviceId;
+
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    if (!startDate || !endDate) {
+        alert("Vui lòng chọn ngày nhận và ngày trả xe.");
+        return;
+    }
+
+    if (startDate > endDate) {
+        alert("Chọn ngày không phù hợp. Vui lòng chọn lại.");
+        return;
+    }
+
+    window.location.href = `/checkout?idCar=${carId}&idService=${finalServiceId}&startDate=${startDate}&endDate=${endDate}`;
+});
+
+
+document.querySelectorAll('.details-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        const carId = this.getAttribute('data-car-id');
+
+        // Lưu carId vào phần tử có id="car-name"
+        const carNameEl = document.getElementById('car-name');
+        carNameEl.setAttribute('data-car-id', carId);
+
+        // Có thể mở modal ở đây nếu cần
+        const modal = new bootstrap.Modal(document.getElementById('carRentalModal'));
+        modal.show();
+    });
+});
+
+
+
 
 

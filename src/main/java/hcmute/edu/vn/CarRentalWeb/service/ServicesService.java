@@ -21,4 +21,8 @@ public class ServicesService {
     public Page<Services> getServicePage(String status, Pageable pageable){
         return serviceRepository.findAllByStatus(status, pageable);
     }
+
+    public Services getServiceById(int id){
+        return serviceRepository.findById(id);
+    }
 }

@@ -12,4 +12,5 @@ import java.util.List;
 public interface ServiceRepository extends JpaRepository<Services, Integer> {
     List<Services> findAllByStatus(String status);
     Page<Services> findAllByStatus(String status, Pageable pageable);
+    Services findById(int id);
 }

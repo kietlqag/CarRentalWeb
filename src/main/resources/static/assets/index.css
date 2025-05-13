@@ -432,3 +432,29 @@ body::-webkit-scrollbar {
 footer {
     background-color: var(--golden-brow) !important;
 }
+
+body {
+    background-color: #f8f9fa;
+}
+.checkout-container {
+    max-width: 960px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.section-title {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+.summary-box {
+    background-color: #f1f3f5;
+    padding: 20px;
+    border-radius: 10px;
+}
+.summary-box img {
+    max-width: 100%;
+    border-radius: 10px;
+}
