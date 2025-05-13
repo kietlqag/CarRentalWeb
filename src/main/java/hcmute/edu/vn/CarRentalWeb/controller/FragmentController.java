@@ -15,4 +15,9 @@ public class FragmentController {
     public String getAdminSidebar() {
         return "fragments/admin_sb :: sidebar";
     }
+
+    @GetMapping("/customer_sb.html")
+    public String getCustomerSidebar() {
+        return "fragments/customer_sb :: sidebar";
+    }
 }

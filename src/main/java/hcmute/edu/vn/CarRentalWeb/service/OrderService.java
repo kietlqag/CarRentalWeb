@@ -15,4 +15,12 @@ public class OrderService {
     public List<Order> getAllOrder(){
         return orderRepo.findAll();
     }
+
+    public int countOrderByEmail(String email){
+        return orderRepo.countByAccountemail(email);
+    }
+
+    public List<Order> getAllOrderByEmail(String email){
+        return orderRepo.findAllByAccountemail(email);
+    }
 }

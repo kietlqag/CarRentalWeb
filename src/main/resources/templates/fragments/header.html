@@ -12,13 +12,21 @@
                 <li class="nav-item"><a class="nav-link" href="#service">Dịch vụ</a></li>
                 <li class="nav-item"><a class="nav-link" href="#car">Danh mục xe</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contactid">Liên hệ</a></li>
-                <li class="nav-item" th:if="${account == null}">
-                    <a class="nav-link login-btn" href="/login">Đăng nhập</a>
-                </li>
-                <li class="nav-item" th:if="${account != null}">
-                    <a class="nav-link login-btn" href="#">Xin chào, <span th:text="${account.fullName}">Tên người dùng</span></a>
-                </li>
 
+                <li class="nav-item dropdown" th:if="${account != null}">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Xin chào, <span th:text="${account.fullName}">Tên người dùng</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" th:unless="${account != null}">
+                    <a class="nav-link" href="/login">Đăng nhập</a>
+                </li>
             </ul>
         </div>
     </div>
