@@ -2,14 +2,17 @@ package hcmute.edu.vn.CarRentalWeb.controller.admin;
 
 import hcmute.edu.vn.CarRentalWeb.dto.AccountUpdateRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
+<<<<<<< HEAD
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Promotion;
+=======
+import hcmute.edu.vn.CarRentalWeb.Car;
+>>>>>>> e69a1e10f6ed1e6f9ab33af9ff7f0319e1ee37a7
 import hcmute.edu.vn.CarRentalWeb.service.AccountService;
 import hcmute.edu.vn.CarRentalWeb.service.CarService;
 import hcmute.edu.vn.CarRentalWeb.service.PromotionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +22,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class HomeControllerAdmin {

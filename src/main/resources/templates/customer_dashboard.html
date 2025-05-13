@@ -123,7 +123,6 @@
                                     <th>Tổng tiền</th>
                                     <th>Trạng thái</th>
                                     <th>Trạng thái thanh toán</th>
-                                    <th>Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -144,12 +143,6 @@
                                 <span class="badge"
                                       th:classappend="${order.getPaymentstatus()} == 'Đã thanh toán' ? ' bg-success' : ''"
                                       th:text="${order.getPaymentstatus()}">Chưa thanh toán</span>
-                                </td>
-                                <td>
-                                    <div class="table-action">
-                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modifyBookingModal" data-booking-id="BK1234"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1234')"><i class="fas fa-trash"></i></button>
-                                    </div>
                                 </td>
                             </tr>
                             </tbody>
@@ -205,58 +198,44 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>Mã đặt xe</th>
-                                    <th>Xe</th>
-                                    <th>Ngày bắt đầu</th>
-                                    <th>Ngày kết thúc</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Trạng thái</th>
-                                    <th>Thao tác</th>
-                                </tr>
+                            <tr>
+                                <th>Mã đơn hàng</th>
+                                <th>Xe</th>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Trạng thái thanh toán</th>
+                                <th>Thao tác</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#BK1234</td>
-                                    <td>Toyota Camry</td>
-                                    <td>20/04/2025</td>
-                                    <td>25/04/2025</td>
-                                    <td>5,000,000đ</td>
-                                    <td><span class="badge bg-success">Xác nhận</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modifyBookingModal" data-booking-id="BK1234"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1234')"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#BK1233</td>
-                                    <td>Honda Civic</td>
-                                    <td>15/04/2025</td>
-                                    <td>20/04/2025</td>
-                                    <td>4,500,000đ</td>
-                                    <td><span class="badge bg-warning">Chờ xác nhận</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modifyBookingModal" data-booking-id="BK1233"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1233')"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#BK1232</td>
-                                    <td>Ford Ranger</td>
-                                    <td>10/04/2025</td>
-                                    <td>15/04/2025</td>
-                                    <td>6,000,000đ</td>
-                                    <td><span class="badge bg-danger">Đã hoàn thành</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr th:each="order : ${Orders}">
+                                <td th:text="${order.getId()}">#BK1233</td>
+                                <td th:text="${order.getName()}">Honda Civic</td>
+                                <td th:text="${#dates.format(order.getReceivedate(), 'dd/MM/yyyy')}">15/04/2025</td>
+                                <td th:text="${#dates.format(order.getReturndate(), 'dd/MM/yyyy')}">20/04/2025</td>
+                                <td th:text="${order.getTotal()}">4,500,000đ</td>
+
+                                <td>
+                                <span class="badge"
+                                      th:classappend="' bg-' + (${order.getStatus()} == 'Đã xác nhận' ? 'success' : (${order.getStatus()} == 'Đã huỷ' ? 'danger' : ''))"
+                                      th:text="${order.getStatus()}">Chờ xác nhận</span>
+                                </td>
+
+                                <td>
+                                <span class="badge"
+                                      th:classappend="${order.getPaymentstatus()} == 'Đã thanh toán' ? ' bg-success' : ''"
+                                      th:text="${order.getPaymentstatus()}">Chưa thanh toán</span>
+                                </td>
+                                <td>
+                                    <div class="table-action">
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modifyBookingModal" data-booking-id="BK1234"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1234')"><i class="fas fa-trash"></i></button>
+                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
