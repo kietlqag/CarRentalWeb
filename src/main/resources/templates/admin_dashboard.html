@@ -634,7 +634,17 @@
                                 </td>
                                  <td>
                                     <div class="table-action">
-                                        <button>
+                                        <button
+                                                class="btn btn-sm btn-warning"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editPromotionModal"
+                                                th:attr="
+                                                    data-id=${promotion.id},
+                                                    data-code=${promotion.code},
+                                                    data-description=${promotion.description},
+                                                    data-discountpercent=${promotion.discountpercent},
+                                                    data-type=${promotion.type},
+                                                    data-isactive=${promotion.isactive}">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button th:onclick="|deletePromotion(${promotion.id})|" class="btn btn-sm btn-danger">
@@ -1395,56 +1405,6 @@
             </div>
         </div>
 
-        <!-- Add Promotion Modal -->
-        <div class="modal fade" id="addPromotionModal" tabindex="-1" aria-labelledby="addPromotionModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addPromotionModalLabel">Tạo khuyến mãi mới</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="addPromotionForm">
-                            <div class="mb-3">
-                                <label for="promotionCode" class="form-label">Mã khuyến mãi</label>
-                                <input type="text" class="form-control" id="promotionCode" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="promotionName" class="form-label">Tên khuyến mãi</label>
-                                <input type="text" class="form-control" id="promotionName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="promotionType" class="form-label">Loại khuyến mãi</label>
-                                <select class="form-control" id="promotionType" required>
-                                    <option value="Phần trăm">Phần trăm</option>
-                                    <option value="Cố định">Cố định</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="promotionValue" class="form-label">Giá trị</label>
-                                <input type="text" class="form-control" id="promotionValue" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="promotionStartDate" class="form-label">Ngày bắt đầu</label>
-                                <input type="text" class="form-control date-picker" id="promotionStartDate" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="promotionEndDate" class="form-label">Ngày kết thúc</label>
-                                <input type="text" class="form-control date-picker" id="promotionEndDate" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="promotionLimit" class="form-label">Giới hạn sử dụng</label>
-                                <input type="text" class="form-control" id="promotionLimit" placeholder="VD: 100 hoặc Không giới hạn">
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-animated">
-                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
-                                Tạo khuyến mãi
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Add Payment Method Modal -->
         <div class="modal fade" id="addPaymentMethodModal" tabindex="-1" aria-labelledby="addPaymentMethodModalLabel" aria-hidden="true">
@@ -1635,7 +1595,50 @@
             </div>
         </div>
     </div>
+    <!-- Modal Edit Promotion -->
+    <div class="modal fade" id="editPromotionModal" tabindex="-1" aria-labelledby="editPromotionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPromotionModalLabel">Chỉnh sửa Khuyến Mãi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPromotionForm">
+                        <div class="mb-3">
+                            <label for="promotionCode" class="form-label">Mã Khuyến Mãi</label>
+                            <input type="text" class="form-control" id="promotionCode" name="code" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="promotionDescription" class="form-label">Mô Tả</label>
+                            <textarea class="form-control" id="promotionDescription" name="description" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="promotionDiscountPercent" class="form-label">Phần Trăm Giảm Giá</label>
+                            <input type="number" class="form-control" id="promotionDiscountPercent" name="discountpercent" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="promotionType" class="form-label">Loại Khuyến Mãi</label>
+                            <input type="number" class="form-control" id="promotionType" name="discountpercent" required>
 
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="promotionStatus" class="form-label">Trạng Thái</label>
+                            <select class="form-select" id="promotionStatus" name="isactive" required>
+                                <option value="1">Khả dụng</option>
+                                <option value="0">Không khả dụng</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary" id="savePromotionButton">Lưu Thay Đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="/assets/js/admin_dash.js"></script>
 <!-- <script src="/assets/js/switched-sb.js"></script> -->

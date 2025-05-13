@@ -1,11 +1,8 @@
 package hcmute.edu.vn.CarRentalWeb.controller.admin;
 
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
-<<<<<<< HEAD
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Promotion;
-=======
->>>>>>> e69a1e10f6ed1e6f9ab33af9ff7f0319e1ee37a7
 import hcmute.edu.vn.CarRentalWeb.service.AccountService;
 import hcmute.edu.vn.CarRentalWeb.service.CarService;
 import hcmute.edu.vn.CarRentalWeb.service.PromotionService;
