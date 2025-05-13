@@ -1,5 +1,5 @@
 let currentPage = 0;
-let totalPages = 1; // mặc định 1, sẽ cập nhật sau
+let totalPages = 1;
 let currentCarPage = 0;
 
 function loadServices(page) {
@@ -62,8 +62,9 @@ function changeCarPage(delta) {
         currentCarPage = nextPage;
 
         // Cập nhật số trang hiển thị
-        document.getElementById('car-page-info').textContent = 'Trang ' + (currentCarPage + 1);
+        document.getElementById('car-page-info').innerText = `Trang ${currentCarPage + 1} / ${totalCarPages}`;
     }
 }
+
 
 
