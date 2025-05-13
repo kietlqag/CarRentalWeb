@@ -26,6 +26,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home(@RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "0") int carPage,
                        HttpSession session,
                        Model model) {
         Account account = (Account) session.getAttribute("account");
@@ -36,8 +37,10 @@ public class HomeController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", services.getTotalPages());
 
-        List<Car> cars = carService.getAllCars();
-        model.addAttribute("cars", cars);
+        Page<Car> cars = carService.getCarPage("Sẵn sàng", PageRequest.of(carPage, 6));
+        model.addAttribute("cars", cars.getContent());
+        model.addAttribute("currentCarPage", carPage);
+        model.addAttribute("totalCarPages", cars.getTotalPages());
 
         return "index";
     }
@@ -52,6 +55,18 @@ public class HomeController {
         model.addAttribute("totalPages", servicePage.getTotalPages());
 
         return "fragments/service_list_fragment :: serviceList";
+    }
+
+    @GetMapping("/home/cars")
+    public String getPagedCar(@RequestParam(defaultValue = "0") int page, Model model) {
+        int pageSize = 6;
+        Page<Car> carPage = carService.getCarPage("Sẵn sàng", PageRequest.of(page, pageSize));
+
+        model.addAttribute("cars", carPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", carPage.getTotalPages());
+
+        return "fragments/car_list_fragment :: carList";
     }
 
 }

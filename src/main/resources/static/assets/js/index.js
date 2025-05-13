@@ -42,7 +42,7 @@ function showCarDetails(carId) {
 
 function populateCarModal(car) {
     document.getElementById("car-name").textContent = car.name;
-    document.getElementById("car-price").textContent = `${car.price} / Ngày`;
+    document.getElementById("car-price").textContent = `${car.price}đ/ngày`;
     document.getElementById("car-image").src = car.image || "./img/default.jpg";
     document.getElementById("car-engine").textContent = car.engine;
     document.getElementById("car-seat").textContent = `${car.seat} chỗ`;
