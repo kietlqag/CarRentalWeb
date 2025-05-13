@@ -1,3 +1,50 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const editButtons = document.querySelectorAll('.btn-warning');
+    editButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const id = button.getAttribute('data-id');
+            document.getElementById('promotionId').value = id; // Gán id vào input hidden
+
+            // Gán các trường còn lại
+            document.getElementById('promotionCode').value = button.getAttribute('data-code');
+            document.getElementById('promotionDescription').value = button.getAttribute('data-description');
+            document.getElementById('promotionDiscountPercent').value = button.getAttribute('data-discountpercent');
+            document.getElementById('promotionType').value = button.getAttribute('data-type');
+            document.getElementById('promotionStatus').value = button.getAttribute('data-isactive');
+        });
+    });
+
+    document.getElementById('savePromotionButton').addEventListener('click', function () {
+        const id = document.getElementById('promotionId').value;
+
+        const payload = {
+            code: document.getElementById('promotionCode').value,
+            description: document.getElementById('promotionDescription').value,
+            discountpercent: document.getElementById('promotionDiscountPercent').value,
+            type: document.getElementById('promotionType').value,
+            isactive: document.getElementById('promotionStatus').value
+        };
+
+        fetch(`/admin/promotions/update/${id}`, {
+            method: 'PUT', // Phải dùng PUT vì controller dùng @PutMapping
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Cập nhật thành công');
+                    $('#editPromotionModal').modal('hide');
+                } else {
+                    alert('Cập nhật thất bại');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi dữ liệu:', error);
+            });
+    });
+});
 document.addEventListener("DOMContentLoaded", () => {
     // Load sidebar
     fetch("/admin_sb.html")
