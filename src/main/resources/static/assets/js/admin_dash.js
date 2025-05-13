@@ -110,16 +110,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 document.addEventListener("DOMContentLoaded", () => {
     // Khi bấm nút Edit
-    const editModal = document.getElementById("editCarModal");
-    editModal.addEventListener("show.bs.modal", function (event) {
-        const button = event.relatedTarget;
-        const id = button.getAttribute("data-id");
-        const price = button.getAttribute("data-price");
-        const status = button.getAttribute("data-status");
+    const editCarModal = document.getElementById('editCarModal');
 
-        document.getElementById("editCarId").value = id;
-        document.getElementById("editCarPrice").value = price;
-        document.getElementById("editCarStatus").value = status;
+    editCarModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const carId = button.getAttribute('data-id');
+        const price = button.getAttribute('data-price');
+        const status = button.getAttribute('data-status');
+
+        // Gán dữ liệu vào form
+        document.getElementById('editCarId').value = carId;
+        document.getElementById('editCarPrice').value = price;
+        document.getElementById('editCarStatus').value = status;
     });
 
     // Gửi dữ liệu cập nhật khi submit

@@ -356,94 +356,29 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="account-table">
                             <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Họ và tên</th>
-                                    <th>Email</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Vai trò</th>
-                                    <th>Trạng thái</th>
-                                    <th>Thao tác</th>
-                                </tr>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Email</th>
+                                <th>Họ tên</th>
+                                <th>Số điện thoại</th>
+                                <th>Địa chỉ</th>
+                                <th>Vai trò</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Nguyễn Văn Quản Lý</td>
-                                    <td>admin@example.com</td>
-                                    <td>0901234567</td>
-                                    <td>Admin</td>
-                                    <td><span class="badge bg-success">Hoạt động</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Trần Thị Nhân Viên</td>
-                                    <td>staff@example.com</td>
-                                    <td>0912345678</td>
-                                    <td>Nhân viên</td>
-                                    <td><span class="badge bg-success">Hoạt động</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Lê Văn Tư Vấn</td>
-                                    <td>consultant@example.com</td>
-                                    <td>0923456789</td>
-                                    <td>Tư vấn viên</td>
-                                    <td><span class="badge bg-success">Hoạt động</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Phạm Thị Khách Hàng</td>
-                                    <td>customer@example.com</td>
-                                    <td>0934567890</td>
-                                    <td>Khách hàng</td>
-                                    <td><span class="badge bg-success">Hoạt động</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Hoàng Văn Khóa</td>
-                                    <td>locked@example.com</td>
-                                    <td>0945678901</td>
-                                    <td>Khách hàng</td>
-                                    <td><span class="badge bg-danger">Bị khóa</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr th:each="account : ${accounts}">
+                                <td>
+                                    <img th:src="@{${account.avatar}}" class="avatar" alt="avatar"/>
+                                </td>
+                                <td th:text="${account.email}"></td>
+                                <td th:text="${account.fullName}"></td>
+                                <td th:text="${account.phone}"></td>
+                                <td th:text="${account.address}"></td>
+                                <td th:text="${account.role}"></td>
+
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -494,13 +429,12 @@
                                 <td th:text="${#numbers.formatInteger(car.price, 0, 'POINT')} + 'đ'">1,000,000đ</td>
                                 <td>
                                     <span th:classappend="
-                                        ${car.status} == '1' ? 'badge bg-success' :
-                                        (${car.status} == '2' ? 'badge bg-danger' : 'badge bg-warning')">
-                                        <span th:text="
-                                            ${car.status} == '1' ? 'Sẵn sàng' :
-                                            (${car.status} == '2' ? 'Đang thuê' : 'Bảo dưỡng')">Trạng thái</span>
+                                    ${car.status} == 'Sẵn sàng' ? 'badge bg-success' :
+                                    (${car.status} == 'Đang thuê' ? 'badge bg-danger' : 'badge bg-warning')"
+                                    >
+                                    <span th:text="${car.status}">Trạng thái</span>
                                     </span>
-                                </td>
+                            </td>
                                 <td>
                                     <div class="table-action">
                                         <button
@@ -508,9 +442,9 @@
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editCarModal"
                                                 th:attr="
-                                                        data-id=${car.id},
-                                                        data-price=${car.price},
-                                                        data-status=${car.status}">
+                                                data-id=${car.id},
+                                                data-price=${car.price},
+                                                data-status=${car.status}">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button th:attr="onclick=|deleteCar(${car.id})|" class="btn btn-sm btn-danger">
@@ -1462,115 +1396,8 @@
                 </div>
             </div>
         </div>
-        <!-- Add User Modal -->
-        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addUserModalLabel">Thêm người dùng mới</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="addUserForm">
-                            <div class="mb-3">
-                                <label for="userName" class="form-label">Họ và tên</label>
-                                <input type="text" class="form-control" id="userName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="userEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="userEmail" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="userPhone" class="form-label">Số điện thoại</label>
-                                <input type="text" class="form-control" id="userPhone">
-                            </div>
-                            <div class="mb-3">
-                                <label for="userRole" class="form-label">Vai trò</label>
-                                <select class="form-control" id="userRole" required>
-                                    <option value="Admin">Admin</option>
-                                    <option value="Nhân viên">Nhân viên</option>
-                                    <option value="Tư vấn viên">Tư vấn viên</option>
-                                    <option value="Khách hàng">Khách hàng</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="userStatus" class="form-label">Trạng thái</label>
-                                <select class="form-control" id="userStatus" required>
-                                    <option value="Hoạt động">Hoạt động</option>
-                                    <option value="Bị khóa">Bị khóa</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-animated">
-                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
-                                Thêm người dùng
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Add Car Modal -->
-        <div class="modal fade" id="addCarModal" tabindex="-1" aria-labelledby="addCarModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addCarModalLabel">Thêm xe mới</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="carForm" class="p-4 rounded shadow bg-light">
-                            <h4 class="mb-4">Tạo xe mới</h4>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="name" class="form-label">Tên xe *</label>
-                                    <input type="text" class="form-control" id="name" name="name" required />
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="brand" class="form-label">Hãng *</label>
-                                    <input type="text" class="form-control" id="brand" name="brand" required />
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="price" class="form-label">Giá *</label>
-                                    <input type="number" class="form-control" id="price" name="price" required />
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="seat" class="form-label">Số chỗ</label>
-                                    <input type="number" class="form-control" id="seat" name="seat" />
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <label for="engine" class="form-label">Động cơ</label>
-                                    <input type="text" class="form-control" id="engine" name="engine" />
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="model" class="form-label">Model</label>
-                                    <input type="text" class="form-control" id="model" name="model" />
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="bodystyle" class="form-label">Kiểu dáng</label>
-                                <input type="text" class="form-control" id="bodystyle" name="bodystyle" />
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="image" class="form-label">URL ảnh</label>
-                                <input type="url" class="form-control" id="image" name="image" placeholder="https://example.com/image.jpg" />
-                            </div>
-
-                            <button type="submit" class="btn btn-primary w-100">Tạo xe</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Add Contract Modal -->
         <div class="modal fade" id="addContractModal" tabindex="-1" aria-labelledby="addContractModalLabel" aria-hidden="true">
@@ -1775,9 +1602,9 @@
                     <div class="mb-3">
                         <label for="editCarStatus" class="form-label">Trạng thái</label>
                         <select class="form-select" id="editCarStatus" name="status" required>
-                            <option value="1">Sẵn sàng</option>
-                            <option value="2">Đang thuê</option>
-                            <option value="3">Bảo dưỡng</option>
+                            <option value="Sẵn sàng">Sẵn sàng</option>
+                            <option value="Đang thuê">Đang thuê</option>
+                            <option value="Bảo dưỡng">Bảo dưỡng</option>
                         </select>
                     </div>
                 </div>

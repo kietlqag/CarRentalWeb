@@ -2,6 +2,7 @@ package hcmute.edu.vn.CarRentalWeb.controller.admin;
 
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
+import hcmute.edu.vn.CarRentalWeb.service.AccountService;
 import hcmute.edu.vn.CarRentalWeb.service.CarService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,17 @@ import java.util.Optional;
 public class HomeControllerAdmin {
     @Autowired
     private CarService carService;
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("/admin/dashboard")
     public String home(HttpSession session, Model model) {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
-        List<Car> cars = carService.getAllCars();
+        List<Car> cars = carService.getAll();
         model.addAttribute("cars", cars);
+        List<Account> accounts = accountService.getAllAccount();
+        model.addAttribute("accounts", accounts);
         return "admin_dashboard";
     }
 
@@ -50,4 +55,22 @@ public class HomeControllerAdmin {
         carService.save(car);
         return ResponseEntity.ok().build();
     }
+    @DeleteMapping("/admin/accounts/delete/{email}")
+    @ResponseBody
+    public ResponseEntity<?> deleteAccount(@PathVariable String email) {
+        accountService.deleteAccountByEmail(email);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping("/admin/accounts/update/{email}")
+    @ResponseBody
+   public ResponseEntity<?> updateAccount(@PathVariable String email, @RequestBody Map<String, String> payload) {
+        Account account = accountService.getAccountByEmail(payload.get("email"));
+        account.setFullName(payload.get("fullName"));
+        account.setAddress(payload.get("address"));
+        account.setPhone(payload.get("phone"));
+        account.setRole(payload.get("role"));
+        accountService.save(account);
+        return ResponseEntity.ok().build();
+    }
+
 }

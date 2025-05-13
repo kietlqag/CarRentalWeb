@@ -20,7 +20,10 @@ public class AccountService {
 public void save(Account account) {
         accountRepo.save(account);
 }
-public void deleteAccountById(String email) {
+public void deleteAccountByEmail(String email) {
         accountRepo.deleteByEmail(email);
+}
+public Account getAccountByEmail(String email) {
+        return accountRepo.findByEmail(email);
 }
 }
