@@ -373,6 +373,13 @@
                                 <td th:text="${account.address}"></td>
                                 <td th:text="${account.role}"></td>
                                 <td>
+                                    <button
+                                            class="btn btn-sm btn-warning"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#editAccountModal"
+                                            th:attr="data-email=${account.email}, data-role=${account.role}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
                                     <button th:attr="onclick=|deleteAccount('${account.email}')|" class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i>
                                     </button>
@@ -992,7 +999,6 @@
                         <svg>
                             <rect x="0" y="0" width="100%" height="100%"></rect>
                         </svg>
-                        <i class="fas fa-download fa-sm"></i> Xuất báo cáo
                     </button>
                 </div>
             </div>
@@ -1670,6 +1676,32 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100">Tạo xe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editAccountModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cập nhật vai trò</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editRoleForm">
+                        <input type="hidden" id="editEmail" />
+
+                        <div class="mb-3">
+                            <label for="editRole" class="form-label">Vai trò</label>
+                            <select class="form-select" id="editRole">
+                                <option value="ADMIN">Admin</option>
+                                <option value="STAFF">Nhân viên</option>
+                                <option value="CUSTOMER">Khách hàng</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                     </form>
                 </div>
             </div>

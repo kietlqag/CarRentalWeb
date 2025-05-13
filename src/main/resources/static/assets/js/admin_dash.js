@@ -75,6 +75,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 document.addEventListener("DOMContentLoaded", function () {
+    const editModal = document.getElementById('editAccountModal');
+
+    if (editModal) {
+        editModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const email = button.getAttribute('data-email');
+            const role = button.getAttribute('data-role');
+
+            document.getElementById('editEmail').value = email;
+            document.getElementById('editRole').value = role;
+        });
+
+        document.getElementById('editRoleForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('editEmail').value;
+            const role = document.getElementById('editRole').value;
+
+            fetch('/admin/accounts/update-role', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email, role: role })
+            })
+                .then(res => {
+                    if (res.ok) {
+                        alert("Đã cập nhật vai trò");
+                        location.reload();
+                    } else {
+                        return res.text().then(msg => alert("Lỗi: " + msg));
+                    }
+                })
+                .catch(err => alert("Lỗi hệ thống: " + err));
+        });
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("carForm");
 
     form.addEventListener("submit", function (e) {
