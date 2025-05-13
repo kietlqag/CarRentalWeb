@@ -4,6 +4,7 @@ import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class AccountService {
 public void save(Account account) {
         accountRepo.save(account);
 }
+    @Transactional
 public void deleteAccountByEmail(String email) {
         accountRepo.deleteByEmail(email);
 }

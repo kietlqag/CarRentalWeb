@@ -154,6 +154,31 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 });
+function deleteAccount(email) {
+    if (confirm("Are you sure you want to delete this account?")) {
+        const emailPrefix = email.split('@')[0].toLowerCase();
+
+        fetch('/admin/accounts/delete?email=' + encodeURIComponent(email), {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Account deleted successfully!");
+                    location.reload()
+                    location.href = '#users';
+
+                } else {
+                    response.text().then(msg => alert("Failed to delete account: " + msg));
+                }
+            })
+            .catch(error => {
+                alert("Error: " + error);
+            });
+    }
+}
 function deleteCar(id) {
     if (confirm("Bạn có chắc chắn muốn xóa xe này?")) {
         fetch(`/admin/cars/delete/${id}`, {
@@ -171,7 +196,6 @@ function deleteCar(id) {
             return response;
         })
         .then(() => {
-            // Remove the car row from the table without reloading
             const carRow = document.querySelector(`tr[data-car-id="${id}"]`);
             if (carRow) {
                 carRow.remove();

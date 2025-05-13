@@ -342,12 +342,6 @@
         <div class="content-section" id="users">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800" style="font-family: 'Javanese Text', serif;">Quản lý người dùng</h1>
-                <button class="btn btn-primary btn-animated" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                    <svg>
-                        <rect x="0" y="0" width="100%" height="100%"></rect>
-                    </svg>
-                    <i class="fas fa-plus fa-sm"></i> Thêm người dùng
-                </button>
             </div>
 
             <div class="card shadow mb-4">
@@ -361,10 +355,11 @@
                             <tr>
                                 <th>Avatar</th>
                                 <th>Email</th>
-                                <th>Họ tên</th>
-                                <th>Số điện thoại</th>
-                                <th>Địa chỉ</th>
-                                <th>Vai trò</th>
+                                <th>Full Name</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Role</th>
+                                <th>Actions</th> <!-- Cột mới cho các hành động -->
                             </tr>
                             </thead>
                             <tbody>
@@ -377,7 +372,11 @@
                                 <td th:text="${account.phone}"></td>
                                 <td th:text="${account.address}"></td>
                                 <td th:text="${account.role}"></td>
-
+                                <td>
+                                    <button th:attr="onclick=|deleteAccount('${account.email}')|" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -1615,7 +1614,67 @@
         </div>
     </div>
 
+    <!-- Add Car Modal -->
+    <div class="modal fade" id="addCarModal" tabindex="-1" aria-labelledby="addCarModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCarModalLabel">Thêm xe mới</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="carForm" class="p-4 rounded shadow bg-light">
+                        <h4 class="mb-4">Tạo xe mới</h4>
 
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Tên xe *</label>
+                                <input type="text" class="form-control" id="name" name="name" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="brand" class="form-label">Hãng *</label>
+                                <input type="text" class="form-control" id="brand" name="brand" required />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="price" class="form-label">Giá *</label>
+                                <input type="number" class="form-control" id="price" name="price" required />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="seat" class="form-label">Số chỗ</label>
+                                <input type="number" class="form-control" id="seat" name="seat" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="engine" class="form-label">Động cơ</label>
+                                <input type="text" class="form-control" id="engine" name="engine" />
+                            </div>
+                            <div class="col-md-6">
+                                <label for="model" class="form-label">Model</label>
+                                <input type="text" class="form-control" id="model" name="model" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="bodystyle" class="form-label">Kiểu dáng</label>
+                            <input type="text" class="form-control" id="bodystyle" name="bodystyle" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="image" class="form-label">URL ảnh</label>
+                            <input type="url" class="form-control" id="image" name="image" placeholder="https://example.com/image.jpg" />
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Tạo xe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="/assets/js/admin_dash.js"></script>
 <!-- <script src="/assets/js/switched-sb.js"></script> -->

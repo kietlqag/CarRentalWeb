@@ -55,10 +55,11 @@ public class HomeControllerAdmin {
         carService.save(car);
         return ResponseEntity.ok().build();
     }
-    @DeleteMapping("/admin/accounts/delete/{email}")
+    @DeleteMapping("/admin/accounts/delete")
     @ResponseBody
-    public ResponseEntity<?> deleteAccount(@PathVariable String email) {
-        accountService.deleteAccountByEmail(email);
+    public ResponseEntity<?> deleteAccount(@RequestParam("email") String email) {
+        System.out.println("👉 Received DELETE for email: " + email);
+            accountService.deleteAccountByEmail(email);
         return ResponseEntity.ok().build();
     }
     @PutMapping("/admin/accounts/update/{email}")
