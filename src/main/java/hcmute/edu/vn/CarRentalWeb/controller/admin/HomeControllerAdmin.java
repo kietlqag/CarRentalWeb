@@ -1,5 +1,6 @@
 package hcmute.edu.vn.CarRentalWeb.controller.admin;
 
+import hcmute.edu.vn.CarRentalWeb.dto.AccountUpdateRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.Car;
 import hcmute.edu.vn.CarRentalWeb.service.AccountService;
@@ -60,16 +61,15 @@ public class HomeControllerAdmin {
             accountService.deleteAccountByEmail(email);
         return ResponseEntity.ok().build();
     }
-    @PutMapping("/admin/accounts/update/{email}")
+    @PutMapping("/admin/accounts/update-role")
     @ResponseBody
-   public ResponseEntity<?> updateAccount(@PathVariable String email, @RequestBody Map<String, String> payload) {
-        Account account = accountService.getAccountByEmail(payload.get("email"));
-        account.setFullName(payload.get("fullName"));
-        account.setAddress(payload.get("address"));
-        account.setPhone(payload.get("phone"));
-        account.setRole(payload.get("role"));
+    public ResponseEntity<?> updateAccountRole(@RequestBody Map<String, String> payload) {
+        String email = payload.get("email");
+        String role = payload.get("role");
+        Account account = accountService.getAccountByEmail(email);
+        account.setRole(role);
         accountService.save(account);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Đã cập nhật vai trò");
     }
 
 }
