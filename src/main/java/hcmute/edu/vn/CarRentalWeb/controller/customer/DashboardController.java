@@ -1,7 +1,9 @@
 package hcmute.edu.vn.CarRentalWeb.controller.customer;
 
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
+import hcmute.edu.vn.CarRentalWeb.entity.Notification;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
+import hcmute.edu.vn.CarRentalWeb.service.NotificationService;
 import hcmute.edu.vn.CarRentalWeb.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class DashboardController {
 
     @Autowired
     OrderService orderService;
+    @Autowired
+    NotificationService notificationService;
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
@@ -24,9 +28,11 @@ public class DashboardController {
 
         int countOrder = orderService.countOrderByEmail(account.getEmail());
         List<Order> Orders = orderService.getAllOrderByEmail(account.getEmail());
+        List<Notification> notificationList = notificationService.getAllNotifications(account.getEmail());
 
         model.addAttribute("countOrder", countOrder);
         model.addAttribute("Orders", Orders);
+        model.addAttribute("notificationList", notificationList);
 
         return "customer_dashboard";
     }
