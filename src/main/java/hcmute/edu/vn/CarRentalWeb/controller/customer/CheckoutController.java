@@ -82,9 +82,14 @@ public class CheckoutController {
 
         if (isSuccess) {
             model.addAttribute("customerName", checkoutData.getCustomer());
-            model.addAttribute("carName", checkoutData.getName());
+            model.addAttribute("name", checkoutData.getName());
             model.addAttribute("total", checkoutData.getTotal());
-            return "checkout-success";
+
+//          Check dữ liệu truyền
+            System.out.println("Tên khách: " + checkoutData.getCustomer());
+            System.out.println("Ngày nhận: " + checkoutData.getReceiveDate());
+            System.out.println("Tổng tiền: " + checkoutData.getTotal());
+            return "checkout";
         } else {
             model.addAttribute("errorMessage", "Có lỗi xảy ra khi lưu đơn đặt xe. Vui lòng thử lại.");
             return "checkout";

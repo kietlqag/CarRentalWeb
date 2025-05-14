@@ -22,7 +22,6 @@ public class Order {
     private BigDecimal total;
     private String paymentstatus;
     private String paymentmethod;
-    private BigDecimal discountpercent;
     private String service;
     private LocalDate receivedate;
     private LocalDate returndate;
@@ -98,14 +97,6 @@ public class Order {
 
     public void setPaymentmethod(String paymentmethod) {
         this.paymentmethod = paymentmethod;
-    }
-
-    public BigDecimal getDiscountpercent() {
-        return discountpercent;
-    }
-
-    public void setDiscountpercent(BigDecimal discountpercent) {
-        this.discountpercent = discountpercent;
     }
 
     public String getService() {
