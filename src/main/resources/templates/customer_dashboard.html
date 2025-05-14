@@ -213,8 +213,8 @@
                             <tr th:each="order : ${Orders}">
                                 <td th:text="${order.getId()}">#BK1233</td>
                                 <td th:text="${order.getName()}">Honda Civic</td>
-                                <td th:text="${#dates.format(order.getReceivedate(), 'dd/MM/yyyy')}">15/04/2025</td>
-                                <td th:text="${#dates.format(order.getReturndate(), 'dd/MM/yyyy')}">20/04/2025</td>
+                                <td th:text="${#dates.format(order.getReceivedate(), 'dd-MM-yyyy')}">15/04/2025</td>
+                                <td th:text="${#dates.format(order.getReturndate(), 'dd-MM-yyyy')}">20/04/2025</td>
                                 <td th:text="${order.getTotal()}">4,500,000đ</td>
 
                                 <td>

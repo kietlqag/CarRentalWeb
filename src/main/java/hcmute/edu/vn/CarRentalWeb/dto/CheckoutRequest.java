@@ -1,6 +1,7 @@
 package hcmute.edu.vn.CarRentalWeb.dto;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class CheckoutRequest {
     // Thông tin khách hàng
@@ -13,8 +14,8 @@ public class CheckoutRequest {
     // Dữ liệu tóm tắt đơn hàng
     private String name;
     private String service;
-    private String receiveDate;   // hoặc dùng LocalDate nếu bạn chuyển kiểu
-    private String returnDate;
+    private Date receiveDate;   // hoặc dùng LocalDate nếu bạn chuyển kiểu
+    private Date returnDate;
     private int countDate;
     private BigDecimal total;
 
@@ -74,19 +75,19 @@ public class CheckoutRequest {
         this.service = service;
     }
 
-    public String getReceiveDate() {
+    public Date getReceiveDate() {
         return receiveDate;
     }
 
-    public void setReceiveDate(String receiveDate) {
+    public void setReceiveDate(Date receiveDate) {
         this.receiveDate = receiveDate;
     }
 
-    public String getReturnDate() {
+    public Date getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(String returnDate) {
+    public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
 

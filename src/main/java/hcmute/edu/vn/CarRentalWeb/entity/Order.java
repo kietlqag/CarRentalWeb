@@ -3,9 +3,8 @@ package hcmute.edu.vn.CarRentalWeb.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
@@ -23,8 +22,8 @@ public class Order {
     private String paymentstatus;
     private String paymentmethod;
     private String service;
-    private LocalDate receivedate;
-    private LocalDate returndate;
+    private Date receivedate;
+    private Date returndate;
     private int countdate;
     private String customer;
     private String phone;
@@ -107,19 +106,19 @@ public class Order {
         this.service = service;
     }
 
-    public LocalDate getReceivedate() {
+    public Date getReceivedate() {
         return receivedate;
     }
 
-    public void setReceivedate(LocalDate receivedate) {
+    public void setReceivedate(Date receivedate) {
         this.receivedate = receivedate;
     }
 
-    public LocalDate getReturndate() {
+    public Date getReturndate() {
         return returndate;
     }
 
-    public void setReturndate(LocalDate returndate) {
+    public void setReturndate(Date returndate) {
         this.returndate = returndate;
     }
 

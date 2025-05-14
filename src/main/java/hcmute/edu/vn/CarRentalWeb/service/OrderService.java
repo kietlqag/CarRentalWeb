@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,12 +44,10 @@ public class OrderService {
             order.setName(data.getName());
             order.setService(data.getService() != null ? data.getService() : "Không");
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate receiveDate = LocalDate.parse(data.getReceiveDate(), formatter);
-            LocalDate returnDate = LocalDate.parse(data.getReturnDate(), formatter);
 
-            order.setReceivedate(receiveDate);
-            order.setReturndate(returnDate);
+
+            order.setReceivedate(data.getReceiveDate());
+            order.setReturndate(data.getReturnDate());
             order.setCountdate(data.getCountDate());
 
             order.setTotal(data.getTotal());
