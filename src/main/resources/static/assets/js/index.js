@@ -55,7 +55,7 @@ const bookNowBtn = document.getElementById('bookNowBtn');
 bookNowBtn.addEventListener('click', function (e) {
     e.preventDefault();
 
-    const carId = document.getElementById('car-name').getAttribute('data-car-id');
+    const carId = this.getAttribute('data-car-id');
     const serviceId = document.getElementById('services').value;
     const finalServiceId = (serviceId === "none") ? 0 : serviceId;
 
@@ -89,6 +89,7 @@ document.querySelectorAll('.details-btn').forEach(button => {
         modal.show();
     });
 });
+
 
 
 
