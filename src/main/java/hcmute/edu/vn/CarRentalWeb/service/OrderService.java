@@ -1,6 +1,7 @@
 package hcmute.edu.vn.CarRentalWeb.service;
 
 import hcmute.edu.vn.CarRentalWeb.dto.CheckoutRequest;
+import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,16 @@ public class OrderService {
 
     public List<Order> getAllOrderByEmail(String email){
         return orderRepo.findAllByAccountemail(email);
+    }
+
+    public Order getOrderById(int id) {
+
+        return orderRepo.findOrderById(id);
+    }
+
+    public void save(Order order ) {
+
+        orderRepo.save(order);
     }
 
     public boolean saveOrder(CheckoutRequest data){

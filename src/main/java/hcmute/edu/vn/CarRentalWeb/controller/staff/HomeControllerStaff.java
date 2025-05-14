@@ -1,21 +1,27 @@
 package hcmute.edu.vn.CarRentalWeb.controller.staff;
 
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
+import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
+import hcmute.edu.vn.CarRentalWeb.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class HomeControllerStaff {
 
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/staff/dashboard")
     public String dashboard(HttpSession session, Model model) {
@@ -27,5 +33,14 @@ public class HomeControllerStaff {
         model.addAttribute("orders", orders); // truyền vào model để Thymeleaf dùng
 
         return "staff_dashboard"; // trỏ tới file staff_dashboard.html
+    }
+
+    @PutMapping("/staff/orders/update/{id}")
+    @ResponseBody
+    public ResponseEntity<?> updateOrder(@PathVariable int id, @RequestBody Map<String, String> payload) {
+        Order order = orderService.getOrderById(id);
+        // sửa ở đây
+        orderService.save(order);
+        return ResponseEntity.ok().build();
     }
 }

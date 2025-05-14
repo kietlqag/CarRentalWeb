@@ -252,34 +252,44 @@
                             <thead>
                             <tr>
                                 <th>Mã đặt xe</th>
-                                <th>Khách hàng</th>
-                                <th>Xe</th>
-                                <th>Ngày bắt đầu</th>
-                                <th>Ngày kết thúc</th>
+                                <th>Tên xe</th>
                                 <th>Tổng tiền</th>
-                                <th>Trạng thái</th>
+                                <th>Dịch vụ</th>
+                                <th>Số ngày cho thuê</th>
+                                <th>Phương thức thanh toán</th>
+                                <th>Trạng thái thanh toán</th>
+                                <th>Trạng thái đơn hàng</th>
                                 <th>Thao tác</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="order : ${orders}">
                                 <td th:text="'#' + ${order.id}">#BKxxxx</td>
-                                <td th:text="${order.accountemail}">Tên khách</td>
-                                <td th:text="${order.service}">Tên xe</td>
-                                <td th:text="${order.createdat}">dd/MM/yyyy</td>
-                                <td th:text="${#numbers.formatInteger(order.total, 3, 'COMMA')} + 'đ'">0đ</td>
+                                <td th:text="${order.name}">Tên xe</td>
+                                <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')} + 'đ'">0đ</td>
+                                <td th:text="${order.service}">Dịch vụ</td>
+                                <td th:text="${order.countdate}">Số ngày cho thuê</td>
+                                <td th:text="${order.paymentmethod}">Phương thức thanh toán</td>
                                 <td>
                                 <span class="badge"
                                       th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
                                                       (order.status == 'Chờ xác nhận' ? 'bg-warning' :
                                                        (order.status == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-                                      th:text="${order.status}">Trạng thái</span>
+                                      th:text="${order.status}">Trạng thái thanh toán
+                                </span>
+                                </td>
+                                <td>
+                                <span class="badge"
+                                      th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
+                                                      (order.paymentstatus == 'Chờ xác nhận' ? 'bg-warning' :
+                                                       (order.paymentstatus == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
+                                      th:text="${order.paymentstatus}">Trạng thái đơn hàng
+                                </span>
                                 </td>
                                 <td>
                                     <div class="table-action">
                                         <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
                                         <button class="btn btn-sm btn-warning"
-                                                th:if="${order.status != 'Đã hoàn thành'}"
                                                 th:attr="data-booking-id=${order.id}"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editBookingModal">
@@ -424,16 +434,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="bookingCustomer" class="form-label">Khách hàng</label>
-                                <input type="text" class="form-control" id="bookingCustomer" required>
+                                <input type="text" class="form-control" id="bookingCustomer" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="bookingCar" class="form-label">Xe</label>
-                                <select class="form-control" id="bookingCar" required>
-                                    <option value="">Chọn xe</option>
-                                    <option value="Toyota Camry">Toyota Camry</option>
-                                    <option value="Honda Civic">Honda Civic</option>
-                                    <option value="Ford Ranger">Ford Ranger</option>
-                                </select>
+                                <input type="text" class="form-control" id="bookingCar" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="bookingStartDate" class="form-label">Ngày bắt đầu</label>
@@ -444,12 +449,17 @@
                                 <input type="text" class="form-control date-picker" id="bookingEndDate" required>
                             </div>
                             <div class="mb-3">
-                                <label for="bookingTotal" class="form-label">Tổng tiền</label>
-                                <input type="number" class="form-control" id="bookingTotal" required>
-                            </div>
-                            <div class="mb-3">
                                 <label for="bookingStatus" class="form-label">Trạng thái</label>
                                 <select class="form-control" id="bookingStatus" required>
+                                    <option value="Xác nhận">Xác nhận</option>
+                                    <option value="Chờ xác nhận">Chờ xác nhận</option>
+                                    <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                    <option value="Hủy">Hủy</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="paymentStatus" class="form-label">Trạng thái</label>
+                                <select class="form-control" id="paymentStatus" required>
                                     <option value="Xác nhận">Xác nhận</option>
                                     <option value="Chờ xác nhận">Chờ xác nhận</option>
                                     <option value="Đã hoàn thành">Đã hoàn thành</option>
