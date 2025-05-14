@@ -79,7 +79,6 @@ public class CheckoutController {
 
         boolean isSuccess = orderService.saveOrder(checkoutData);
 
-
         if (isSuccess) {
             model.addAttribute("customerName", checkoutData.getCustomer());
             model.addAttribute("name", checkoutData.getName());
@@ -89,10 +88,10 @@ public class CheckoutController {
             System.out.println("Tên khách: " + checkoutData.getCustomer());
             System.out.println("Ngày nhận: " + checkoutData.getReceiveDate());
             System.out.println("Tổng tiền: " + checkoutData.getTotal());
-            return "checkout";
+            return "checkout-success";
         } else {
             model.addAttribute("errorMessage", "Có lỗi xảy ra khi lưu đơn đặt xe. Vui lòng thử lại.");
-            return "checkout";
+            return "redirect:/";
         }
     }
 
