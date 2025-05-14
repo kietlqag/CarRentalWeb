@@ -43,4 +43,11 @@ public class HomeControllerStaff {
         orderService.save(order);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/staff/orders/{id}")
+    @ResponseBody
+    public ResponseEntity<Order> getOrderDetails(@PathVariable int id) {
+        Order order = orderService.getOrderById(id);
+        return ResponseEntity.ok(order);
+    }
 }

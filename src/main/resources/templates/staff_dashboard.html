@@ -288,7 +288,12 @@
                                 </td>
                                 <td>
                                     <div class="table-action">
-                                        <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-primary"
+                                                th:attr="data-booking-id=${order.id}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#viewOrderModal">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
                                         <button class="btn btn-sm btn-warning"
                                                 th:attr="data-booking-id=${order.id}"
                                                 data-bs-toggle="modal"
@@ -476,6 +481,36 @@
             </div>
         </div>
 
+        <!-- View Order Modal -->
+        <div class="modal fade" id="viewOrderModal" tabindex="-1" aria-labelledby="viewOrderModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewOrderModalLabel">Chi tiết đơn hàng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Mã đơn:</strong> <span id="orderId"></span></p>
+                        <p><strong>Tên xe:</strong> <span id="orderName"></span></p>
+                        <p><strong>Email tài khoản:</strong> <span id="orderEmail"></span></p>
+                        <p><strong>Trạng thái đơn hàng:</strong> <span id="orderStatus"></span></p>
+                        <p><strong>Ngày tạo:</strong> <span id="orderCreatedAt"></span></p>
+                        <p><strong>Tổng tiền:</strong> <span id="orderTotal"></span></p>
+                        <p><strong>Trạng thái thanh toán:</strong> <span id="orderPaymentStatus"></span></p>
+                        <p><strong>Phương thức thanh toán:</strong> <span id="orderPaymentMethod"></span></p>
+                        <p><strong>Dịch vụ:</strong> <span id="orderService"></span></p>
+                        <p><strong>Ngày nhận xe:</strong> <span id="orderReceiveDate"></span></p>
+                        <p><strong>Ngày trả xe:</strong> <span id="orderReturnDate"></span></p>
+                        <p><strong>Số ngày thuê:</strong> <span id="orderCountDate"></span></p>
+                        <p><strong>Khách hàng:</strong> <span id="orderCustomer"></span></p>
+                        <p><strong>Số điện thoại:</strong> <span id="orderPhone"></span></p>
+                        <p><strong>Điểm nhận xe:</strong> <span id="orderPickLocation"></span></p>
+                        <p><strong>Ghi chú:</strong> <span id="orderNote"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Edit Car Modal -->
         <div class="modal fade" id="editCarModal" tabindex="-1" aria-labelledby="editCarModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -531,7 +566,6 @@
     </div>
 
     <script src="/assets/js/staff_dash.js">
-        
     </script>
 </body>
 </html>

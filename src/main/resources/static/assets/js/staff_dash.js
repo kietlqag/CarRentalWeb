@@ -89,3 +89,34 @@ function attachSectionToggleEvents() {
         });
     });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const viewButtons = document.querySelectorAll('[data-bs-target="#viewOrderModal"]');
+
+    viewButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const bookingId = btn.getAttribute('data-booking-id');
+
+            fetch(`/staff/orders/${bookingId}`)
+                .then(res => res.json())
+                .then(order => {
+                    document.getElementById('orderId').textContent = order.id;
+                    document.getElementById('orderName').textContent = order.name;
+                    document.getElementById('orderEmail').textContent = order.accountemail;
+                    document.getElementById('orderStatus').textContent = order.status;
+                    document.getElementById('orderCreatedAt').textContent = order.createdat;
+                    document.getElementById('orderTotal').textContent = order.total + 'đ';
+                    document.getElementById('orderPaymentStatus').textContent = order.paymentstatus;
+                    document.getElementById('orderPaymentMethod').textContent = order.paymentmethod;
+                    document.getElementById('orderService').textContent = order.service;
+                    document.getElementById('orderReceiveDate').textContent = order.receivedate;
+                    document.getElementById('orderReturnDate').textContent = order.returndate;
+                    document.getElementById('orderCountDate').textContent = order.countdate;
+                    document.getElementById('orderCustomer').textContent = order.customer;
+                    document.getElementById('orderPhone').textContent = order.phone;
+                    document.getElementById('orderPickLocation').textContent = order.picklocation;
+                    document.getElementById('orderNote').textContent = order.note;
+                });
+        });
+    });
+});
