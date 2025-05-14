@@ -26,4 +26,9 @@ public class PromotionService {
     public void deletePromotionById(int id) {
         promotionRepository.deleteById(id);
     }
+
+    public List<Promotion> getAllPromotionByTypes(List<Integer> types) {
+        return promotionRepository.findAllByTypeIn(types);
+    }
+
 }

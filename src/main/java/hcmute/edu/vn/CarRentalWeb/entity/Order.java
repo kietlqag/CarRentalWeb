@@ -3,6 +3,7 @@ package hcmute.edu.vn.CarRentalWeb.entity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -18,14 +19,13 @@ public class Order {
     private String accountemail;
     private String status;
     private LocalDateTime createdat;
-    private LocalDateTime updatedat;
     private BigDecimal total;
     private String paymentstatus;
     private String paymentmethod;
     private BigDecimal discountpercent;
     private String service;
-    private Date receivedate;
-    private Date returndate;
+    private LocalDate receivedate;
+    private LocalDate returndate;
     private int countdate;
     private String customer;
     private String phone;
@@ -75,13 +75,6 @@ public class Order {
         this.createdat = createdat;
     }
 
-    public LocalDateTime getUpdatedat() {
-        return updatedat;
-    }
-
-    public void setUpdatedat(LocalDateTime updatedat) {
-        this.updatedat = updatedat;
-    }
 
     public BigDecimal getTotal() {
         return total;
@@ -123,19 +116,19 @@ public class Order {
         this.service = service;
     }
 
-    public Date getReceivedate() {
+    public LocalDate getReceivedate() {
         return receivedate;
     }
 
-    public void setReceivedate(Date receivedate) {
+    public void setReceivedate(LocalDate receivedate) {
         this.receivedate = receivedate;
     }
 
-    public Date getReturndate() {
+    public LocalDate getReturndate() {
         return returndate;
     }
 
-    public void setReturndate(Date returndate) {
+    public void setReturndate(LocalDate returndate) {
         this.returndate = returndate;
     }
 
