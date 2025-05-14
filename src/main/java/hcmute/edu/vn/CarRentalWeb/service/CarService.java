@@ -41,4 +41,11 @@ public class CarService {
         carRepository.save(car);
     }
 
+    public List<String> getBrandList(){
+        return carRepository.findDistinctBrands();
+    }
+
+    public List<Integer> getSeatList(){
+        return carRepository.findDistinctSeats();
+    }
 }
