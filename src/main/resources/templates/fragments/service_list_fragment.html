@@ -5,7 +5,7 @@
             <div class="service-card">
                 <img th:src="@{${service.picture}}" th:alt="${service.nameService}" class="img-fluid">
                 <h3 th:text="${service.nameService}">Service Name</h3>
-                <p class="service-price" th:text="'$' + ${service.price}">0.00</p>
+                <p class="service-price" th:text="${service.price}+'đ'">0.00</p>
             </div>
         </div>
         <div class="col-12" th:if="${#lists.isEmpty(services)}">

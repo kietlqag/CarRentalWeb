@@ -10,14 +10,9 @@
     <div class="card shadow p-4">
         <h2 class="text-success mb-3">🎉 Đặt Xe Thành Công!</h2>
         <p class="fs-5">Cảm ơn <strong th:text="${customerName}">Tên khách</strong> đã tin tưởng sử dụng dịch vụ của chúng tôi.</p>
-
-        <div class="mt-4 text-start">
-            <p><strong>Tên xe:</strong> <span th:text="${name}">Toyota Camry</span></p>
-            <p><strong>Tổng tiền:</strong> <span th:text="${total}">1,000,000</span> VNĐ</p>
-        </div>
-
-        <a href="/home" class="btn btn-primary mt-4">⬅ Quay lại trang chủ</a>
+        <a href="/home" class="btn btn-sm btn-outline-primary back-to-home">⬅ Quay lại trang chủ</a>
     </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

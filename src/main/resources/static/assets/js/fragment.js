@@ -46,25 +46,83 @@ function loadCars(page) {
         .then(response => response.text())
         .then(html => {
             document.getElementById('car-list').innerHTML = html;
+            currentCarPage = page;
+
+            // Gắn lại sự kiện click
+            attachCarDetailButtons();
+
+            // Lấy tổng số trang từ thẻ ẩn sau khi innerHTML đã được cập nhật
+            const totalCarPagesHidden = document.getElementById('totalCarPagesHidden');
+            const totalCarPages = parseInt(totalCarPagesHidden?.getAttribute('data-total-pages')) || 1;
+
+            // Cập nhật phân trang
+            const carPageInfo = document.getElementById('car-page-info');
+            if (carPageInfo) {
+                carPageInfo.innerText = `Trang ${page + 1} / ${totalCarPages}`;
+            }
         })
         .catch(err => {
             console.error("Lỗi khi tải xe:", err);
         });
 }
 
+
+
 function changeCarPage(delta) {
     console.log("Car page clicked with delta:", delta); // DEBUG
     const totalCarPages = parseInt(document.getElementById('totalCarPagesHidden').getAttribute('data-total-pages'));
-
     const nextPage = currentCarPage + delta;
+
     if (nextPage >= 0 && nextPage < totalCarPages) {
         loadCars(nextPage);
         currentCarPage = nextPage;
-
-        // Cập nhật số trang hiển thị
-        document.getElementById('car-page-info').innerText = `Trang ${currentCarPage + 1} / ${totalCarPages}`;
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadCars(0);
+});
+
+
+function attachCarDetailButtons() {
+    const buttons = document.querySelectorAll('.details-btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', function () {
+            const carId = this.getAttribute('data-car-id');
+            if (carId) {
+                fetch(`/api/cars/${carId}`)
+                    .then(response => response.json())
+                    .then(car => {
+                        document.getElementById('car-image').src = car.image;
+                        document.getElementById('car-name').innerText = car.name;
+                        document.getElementById('car-price').innerText = car.price + "đ/ngày";
+                        document.getElementById('car-engine').innerText = car.engine;
+                        document.getElementById('car-seat').innerText = car.seat + " chỗ";
+                        document.getElementById('car-model').innerText = car.model;
+                        document.getElementById('car-style').innerText = car.style;
+
+                        // Gán ID vào thuộc tính data
+                        const bookBtn = document.getElementById('bookNowBtn');
+                        bookBtn.setAttribute('data-car-id', car.id);
+
+                        // Hiển thị modal
+                        const modal = new bootstrap.Modal(document.getElementById('carRentalModal'));
+                        modal.show();
+                    })
+                    .catch(error => {
+                        console.error("Không thể tải thông tin xe:", error);
+                        alert("Có lỗi xảy ra khi tải chi tiết xe.");
+                    });
+            }
+        });
+    });
+}
+
+
+
+
+
+
 
 
 

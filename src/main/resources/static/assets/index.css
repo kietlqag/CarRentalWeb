@@ -69,8 +69,8 @@ body::-webkit-scrollbar {
 .hero-img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Đảm bảo ảnh vừa khung mà không méo */
-    border-radius: 10px; /* Nếu muốn bo góc */
+    object-fit: contain;
+    border-radius: 10px;
 }
 
 .hero-text {

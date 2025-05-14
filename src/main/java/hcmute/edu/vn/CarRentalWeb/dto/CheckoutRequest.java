@@ -1,20 +1,23 @@
 package hcmute.edu.vn.CarRentalWeb.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 public class CheckoutRequest {
-    // Thông tin khách hàng
+
     private String customer;
     private String email;
     private String phone;
     private String picklocation;
     private String note;
 
-    // Dữ liệu tóm tắt đơn hàng
     private String name;
     private String service;
-    private Date receiveDate;   // hoặc dùng LocalDate nếu bạn chuyển kiểu
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date receiveDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date returnDate;
     private int countDate;
     private BigDecimal total;
