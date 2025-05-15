@@ -257,8 +257,8 @@
                                 <th>Dịch vụ</th>
                                 <th>Số ngày cho thuê</th>
                                 <th>Phương thức thanh toán</th>
-                                <th>Trạng thái thanh toán</th>
                                 <th>Trạng thái đơn hàng</th>
+                                <th>Trạng thái thanh toán</th>
                                 <th>Thao tác</th>
                             </tr>
                             </thead>
@@ -297,7 +297,7 @@
                                         <button class="btn btn-sm btn-warning"
                                                 th:attr="data-booking-id=${order.id}"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#editBookingModal">
+                                                data-bs-target="#editOrderModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                     </div>
@@ -424,58 +424,49 @@
         </div>
 
         <!-- Edit Booking Modal -->
-        <div class="modal fade" id="editBookingModal" tabindex="-1" aria-labelledby="editBookingModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <div class="modal fade" id="editOrderModal" tabindex="-1" aria-labelledby="editOrderModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editBookingModalLabel">Chỉnh sửa đặt xe</h5>
+                        <h5 class="modal-title">Chỉnh sửa đơn hàng</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editBookingForm">
+                        <form id="editOrderForm">
+                            <input type="hidden" id="editOrderId">
+
                             <div class="mb-3">
-                                <label for="bookingId" class="form-label">Mã đặt xe</label>
-                                <input type="text" class="form-control" id="bookingId" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="bookingCustomer" class="form-label">Khách hàng</label>
-                                <input type="text" class="form-control" id="bookingCustomer" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="bookingCar" class="form-label">Xe</label>
-                                <input type="text" class="form-control" id="bookingCar" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="bookingStartDate" class="form-label">Ngày bắt đầu</label>
-                                <input type="text" class="form-control date-picker" id="bookingStartDate" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="bookingEndDate" class="form-label">Ngày kết thúc</label>
-                                <input type="text" class="form-control date-picker" id="bookingEndDate" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="bookingStatus" class="form-label">Trạng thái</label>
-                                <select class="form-control" id="bookingStatus" required>
-                                    <option value="Xác nhận">Xác nhận</option>
+                                <label for="editStatus" class="form-label">Trạng thái đơn hàng</label>
+                                <select class="form-control" id="editStatus">
                                     <option value="Chờ xác nhận">Chờ xác nhận</option>
+                                    <option value="Xác nhận">Xác nhận</option>
                                     <option value="Đã hoàn thành">Đã hoàn thành</option>
-                                    <option value="Hủy">Hủy</option>
                                 </select>
                             </div>
+
                             <div class="mb-3">
-                                <label for="paymentStatus" class="form-label">Trạng thái</label>
-                                <select class="form-control" id="paymentStatus" required>
-                                    <option value="Xác nhận">Xác nhận</option>
+                                <label for="editPaymentStatus" class="form-label">Trạng thái thanh toán</label>
+                                <select class="form-control" id="editPaymentStatus">
                                     <option value="Chờ xác nhận">Chờ xác nhận</option>
+                                    <option value="Xác nhận">Xác nhận</option>
                                     <option value="Đã hoàn thành">Đã hoàn thành</option>
-                                    <option value="Hủy">Hủy</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-animated">
-                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
-                                Lưu thay đổi
-                            </button>
+
+                            <div class="mb-3">
+                                <label for="editReceiveDate" class="form-label">Ngày nhận xe</label>
+                                <input type="date" class="form-control date-picker" id="editReceiveDate">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="editReturnDate" class="form-label">Ngày trả xe</label>
+                                <input type="date" class="form-control date-picker" id="editReturnDate">
+                            </div>
                         </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="saveEditOrderBtn">Lưu thay đổi</button>
                     </div>
                 </div>
             </div>

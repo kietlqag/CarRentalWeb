@@ -120,3 +120,59 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const editButtons = document.querySelectorAll("button[data-bs-target='#editOrderModal']");
+
+    editButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const orderId = button.getAttribute("data-booking-id");
+            fetch(`/staff/orders/${orderId}`)
+                .then(res => res.json())
+                .then(order => {
+                    document.getElementById("editOrderId").value = order.id;
+                    document.getElementById("editStatus").value = order.status;
+                    document.getElementById("editPaymentStatus").value = order.paymentstatus;
+
+                    // Xử lý định dạng ngày về yyyy-MM-dd
+                    document.getElementById("editReceiveDate").value = formatDate(order.receivedate);
+                    document.getElementById("editReturnDate").value = formatDate(order.returndate);
+                });
+        });
+    });
+
+    document.getElementById("saveEditOrderBtn").addEventListener("click", () => {
+        const id = document.getElementById("editOrderId").value;
+        const payload = {
+            status: document.getElementById("editStatus").value,
+            paymentstatus: document.getElementById("editPaymentStatus").value,
+            receivedate: document.getElementById("editReceiveDate").value || null,
+            returndate: document.getElementById("editReturnDate").value || null
+        };
+
+        fetch(`/staff/orders/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        }).then(res => {
+            if (res.ok) {
+                alert("Cập nhật đơn hàng thành công!");
+                location.reload();
+            } else {
+                res.text().then(msg => alert("Cập nhật thất bại: " + msg));
+            }
+        }).catch(err => alert("Lỗi kết nối: " + err));
+    });
+
+    function formatDate(dateStr) {
+        if (!dateStr) return "";
+        const date = new Date(dateStr);
+        if (isNaN(date)) return ""; // Nếu không hợp lệ thì trả về rỗng
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+    }
+});
