@@ -166,14 +166,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }).catch(err => alert("Lỗi kết nối: " + err));
     });
 
-    function formatDateEdit(dateStr) {
-        if (!dateStr) return "";
-        const date = new Date(dateStr);
-        if (isNaN(date)) return ""; // Nếu không hợp lệ thì trả về rỗng
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        return `${day}/${month}/${year}`;
+    function formatDateEdit(isoString) {
+        if (!isoString) return '';
+        let date = new Date(isoString);
+
+        // Nếu date không hợp lệ, thử thêm "Z"
+        if (isNaN(date.getTime())) {
+            date = new Date(isoString + "Z");
+        }
+
+        if (isNaN(date.getTime())) return '';
+
+        const dd = String(date.getDate()).padStart(2, '0');
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const yyyy = date.getFullYear();
+
+        return `${dd}/${mm}/${yyyy}`;
+
     }
     function convertToISODate(dateStr) {
         // Giả sử đầu vào là dd/mm/yyyy
@@ -197,4 +206,4 @@ function formatDate(isoString) {
     const yyyy = date.getFullYear();
 
     return `${dd}/${mm}/${yyyy}`;
-g}
+}
