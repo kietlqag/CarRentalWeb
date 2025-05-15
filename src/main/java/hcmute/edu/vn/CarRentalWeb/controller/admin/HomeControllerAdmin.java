@@ -2,9 +2,11 @@ package hcmute.edu.vn.CarRentalWeb.controller.admin;
 
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
+import hcmute.edu.vn.CarRentalWeb.entity.Order;
 import hcmute.edu.vn.CarRentalWeb.entity.Promotion;
 import hcmute.edu.vn.CarRentalWeb.service.AccountService;
 import hcmute.edu.vn.CarRentalWeb.service.CarService;
+import hcmute.edu.vn.CarRentalWeb.service.OrderService;
 import hcmute.edu.vn.CarRentalWeb.service.PromotionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class HomeControllerAdmin {
     private AccountService accountService;
     @Autowired
     private PromotionService promotionService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping("/admin/dashboard")
     public String home(HttpSession session, Model model) {
@@ -35,6 +39,8 @@ public class HomeControllerAdmin {
         model.addAttribute("accounts", accounts);
         List<Promotion> promotions = promotionService.getAllPromotion();
         model.addAttribute("promotions", promotions);
+        List<Order> orders = orderService.getAllOrder();
+        model.addAttribute("orders", orders);
         return "admin_dashboard";
     }
 
@@ -102,6 +108,12 @@ public class HomeControllerAdmin {
         promotion.setIsactive(Integer.parseInt(payload.get("isactive")));
         promotionService.save(promotion);
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("/admin/orders/{id}")
+    @ResponseBody
+    public ResponseEntity<Order> getOrderDetails(@PathVariable int id) {
+        Order order = orderService.getOrderById(id);
+        return ResponseEntity.ok(order);
     }
 
 

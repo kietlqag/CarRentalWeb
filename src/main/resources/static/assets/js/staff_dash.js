@@ -104,13 +104,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('orderName').textContent = order.name;
                     document.getElementById('orderEmail').textContent = order.accountemail;
                     document.getElementById('orderStatus').textContent = order.status;
-                    document.getElementById('orderCreatedAt').textContent = order.createdat;
+                    document.getElementById('orderCreatedAt').textContent = formatDate(order.createdat);
                     document.getElementById('orderTotal').textContent = order.total + 'đ';
                     document.getElementById('orderPaymentStatus').textContent = order.paymentstatus;
                     document.getElementById('orderPaymentMethod').textContent = order.paymentmethod;
                     document.getElementById('orderService').textContent = order.service;
-                    document.getElementById('orderReceiveDate').textContent = order.receivedate;
-                    document.getElementById('orderReturnDate').textContent = order.returndate;
+                    document.getElementById('orderReceiveDate').textContent = formatDate(order.receivedate);
+                    document.getElementById('orderReturnDate').textContent = formatDate(order.returndate);
                     document.getElementById('orderCountDate').textContent = order.countdate;
                     document.getElementById('orderCustomer').textContent = order.customer;
                     document.getElementById('orderPhone').textContent = order.phone;
@@ -135,8 +135,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("editPaymentStatus").value = order.paymentstatus;
 
                     // Xử lý định dạng ngày về yyyy-MM-dd
-                    document.getElementById("editReceiveDate").value = formatDate(order.receivedate);
-                    document.getElementById("editReturnDate").value = formatDate(order.returndate);
+                    document.getElementById("editReceiveDate").value = formatDateEdit(order.receivedate);
+                    document.getElementById("editReturnDate").value = formatDateEdit(order.returndate);
                 });
         });
     });
@@ -146,8 +146,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const payload = {
             status: document.getElementById("editStatus").value,
             paymentstatus: document.getElementById("editPaymentStatus").value,
-            receivedate: document.getElementById("editReceiveDate").value || null,
-            returndate: document.getElementById("editReturnDate").value || null
+            receivedate: convertToISODate(document.getElementById("editReceiveDate").value) || null,
+            returndate: convertToISODate(document.getElementById("editReturnDate").value) || null,
         };
 
         fetch(`/staff/orders/update/${id}`, {
@@ -166,13 +166,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }).catch(err => alert("Lỗi kết nối: " + err));
     });
 
-    function formatDate(dateStr) {
+    function formatDateEdit(dateStr) {
         if (!dateStr) return "";
         const date = new Date(dateStr);
         if (isNaN(date)) return ""; // Nếu không hợp lệ thì trả về rỗng
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const day = String(date.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
+        return `${day}/${month}/${year}`;
+    }
+    function convertToISODate(dateStr) {
+        // Giả sử đầu vào là dd/mm/yyyy
+        const [dd, mm, yyyy] = dateStr.split('/');
+        return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
     }
 });
+function formatDate(isoString) {
+    if (!isoString) return '';
+    let date = new Date(isoString);
+
+    // Nếu date không hợp lệ, thử thêm "Z" (UTC) ở cuối
+    if (isNaN(date.getTime())) {
+        date = new Date(isoString + "Z");
+    }
+
+    if (isNaN(date.getTime())) return ''; // vẫn lỗi thì trả rỗng
+
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+
+    return `${dd}/${mm}/${yyyy}`;
+g}

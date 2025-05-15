@@ -469,120 +469,63 @@
         <div class="content-section" id="contracts">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800" style="font-family: 'Javanese Text', serif;">Quản lý hợp đồng</h1>
-                <button class="btn btn-primary btn-animated" data-bs-toggle="modal" data-bs-target="#addContractModal">
-                    <svg>
-                        <rect x="0" y="0" width="100%" height="100%"></rect>
-                    </svg>
-                    <i class="fas fa-plus fa-sm"></i> Tạo hợp đồng mới
-                </button>
             </div>
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Danh sách hợp đồng</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách đơn hàng</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <th>Mã HĐ</th>
-                                    <th>Khách hàng</th>
-                                    <th>Xe</th>
-                                    <th>Ngày bắt đầu</th>
-                                    <th>Ngày kết thúc</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Thanh toán</th>
-                                    <th>Trạng thái</th>
-                                    <th>Thao tác</th>
-                                </tr>
+                            <tr>
+                                <th>Mã đặt xe</th>
+                                <th>Tên xe</th>
+                                <th>Tổng tiền</th>
+                                <th>Dịch vụ</th>
+                                <th>Số ngày cho thuê</th>
+                                <th>Phương thức thanh toán</th>
+                                <th>Trạng thái đơn hàng</th>
+                                <th>Trạng thái thanh toán</th>
+                                <th>Thao tác</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#HD1234</td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>Toyota Camry</td>
-                                    <td>05/04/2025</td>
-                                    <td>10/04/2025</td>
-                                    <td>5,000,000đ</td>
-                                    <td><span class="badge bg-success">Đã thanh toán</span></td>
-                                    <td><span class="badge bg-success">Đang thuê</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#HD1233</td>
-                                    <td>Trần Thị B</td>
-                                    <td>Honda Civic</td>
-                                    <td>04/04/2025</td>
-                                    <td>11/04/2025</td>
-                                    <td>6,500,000đ</td>
-                                    <td><span class="badge bg-warning">Đặt cọc</span></td>
-                                    <td><span class="badge bg-success">Đang thuê</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#HD1232</td>
-                                    <td>Lê Văn C</td>
-                                    <td>Ford Ranger</td>
-                                    <td>03/04/2025</td>
-                                    <td>08/04/2025</td>
-                                    <td>7,000,000đ</td>
-                                    <td><span class="badge bg-success">Đã thanh toán</span></td>
-                                    <td><span class="badge bg-danger">Đã kết thúc</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#HD1231</td>
-                                    <td>Phạm Thị D</td>
-                                    <td>Hyundai Tucson</td>
-                                    <td>02/ start="1"
-                                    <td>07/04/2025</td>
-                                    <td>6,200,000đ</td>
-                                    <td><span class="badge bg-danger">Chưa thanh toán</span></td>
-                                    <td><span class="badge bg-warning">Chờ xác nhận</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#HD1230</td>
-                                    <td>Vũ Văn E</td>
-                                    <td>Mazda CX-5</td>
-                                    <td>01/04/2025</td>
-                                    <td>06/04/2025</td>
-                                    <td>5,800,000đ</td>
-                                    <td><span class="badge bg-success">Đã thanh toán</span></td>
-                                    <td><span class="badge bg-danger">Đã kết thúc</span></td>
-                                    <td>
-                                        <div class="table-action">
-                                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
-                                            <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr th:each="order : ${orders}">
+                                <td th:text="'#' + ${order.id}">#BKxxxx</td>
+                                <td th:text="${order.name}">Tên xe</td>
+                                <td th:text="${#numbers.formatDecimal(order.total, 0, 'COMMA', 0, 'POINT')} + 'đ'">0đ</td>
+                                <td th:text="${order.service}">Dịch vụ</td>
+                                <td th:text="${order.countdate}">Số ngày cho thuê</td>
+                                <td th:text="${order.paymentmethod}">Phương thức thanh toán</td>
+                                <td>
+                                <span class="badge"
+                                      th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
+                                                      (order.status == 'Chờ xác nhận' ? 'bg-warning' :
+                                                       (order.status == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
+                                      th:text="${order.status}">Trạng thái thanh toán
+                                </span>
+                                </td>
+                                <td>
+                                <span class="badge"
+                                      th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
+                                                      (order.paymentstatus == 'Chờ xác nhận' ? 'bg-warning' :
+                                                       (order.paymentstatus == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
+                                      th:text="${order.paymentstatus}">Trạng thái đơn hàng
+                                </span>
+                                </td>
+                                <td>
+                                    <div class="table-action">
+                                        <button class="btn btn-sm btn-primary"
+                                                th:attr="data-booking-id=${order.id}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#viewOrderModal">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -1683,7 +1626,35 @@
             </div>
         </div>
     </div>
-
+    <!-- View Order Modal -->
+    <div class="modal fade" id="viewOrderModal" tabindex="-1" aria-labelledby="viewOrderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewOrderModalLabel">Chi tiết đơn hàng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Mã đơn:</strong> <span id="orderId"></span></p>
+                    <p><strong>Tên xe:</strong> <span id="orderName"></span></p>
+                    <p><strong>Email tài khoản:</strong> <span id="orderEmail"></span></p>
+                    <p><strong>Trạng thái đơn hàng:</strong> <span id="orderStatus"></span></p>
+                    <p><strong>Ngày tạo:</strong> <span id="orderCreatedAt"></span></p>
+                    <p><strong>Tổng tiền:</strong> <span id="orderTotal"></span></p>
+                    <p><strong>Trạng thái thanh toán:</strong> <span id="orderPaymentStatus"></span></p>
+                    <p><strong>Phương thức thanh toán:</strong> <span id="orderPaymentMethod"></span></p>
+                    <p><strong>Dịch vụ:</strong> <span id="orderService"></span></p>
+                    <p><strong>Ngày nhận xe:</strong> <span id="orderReceiveDate"></span></p>
+                    <p><strong>Ngày trả xe:</strong> <span id="orderReturnDate"></span></p>
+                    <p><strong>Số ngày thuê:</strong> <span id="orderCountDate"></span></p>
+                    <p><strong>Khách hàng:</strong> <span id="orderCustomer"></span></p>
+                    <p><strong>Số điện thoại:</strong> <span id="orderPhone"></span></p>
+                    <p><strong>Điểm nhận xe:</strong> <span id="orderPickLocation"></span></p>
+                    <p><strong>Ghi chú:</strong> <span id="orderNote"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="/assets/js/admin_dash.js"></script>
 <!-- <script src="/assets/js/switched-sb.js"></script> -->

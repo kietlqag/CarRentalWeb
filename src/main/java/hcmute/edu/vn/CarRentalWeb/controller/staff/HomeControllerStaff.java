@@ -48,7 +48,7 @@ public class HomeControllerStaff {
         order.setPaymentstatus(payload.get("paymentstatus"));
 
         // Cập nhật ngày nhận và ngày trả (receivedate, returndate)
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             String receiveDateStr = payload.get("receivedate");
             String returnDateStr = payload.get("returndate");
