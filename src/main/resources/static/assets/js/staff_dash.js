@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('orderName').textContent = order.name;
                     document.getElementById('orderEmail').textContent = order.accountemail;
                     document.getElementById('orderStatus').textContent = order.status;
-                    document.getElementById('orderCreatedAt').textContent = formatDate(order.createdat);
+                    document.getElementById('orderCreatedAt').textContent = formatDateCreate(order.createdat);
                     document.getElementById('orderTotal').textContent = order.total + 'đ';
                     document.getElementById('orderPaymentStatus').textContent = order.paymentstatus;
                     document.getElementById('orderPaymentMethod').textContent = order.paymentmethod;
@@ -133,10 +133,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("editOrderId").value = order.id;
                     document.getElementById("editStatus").value = order.status;
                     document.getElementById("editPaymentStatus").value = order.paymentstatus;
-
-                    // Xử lý định dạng ngày về yyyy-MM-dd
-                    document.getElementById("editReceiveDate").value = formatDateEdit(order.receivedate);
-                    document.getElementById("editReturnDate").value = formatDateEdit(order.returndate);
+                    document.getElementById("editReceiveDate").value = formatDate(order.receivedate);
+                    document.getElementById("editReturnDate").value = formatDate(order.returndate);
                 });
         });
     });
@@ -166,32 +164,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }).catch(err => alert("Lỗi kết nối: " + err));
     });
 
-    function formatDateEdit(isoString) {
-        if (!isoString) return '';
-        let date = new Date(isoString);
-
-        // Nếu date không hợp lệ, thử thêm "Z"
-        if (isNaN(date.getTime())) {
-            date = new Date(isoString + "Z");
-        }
-        if (isNaN(date.getTime())) return '';
-        const dd = String(date.getDate()).padStart(2, '0');
-        const mm = String(date.getMonth() + 1).padStart(2, '0');
-        const yyyy = date.getFullYear();
-
-        return `${dd}/${mm}/${yyyy}`;
-
-    }
     function convertToISODate(dateStr) {
         const [dd, mm, yyyy] = dateStr.split('/');
         const date = new Date(`${yyyy}-${mm}-${dd}`);
-        date.setDate(date.getDate() + 1);
+        date.setHours(7, 0, 0, 0);
+        date.setDate(date.getDate());
         const newYear = date.getFullYear();
         const newMonth = String(date.getMonth() + 1).padStart(2, '0');
         const newDay = String(date.getDate()).padStart(2, '0');
         return `${newYear}-${newMonth}-${newDay}`;
     }
 });
+function formatDateCreate(isoString) {
+    if (!isoString) return '';
+    let date = new Date(isoString);
+    date = new Date(date.getTime() - (7 * 3600000));
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+
+    return `${dd}/${mm}/${yyyy}`;
+}
 function formatDate(isoString) {
     if (!isoString) return '';
     let date = new Date(isoString);
