@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class HomeController {
 
@@ -30,15 +32,21 @@ public class HomeController {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
 
-        Page<Services> services = servicesService.getServicePage("Hoạt động", PageRequest.of(page, 4));
-        model.addAttribute("services", services);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", services.getTotalPages());
+//        Page<Services> services = servicesService.getServicePage("Hoạt động", PageRequest.of(page, 4));
+//        model.addAttribute("services", services);
+//        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", services.getTotalPages());
 
         Page<Car> cars = carService.getCarPage("Sẵn sàng", PageRequest.of(carPage, 6));
         model.addAttribute("cars", cars.getContent());
         model.addAttribute("currentCarPage", carPage);
         model.addAttribute("totalCarPages", cars.getTotalPages());
+
+        List<String> brandList = carService.getBrandList();
+        model.addAttribute("brandList", brandList);
+
+        List<Integer> seatList = carService.getSeatList();
+        model.addAttribute("seatList", seatList);
 
         return "index";
     }
