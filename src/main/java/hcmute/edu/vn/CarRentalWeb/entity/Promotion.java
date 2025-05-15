@@ -1,9 +1,6 @@
 package hcmute.edu.vn.CarRentalWeb.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,6 +10,7 @@ import java.time.LocalDateTime;
 @Table(name = "promotions")
 public class Promotion {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
     public String code;
     public String description;
