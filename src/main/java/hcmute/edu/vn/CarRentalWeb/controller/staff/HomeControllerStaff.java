@@ -43,35 +43,16 @@ public class HomeControllerStaff {
     public ResponseEntity<?> updateOrder(@PathVariable int id, @RequestBody Map<String, String> payload) {
         Order order = orderService.getOrderById(id);
 
-        // Cập nhật thông tin status và paymentstatus
         order.setStatus(payload.get("status"));
         order.setPaymentstatus(payload.get("paymentstatus"));
-
-        // Cập nhật ngày nhận và ngày trả (receivedate, returndate)
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             String receiveDateStr = payload.get("receivedate");
             String returnDateStr = payload.get("returndate");
-
-            if (receiveDateStr != null && !receiveDateStr.isEmpty()) {
-                LocalDate localDate = LocalDate.parse(receiveDateStr, inputFormatter);
-                order.setReceivedate(Date.valueOf(localDate));
-            } else {
-                order.setReceivedate(null);
-            }
-
-            if (returnDateStr != null && !returnDateStr.isEmpty()) {
-                LocalDate localDate = LocalDate.parse(returnDateStr, inputFormatter);
-                order.setReturndate(Date.valueOf(localDate));
-            } else {
-                order.setReturndate(null);
-            }
-
+            order.setReceivedate(Date.valueOf(receiveDateStr));
+            order.setReturndate(Date.valueOf(returnDateStr));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Lỗi định dạng ngày nhận (receivedate) hoặc trả (returndate)");
         }
-
-        // Lưu đơn hàng đã cập nhật
         orderService.save(order);
         return ResponseEntity.ok().build();
     }

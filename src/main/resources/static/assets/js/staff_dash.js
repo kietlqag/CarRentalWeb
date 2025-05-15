@@ -174,9 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isNaN(date.getTime())) {
             date = new Date(isoString + "Z");
         }
-
         if (isNaN(date.getTime())) return '';
-
         const dd = String(date.getDate()).padStart(2, '0');
         const mm = String(date.getMonth() + 1).padStart(2, '0');
         const yyyy = date.getFullYear();
@@ -185,22 +183,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
     function convertToISODate(dateStr) {
-        // Giả sử đầu vào là dd/mm/yyyy
         const [dd, mm, yyyy] = dateStr.split('/');
-        return `${yyyy}-${mm.padStart(2, '0')}-${dd.padStart(2, '0')}`;
+        const date = new Date(`${yyyy}-${mm}-${dd}`);
+        date.setDate(date.getDate() + 1);
+        const newYear = date.getFullYear();
+        const newMonth = String(date.getMonth() + 1).padStart(2, '0');
+        const newDay = String(date.getDate()).padStart(2, '0');
+        return `${newYear}-${newMonth}-${newDay}`;
     }
 });
 function formatDate(isoString) {
     if (!isoString) return '';
     let date = new Date(isoString);
-
-    // Nếu date không hợp lệ, thử thêm "Z" (UTC) ở cuối
-    if (isNaN(date.getTime())) {
-        date = new Date(isoString + "Z");
-    }
-
-    if (isNaN(date.getTime())) return ''; // vẫn lỗi thì trả rỗng
-
     const dd = String(date.getDate()).padStart(2, '0');
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const yyyy = date.getFullYear();
