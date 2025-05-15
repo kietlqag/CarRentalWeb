@@ -48,4 +48,9 @@ public class CarService {
     public List<Integer> getSeatList(){
         return carRepository.findDistinctSeats();
     }
+
+    public Page<Car> filterCars(String status, String brand, Integer seat, Integer minPrice, Integer maxPrice, Pageable pageable) {
+        return carRepository.filterCars(status, brand, seat, minPrice, maxPrice, pageable);
+    }
+
 }

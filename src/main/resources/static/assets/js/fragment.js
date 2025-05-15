@@ -1,6 +1,12 @@
 let currentPage = 0;
 let totalPages = 1;
 let currentCarPage = 0;
+let currentCarFilters = {
+    brand: '',
+    seat: '',
+    price: ''
+};
+
 
 function loadServices(page) {
     fetch('/home/services?page=' + page)
@@ -118,7 +124,35 @@ function attachCarDetailButtons() {
     });
 }
 
+function applyCarFilter(page = 0) {
+    const brand = document.getElementById('filter-brand').value;
+    const seat = document.getElementById('filter-seat').value;
+    const price = document.getElementById('filter-price').value;
 
+    const params = new URLSearchParams({
+        page: page,
+        brand: brand,
+        seat: seat,
+        price: price
+    });
+
+    fetch(`/home/cars?${params.toString()}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('car-list').innerHTML = html;
+
+            // ✅ Gắn lại sự kiện click sau khi thay đổi DOM
+            attachCarDetailButtons();
+
+            // ✅ Cập nhật thông tin trang
+            const totalCarPagesHidden = document.getElementById('totalCarPagesHidden');
+            const totalPages = parseInt(totalCarPagesHidden?.getAttribute('data-total-pages')) || 1;
+            document.getElementById('car-page-info').innerText = `Trang ${page + 1} / ${totalPages}`;
+        })
+        .catch(err => {
+            console.error("Lỗi khi lọc xe:", err);
+        });
+}
 
 
 

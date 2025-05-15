@@ -64,9 +64,22 @@ public class HomeController {
     }
 
     @GetMapping("/home/cars")
-    public String getPagedCar(@RequestParam(defaultValue = "0") int page, Model model) {
+    public String getPagedCar(@RequestParam(defaultValue = "0") int page,
+                              @RequestParam(required = false) String brand,
+                              @RequestParam(required = false) Integer seat,
+                              @RequestParam(required = false) String price,
+                              Model model) {
         int pageSize = 6;
-        Page<Car> carPage = carService.getCarPage("Sẵn sàng", PageRequest.of(page, pageSize));
+
+        Integer minPrice = null;
+        Integer maxPrice = null;
+        if (price != null && !price.isEmpty()) {
+            String[] parts = price.split("-");
+            minPrice = Integer.parseInt(parts[0]);
+            maxPrice = Integer.parseInt(parts[1]);
+        }
+
+        Page<Car> carPage = carService.filterCars("Sẵn sàng", brand, seat, minPrice, maxPrice, PageRequest.of(page, pageSize));
 
         model.addAttribute("cars", carPage.getContent());
         model.addAttribute("currentPage", page);
@@ -74,5 +87,6 @@ public class HomeController {
 
         return "fragments/car_list_fragment :: carList";
     }
+
 }
 
