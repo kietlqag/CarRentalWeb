@@ -97,7 +97,7 @@
                         <div class="card-body dashboard-card card-success">
                             <div>
                                 <div class="text">Khuyến mãi đang áp dụng</div>
-                                <div class="value">2</div>
+                                <div class="value" th:text="${countPromotion}">0</div>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-gift text-success"></i>
@@ -153,6 +153,38 @@
                             </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Order Modal -->
+        <div class="modal fade" id="viewOrderModal" tabindex="-1" aria-labelledby="viewOrderModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewOrderModalLabel">Chi tiết đơn hàng</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Mã đơn:</strong> <span id="orderId"></span></p>
+                        <p><strong>Tên xe:</strong> <span id="orderName"></span></p>
+                        <p><strong>Email tài khoản:</strong> <span id="orderEmail"></span></p>
+                        <p><strong>Trạng thái đơn hàng:</strong> <span id="orderStatus"></span></p>
+                        <p><strong>Ngày tạo:</strong> <span id="orderCreatedAt"></span></p>
+                        <p><strong>Tổng tiền:</strong> <span id="orderTotal"></span></p>
+                        <p><strong>Trạng thái thanh toán:</strong> <span id="orderPaymentStatus"></span></p>
+                        <p><strong>Phương thức thanh toán:</strong> <span id="orderPaymentMethod"></span></p>
+                        <p><strong>Dịch vụ:</strong> <span id="orderService"></span></p>
+                        <p><strong>Khuyến mãi:</strong> <span id="promotion"></span></p></strong></p>
+                        <p><strong>Ngày nhận xe:</strong> <span id="orderReceiveDate"></span></p>
+                        <p><strong>Ngày trả xe:</strong> <span id="orderReturnDate"></span></p>
+                        <p><strong>Số ngày thuê:</strong> <span id="orderCountDate"></span></p>
+                        <p><strong>Khách hàng:</strong> <span id="orderCustomer"></span></p>
+                        <p><strong>Số điện thoại:</strong> <span id="orderPhone"></span></p>
+                        <p><strong>Điểm nhận xe:</strong> <span id="orderPickLocation"></span></p>
+                        <p><strong>Ghi chú:</strong> <span id="orderNote"></span></p>
+
                     </div>
                 </div>
             </div>
@@ -216,19 +248,33 @@
                                 <td th:text="${order.getTotal()}">4,500,000đ</td>
 
                                 <td>
-                                <span class="badge"
-                                      th:classappend="' bg-' + (${order.getStatus()} == 'Đã xác nhận' ? 'success' : (${order.getStatus()} == 'Đã huỷ' ? 'danger' : ''))"
-                                      th:text="${order.getStatus()}">Chờ xác nhận</span>
+                                    <span class="badge"
+                                          th:classappend=" ' ' +
+                                              (${order.getStatus()} == 'Đã xác nhận' ? 'bg-success' :
+                                              (${order.getStatus()} == 'Đã huỷ' ? 'bg-danger' :
+                                              (${order.getStatus()} == 'Chờ xác nhận' ? 'bg-secondary' : 'bg-light')))"
+                                          th:text="${order.status}">Chờ xác nhận</span>
                                 </td>
 
                                 <td>
-                                <span class="badge"
-                                      th:classappend="${order.getPaymentstatus()} == 'Đã thanh toán' ? ' bg-success' : ''"
-                                      th:text="${order.getPaymentstatus()}">Chưa thanh toán</span>
+                                    <span class="badge"
+                                          th:classappend="${order.getPaymentstatus()} == 'Đã thanh toán' ? ' bg-success' : ' bg-secondary'"
+                                          th:text="${order.paymentstatus}">Chưa thanh toán</span>
                                 </td>
                                 <td>
                                     <div class="table-action">
-                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modifyBookingModal" data-booking-id="BK1234"><i class="fas fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-primary"
+                                                th:attr="data-booking-id=${order.id}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#viewOrderModal">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning"
+                                                th:attr="data-booking-id=${order.id}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editOrderModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
                                         <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1234')"><i class="fas fa-trash"></i></button>
                                     </div>
                                 </td>
@@ -308,44 +354,38 @@
             </div>
         </div>
 
-        <!-- Modify Booking Modal -->
-        <div class="modal fade" id="modifyBookingModal" tabindex="-1" aria-labelledby="modifyBookingModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <!-- Edit Booking Modal -->
+        <div class="modal fade" id="editOrderModal" tabindex="-1" aria-labelledby="editOrderModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modifyBookingModalLabel">Thay đổi lịch đặt xe</h5>
+                        <h5 class="modal-title">Chỉnh sửa</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="modifyBookingForm">
+                        <form id="editOrderForm">
+                            <input type="hidden" id="editOrderId">
+
                             <div class="mb-3">
-                                <label for="bookingId" class="form-label">Mã đặt xe</label>
-                                <input type="text" class="form-control" id="bookingId" readonly>
+                                <label for="editReceiveDate" class="form-label">Ngày nhận xe</label>
+                                <input type="date" class="form-control date-picker" id="editReceiveDate">
                             </div>
+
                             <div class="mb-3">
-                                <label for="bookingCar" class="form-label">Xe</label>
-                                <select class="form-control" id="bookingCar" required>
-                                    <option value="">Chọn xe</option>
-                                    <option value="Toyota Camry">Toyota Camry</option>
-                                    <option value="Honda Civic">Honda Civic</option>
-                                    <option value="Ford Ranger">Ford Ranger</option>
-                                    <option value="Hyundai Tucson">Hyundai Tucson</option>
-                                    <option value="Mazda CX-5">Mazda CX-5</option>
-                                </select>
+                                <label for="editReturnDate" class="form-label">Ngày trả xe</label>
+                                <input type="date" class="form-control date-picker" id="editReturnDate">
                             </div>
+
                             <div class="mb-3">
-                                <label for="bookingStartDate" class="form-label">Ngày bắt đầu</label>
-                                <input type="text" class="form-control date-picker" id="bookingStartDate" required>
+                                <label for="editNote" class="form-label">Ghi chú</label>
+                                <input type="text" class="form-control" id="editNote">
                             </div>
-                            <div class="mb-3">
-                                <label for="bookingEndDate" class="form-label">Ngày kết thúc</label>
-                                <input type="text" class="form-control date-picker" id="bookingEndDate" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-animated">
-                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
-                                Lưu thay đổi
-                            </button>
+
                         </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="saveEditOrderBtn">Lưu thay đổi</button>
                     </div>
                 </div>
             </div>

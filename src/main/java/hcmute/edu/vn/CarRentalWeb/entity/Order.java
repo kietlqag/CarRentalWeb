@@ -29,7 +29,7 @@ public class Order {
     private String phone;
     private String picklocation;
     private String note;
-    private int discount;
+    private Integer discount;
 
     public Order() {}
 
@@ -163,12 +163,11 @@ public class Order {
         this.note = note;
     }
 
-
-    public int getDiscount() {
+    public Integer getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Integer discount) {
         this.discount = discount;
     }
 }

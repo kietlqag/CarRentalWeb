@@ -14,4 +14,8 @@ public interface PromotionRepository extends JpaRepository<Promotion, Integer> {
     @Query("SELECT p FROM Promotion p WHERE p.type IN :types")
     List<Promotion> findAllByTypeIn(@Param("types") List<Integer> types);
 
+    @Query("SELECT COUNT(p) FROM Promotion p WHERE p.type IN :types")
+    long countByTypeIn(@Param("types") List<Integer> types);
+
+
 }

@@ -31,4 +31,7 @@ public class PromotionService {
         return promotionRepository.findAllByTypeIn(types);
     }
 
+    public long countPromotionByTypes(List<Integer> types) {
+        return promotionRepository.countByTypeIn(types);
+    }
 }

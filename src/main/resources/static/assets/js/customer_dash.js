@@ -90,3 +90,108 @@ function attachSectionToggleEvents() {
         });
     });
 }
+
+function formatDateCreate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const viewButtons = document.querySelectorAll('[data-bs-target="#viewOrderModal"]');
+
+    viewButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const bookingId = btn.getAttribute('data-booking-id');
+
+            fetch(`/customer/orders/${bookingId}`)
+                .then(res => res.json())
+                .then(order => {
+                    document.getElementById('orderId').textContent = order.id;
+                    document.getElementById('orderName').textContent = order.name;
+                    document.getElementById('orderEmail').textContent = order.accountemail;
+                    document.getElementById('orderStatus').textContent = order.status;
+                    document.getElementById('orderCreatedAt').textContent = formatDateCreate(order.createdat);
+                    document.getElementById('orderTotal').textContent = order.total + 'đ';
+                    document.getElementById('orderPaymentStatus').textContent = order.paymentstatus;
+                    document.getElementById('orderPaymentMethod').textContent = order.paymentmethod;
+                    document.getElementById('orderService').textContent = order.service;
+                    document.getElementById('promotion').textContent = order.discount;
+                    document.getElementById('orderReceiveDate').textContent = formatDate(order.receivedate);
+                    document.getElementById('orderReturnDate').textContent = formatDate(order.returndate);
+                    document.getElementById('orderCountDate').textContent = order.countdate;
+                    document.getElementById('orderCustomer').textContent = order.customer;
+                    document.getElementById('orderPhone').textContent = order.phone;
+                    document.getElementById('orderPickLocation').textContent = order.picklocation;
+                    document.getElementById('orderNote').textContent = order.note;
+                });
+        });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const editButtons = document.querySelectorAll("button[data-bs-target='#editOrderModal']");
+
+    editButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const orderId = button.getAttribute("data-booking-id");
+            fetch(`/customer/orders/${orderId}`)
+                .then(res => res.json())
+                .then(order => {
+                    document.getElementById("editPaymentStatus").value = order.paymentstatus;
+                    document.getElementById("editReceiveDate").value = formatDate(order.receivedate);
+                    document.getElementById("editNote").value = order.note;
+                });
+        });
+    });
+
+    document.getElementById("saveEditOrderBtn").addEventListener("click", () => {
+        const id = document.getElementById("editOrderId").value;
+        const payload = {
+            receivedate: convertToISODate(document.getElementById("editReceiveDate").value) || null,
+            returndate: convertToISODate(document.getElementById("editReturnDate").value) || null,
+            note: document.getElementById("editNote").value || null,
+        };
+
+        fetch(`/customer/orders/update/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        }).then(res => {
+            if (res.ok) {
+                alert("Cập nhật đơn hàng thành công!");
+                location.reload();
+            } else {
+                res.text().then(msg => alert("Cập nhật thất bại: " + msg));
+            }
+        }).catch(err => alert("Lỗi kết nối: " + err));
+    });
+
+    function convertToISODate(dateStr) {
+        const [dd, mm, yyyy] = dateStr.split('/');
+        const date = new Date(Date.UTC(yyyy, mm - 1, dd, 24, 0, 0));
+        const newYear = date.getUTCFullYear();
+        const newMonth = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const newDay = String(date.getUTCDate()).padStart(2, '0');
+
+        return `${newYear}-${newMonth}-${newDay}`;
+    }
+});
