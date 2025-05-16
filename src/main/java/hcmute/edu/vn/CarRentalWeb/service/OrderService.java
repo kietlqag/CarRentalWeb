@@ -62,6 +62,7 @@ public class OrderService {
             order.setCountdate(data.getCountDate());
 
             order.setTotal(data.getTotal());
+            order.setDiscount(data.getDiscount());
 
             orderRepo.save(order);
             return true;

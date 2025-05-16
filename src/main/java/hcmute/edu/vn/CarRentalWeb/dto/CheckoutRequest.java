@@ -21,6 +21,8 @@ public class CheckoutRequest {
     private Date returnDate;
     private int countDate;
     private BigDecimal total;
+    private int price;
+    private int discount;
 
     public String getCustomer() {
         return customer;
@@ -108,5 +110,21 @@ public class CheckoutRequest {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 }

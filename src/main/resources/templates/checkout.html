@@ -65,6 +65,7 @@
         <input type="hidden" name="returnDate" th:value="${endDate}"/>
         <input type="hidden" name="countDate" th:value="${countdate}"/>
         <input type="hidden" id="finalTotal" name="total" th:value="${total}"/>
+        <input type="hidden" id="discountValue" name="discount" value="0"/>
 
         <button type="submit" class="btn btn-primary w-100">Thanh toán</button>
       </form>
@@ -106,24 +107,28 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  const discountSelect = document.getElementById("discountSelect");
-  const totalAmountEl = document.getElementById("totalAmount");
+    const discountSelect = document.getElementById("discountSelect");
+    const discountInput = document.getElementById("discountValue");
+    const totalAmountEl = document.getElementById("totalAmount");
 
-  if (!discountSelect || !totalAmountEl) {
-  console.error("Không tìm thấy phần tử select hoặc totalAmount");
-  return;
-  }
+    if (!discountSelect || !totalAmountEl || !discountInput) {
+      console.error("Không tìm thấy phần tử cần thiết.");
+      return;
+    }
 
-  // Xử lý khi thay đổi khuyến mãi
-  discountSelect.addEventListener("change", function () {
-  const selectedOption = discountSelect.options[discountSelect.selectedIndex];
-  const discountPercent = parseFloat(selectedOption.getAttribute("data-percent")) || 0;
+    discountSelect.addEventListener("change", function () {
+      const selectedOption = discountSelect.options[discountSelect.selectedIndex];
+      const discountPercent = parseFloat(selectedOption.getAttribute("data-percent")) || 0;
 
-  const discountedTotal = originalTotal - (originalTotal * discountPercent / 100);
-  totalAmountEl.textContent = discountedTotal;
-  });
+      const discountedTotal = originalTotal - (originalTotal * discountPercent / 100);
+      totalAmountEl.textContent = discountedTotal.toLocaleString('vi-VN');
+
+      // Gán discount vào input hidden để gửi về server
+      discountInput.value = discountPercent;
+    });
   });
 </script>
+
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

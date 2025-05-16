@@ -32,10 +32,10 @@ public class HomeController {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
 
-//        Page<Services> services = servicesService.getServicePage("Hoạt động", PageRequest.of(page, 4));
-//        model.addAttribute("services", services);
-//        model.addAttribute("currentPage", page);
-//        model.addAttribute("totalPages", services.getTotalPages());
+        Page<Services> services = servicesService.getServicePage("Hoạt động", PageRequest.of(page, 4));
+        model.addAttribute("services", services);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", services.getTotalPages());
 
         Page<Car> cars = carService.getCarPage("Sẵn sàng", PageRequest.of(carPage, 6));
         model.addAttribute("cars", cars.getContent());

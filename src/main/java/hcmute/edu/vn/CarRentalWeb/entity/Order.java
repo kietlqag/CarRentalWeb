@@ -29,6 +29,7 @@ public class Order {
     private String phone;
     private String picklocation;
     private String note;
+    private int discount;
 
     public Order() {}
 
@@ -160,5 +161,14 @@ public class Order {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 }
