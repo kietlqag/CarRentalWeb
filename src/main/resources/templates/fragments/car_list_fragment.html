@@ -1,6 +1,6 @@
 <th:block th:fragment="carList(cars, totalPages)">
-    <!-- Tổng số trang (dùng cho JavaScript) -->
-    <input type="hidden" id="totalCarPagesHidden" th:attr="data-total-pages=${totalPages}" />
+
+    <input type="hidden" id="totalCarPagesHidden" data-total-pages="[[${totalCarPages}]]" />
 
     <div class="row g-4">
         <div class="col-md-4" th:each="car : ${cars}">

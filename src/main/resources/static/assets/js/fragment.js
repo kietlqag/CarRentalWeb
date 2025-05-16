@@ -1,12 +1,12 @@
 let currentPage = 0;
 let totalPages = 1;
 let currentCarPage = 0;
+let currentCarTotalPages = 1;
 let currentCarFilters = {
     brand: '',
     seat: '',
     price: ''
 };
-
 
 function loadServices(page) {
     fetch('/home/services?page=' + page)
@@ -20,7 +20,6 @@ function loadServices(page) {
             document.getElementById('service-list').innerHTML = html;
             currentPage = page;
 
-            // Cập nhật số trang từ thuộc tính ẩn trong fragment (ví dụ bạn thêm data-total-pages)
             const hiddenTotal = document.getElementById('totalPagesHidden');
             if (hiddenTotal) {
                 totalPages = parseInt(hiddenTotal.getAttribute('data-total-pages')) || 1;
@@ -40,7 +39,6 @@ function updatePagination() {
 }
 
 function changePage(delta) {
-    console.log("Clicked with delta:", delta); // DEBUG
     const nextPage = currentPage + delta;
     if (nextPage >= 0 && nextPage < totalPages) {
         loadServices(nextPage);
@@ -48,47 +46,52 @@ function changePage(delta) {
 }
 
 function loadCars(page) {
-    fetch(`/home/cars?page=${page}`)
+    const params = new URLSearchParams({
+        page: page,
+        brand: currentCarFilters.brand,
+        seat: currentCarFilters.seat,
+        price: currentCarFilters.price
+    });
+
+    fetch(`/home/cars?${params.toString()}`)
         .then(response => response.text())
         .then(html => {
             document.getElementById('car-list').innerHTML = html;
             currentCarPage = page;
 
-            // Gắn lại sự kiện click
             attachCarDetailButtons();
 
-            // Lấy tổng số trang từ thẻ ẩn sau khi innerHTML đã được cập nhật
             const totalCarPagesHidden = document.getElementById('totalCarPagesHidden');
-            const totalCarPages = parseInt(totalCarPagesHidden?.getAttribute('data-total-pages')) || 1;
+            currentCarTotalPages = parseInt(totalCarPagesHidden?.getAttribute('data-total-pages')) || 1;
 
-            // Cập nhật phân trang
+            console.log("📦 Tải trang xe:", page);
+            console.log("📦 Số trang tổng cộng:", currentCarTotalPages);
+
             const carPageInfo = document.getElementById('car-page-info');
             if (carPageInfo) {
-                carPageInfo.innerText = `Trang ${page + 1} / ${totalCarPages}`;
+                carPageInfo.innerText = `Trang ${page + 1} / ${currentCarTotalPages}`;
             }
+
+            document.getElementById('car-prev-btn').disabled = page === 0;
+            document.getElementById('car-next-btn').disabled = page + 1 >= currentCarTotalPages;
+
         })
         .catch(err => {
             console.error("Lỗi khi tải xe:", err);
         });
 }
 
-
-
 function changeCarPage(delta) {
-    console.log("Car page clicked with delta:", delta); // DEBUG
-    const totalCarPages = parseInt(document.getElementById('totalCarPagesHidden').getAttribute('data-total-pages'));
     const nextPage = currentCarPage + delta;
-
-    if (nextPage >= 0 && nextPage < totalCarPages) {
+    console.log("➡️ Chuyển trang xe:", nextPage, "trong", currentCarTotalPages);
+    if (nextPage >= 0 && nextPage < currentCarTotalPages) {
         loadCars(nextPage);
-        currentCarPage = nextPage;
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     loadCars(0);
 });
-
 
 function attachCarDetailButtons() {
     const buttons = document.querySelectorAll('.details-btn');
@@ -107,11 +110,9 @@ function attachCarDetailButtons() {
                         document.getElementById('car-model').innerText = car.model;
                         document.getElementById('car-style').innerText = car.style;
 
-                        // Gán ID vào thuộc tính data
                         const bookBtn = document.getElementById('bookNowBtn');
                         bookBtn.setAttribute('data-car-id', car.id);
 
-                        // Hiển thị modal
                         const modal = new bootstrap.Modal(document.getElementById('carRentalModal'));
                         modal.show();
                     })
@@ -141,22 +142,27 @@ function applyCarFilter(page = 0) {
         .then(html => {
             document.getElementById('car-list').innerHTML = html;
 
-            // ✅ Gắn lại sự kiện click sau khi thay đổi DOM
             attachCarDetailButtons();
 
-            // ✅ Cập nhật thông tin trang
             const totalCarPagesHidden = document.getElementById('totalCarPagesHidden');
-            const totalPages = parseInt(totalCarPagesHidden?.getAttribute('data-total-pages')) || 1;
-            document.getElementById('car-page-info').innerText = `Trang ${page + 1} / ${totalPages}`;
+            currentCarTotalPages = parseInt(totalCarPagesHidden?.getAttribute('data-total-pages')) || 1;
+
+            console.log("🔍 Lọc xe - Trang:", page);
+            console.log("🔍 Tổng số trang sau lọc:", currentCarTotalPages);
+
+            document.getElementById('car-page-info').innerText = `Trang ${page + 1} / ${currentCarTotalPages}`;
+            currentCarFilters = { brand, seat, price };
+            currentCarPage = page;
+
+            const prevBtn = document.getElementById('prev-car-btn');
+            const nextBtn = document.getElementById('next-car-btn');
+            if (prevBtn && nextBtn) {
+                prevBtn.disabled = page === 0;
+                nextBtn.disabled = page + 1 >= currentCarTotalPages;
+            }
+
         })
         .catch(err => {
             console.error("Lỗi khi lọc xe:", err);
         });
 }
-
-
-
-
-
-
-

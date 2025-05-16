@@ -74,6 +74,7 @@ public class CheckoutController {
         return "checkout";
     }
 
+
     @PostMapping("/checkout/save")
     public String saveCheckout(@ModelAttribute CheckoutRequest checkoutData, Model model) {
 
@@ -87,6 +88,5 @@ public class CheckoutController {
             return "redirect:/";
         }
     }
-
 
 }

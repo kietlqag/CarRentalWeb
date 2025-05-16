@@ -73,19 +73,30 @@ public class HomeController {
 
         Integer minPrice = null;
         Integer maxPrice = null;
-        if (price != null && !price.isEmpty()) {
+        if (price != null && !price.isEmpty() && price.contains("-")) {
             String[] parts = price.split("-");
-            minPrice = Integer.parseInt(parts[0]);
-            maxPrice = Integer.parseInt(parts[1]);
+            if (parts.length == 2) {
+                try {
+                    minPrice = Integer.parseInt(parts[0].trim());
+                    maxPrice = Integer.parseInt(parts[1].trim());
+                } catch (NumberFormatException e) {
+                    System.err.println("❌ Lỗi parse giá: " + e.getMessage());
+                }
+            }
         }
+
 
         Page<Car> carPage = carService.filterCars("Sẵn sàng", brand, seat, minPrice, maxPrice, PageRequest.of(page, pageSize));
 
+        System.out.println("🚗 Tổng số xe sau lọc: " + carPage.getTotalElements());
+        System.out.println("📄 Tổng số trang: " + carPage.getTotalPages());
+
         model.addAttribute("cars", carPage.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", carPage.getTotalPages());
+        model.addAttribute("totalCarPages", carPage.getTotalPages());
 
         return "fragments/car_list_fragment :: carList";
+
     }
 
 }

@@ -21,8 +21,9 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
     @Query("SELECT DISTINCT c.seat FROM Car c")
     List<Integer> findDistinctSeats();
 
-    @Query("SELECT c FROM Car c WHERE c.status = :status " +
-            "AND (:brand IS NULL OR c.brand = :brand) " +
+    @Query("SELECT c FROM Car c " +
+            "WHERE c.status = :status " +
+            "AND (:brand IS NULL OR :brand = '' OR c.brand = :brand) " +
             "AND (:seat IS NULL OR c.seat = :seat) " +
             "AND (:minPrice IS NULL OR c.price >= :minPrice) " +
             "AND (:maxPrice IS NULL OR c.price <= :maxPrice)")
@@ -32,6 +33,9 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
                          @Param("minPrice") Integer minPrice,
                          @Param("maxPrice") Integer maxPrice,
                          Pageable pageable);
+
+
+
 
 
 }
