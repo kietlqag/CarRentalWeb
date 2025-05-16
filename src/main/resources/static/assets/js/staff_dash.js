@@ -191,3 +191,29 @@ function formatDate(isoString) {
 
     return `${dd}/${mm}/${yyyy}`;
 }
+
+document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const phone = document.getElementById('profilePhone').value;
+    const address = document.getElementById('profileAddress').value;
+
+    fetch('/profile/update', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ phone, address })
+    })
+        .then(res => {
+            if (res.ok) {
+                alert("Cập nhật thành công!");
+                location.reload(); // hoặc cập nhật phần UI nếu không muốn reload
+            } else {
+                return res.text().then(text => { throw new Error(text); });
+            }
+        })
+        .catch(err => {
+            alert("Lỗi: " + err.message);
+        });
+});

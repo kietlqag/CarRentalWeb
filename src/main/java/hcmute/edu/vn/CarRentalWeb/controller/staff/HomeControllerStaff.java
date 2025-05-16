@@ -3,6 +3,7 @@ package hcmute.edu.vn.CarRentalWeb.controller.staff;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
+import hcmute.edu.vn.CarRentalWeb.repository.AccountRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
 import hcmute.edu.vn.CarRentalWeb.service.OrderService;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +26,8 @@ public class HomeControllerStaff {
     private OrderRepository orderRepository;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private AccountRepository accountRepo;
 
     @GetMapping("/staff/dashboard")
     public String dashboard(HttpSession session, Model model) {
@@ -36,6 +39,19 @@ public class HomeControllerStaff {
         model.addAttribute("orders", orders); // truyền vào model để Thymeleaf dùng
 
         return "staff_dashboard"; // trỏ tới file staff_dashboard.html
+    }
+
+    @PutMapping("/profile/update")
+    @ResponseBody
+    public ResponseEntity<?> updateProfile(@RequestBody Map<String, String> payload, HttpSession session) {
+        Account account = (Account) session.getAttribute("account");
+        if (account == null) return ResponseEntity.status(401).body("Chưa đăng nhập");
+
+        account.setPhone(payload.get("phone"));
+        account.setAddress(payload.get("address"));
+        accountRepo.save(account);
+        session.setAttribute("account", account); // cập nhật lại session nếu cần
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/staff/orders/update/{id}")
