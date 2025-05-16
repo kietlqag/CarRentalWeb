@@ -398,12 +398,6 @@ function attachSectionToggleEvents() {
 function formatDate(isoString) {
     if (!isoString) return '';
     let date = new Date(isoString);
-    if (isNaN(date.getTime())) {
-        date = new Date(isoString + "Z");
-    }
-
-    if (isNaN(date.getTime())) return ''; // vẫn lỗi thì trả rỗng
-
     const dd = String(date.getDate()).padStart(2, '0');
     const mm = String(date.getMonth() + 1).padStart(2, '0');
     const yyyy = date.getFullYear();
