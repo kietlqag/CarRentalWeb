@@ -217,3 +217,18 @@ document.getElementById('editProfileForm').addEventListener('submit', function(e
             alert("Lỗi: " + err.message);
         });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const profileModal = document.getElementById('editProfileModal');
+
+    if (profileModal) {
+        profileModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const phone = button.getAttribute('data-phone');
+            const address = button.getAttribute('data-address');
+
+            document.getElementById('profilePhone').value = phone || '';
+            document.getElementById('profileAddress').value = address || '';
+        });
+    }
+});

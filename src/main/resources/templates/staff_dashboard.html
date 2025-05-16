@@ -349,7 +349,11 @@
                             <div class="form-control" th:text="${account.address}">Địa chỉ</div>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-animated mt-3" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                    <button
+                            class="btn btn-primary btn-animated mt-3"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editProfileModal"
+                            th:attr="data-phone=${account.phone}, data-address=${account.address}">
                         <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
                         <i class="fas fa-user-edit fa-sm"></i> Chỉnh sửa
                     </button>
