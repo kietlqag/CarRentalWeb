@@ -166,17 +166,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function convertToISODate(dateStr) {
         const [dd, mm, yyyy] = dateStr.split('/');
-        const date = new Date(`${yyyy}-${mm}-${dd}`);
-        date.setHours(7, 0, 0, 0);
-        date.setDate(date.getDate());
-        const newYear = date.getFullYear();
-        const newMonth = String(date.getMonth() + 1).padStart(2, '0');
-        const newDay = String(date.getDate()).padStart(2, '0');
+        const date = new Date(Date.UTC(yyyy, mm - 1, dd, 24, 0, 0));
+        const newYear = date.getUTCFullYear();
+        const newMonth = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const newDay = String(date.getUTCDate()).padStart(2, '0');
+
         return `${newYear}-${newMonth}-${newDay}`;
     }
 });
 function formatDateCreate(isoString) {
-    if (!isoString) return '';
     let date = new Date(isoString);
     date = new Date(date.getTime() - (7 * 3600000));
     const dd = String(date.getDate()).padStart(2, '0');
@@ -186,7 +184,6 @@ function formatDateCreate(isoString) {
     return `${dd}/${mm}/${yyyy}`;
 }
 function formatDate(isoString) {
-    if (!isoString) return '';
     let date = new Date(isoString);
     const dd = String(date.getDate()).padStart(2, '0');
     const mm = String(date.getMonth() + 1).padStart(2, '0');
