@@ -69,7 +69,7 @@
                 </div>
                 <!-- User Profile -->
                 <div class="user-profile">
-                    <img src="./img/customer_avatar.jpg" alt="Customer Profile" class="rounded-circle" style="width: 40px; height: 40px;">
+                    <img th:src="${account.getAvatar()}" alt="Customer Profile" class="rounded-circle" style="width: 40px; height: 40px;">
                 </div>
             </div>
         </div>
@@ -275,7 +275,10 @@
                                                 data-bs-target="#editOrderModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-danger" onclick="cancelBooking('BK1234')"><i class="fas fa-trash"></i></button>
+                                        <button class="btn btn-sm btn-danger"
+                                                th:onclick="'cancelBooking(' + ${order.id} + ')'">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -289,65 +292,76 @@
         <!-- Profile Section -->
         <div class="content-section" id="profile">
             <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Thông tin cá nhân</h1>
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <div class="row mb-4">
+            <div class="card shadow rounded-4">
+                <div class="card-body p-4">
+                    <div class="row align-items-center mb-4 border-bottom pb-4">
                         <div class="col-md-3 text-center">
-                            <img src="./img/customer_avatar.jpg" class="rounded-circle img-thumbnail" alt="Avatar" style="width: 100px; height: 100px;">
+                            <img th:src="@{${account.getAvatar()}}" class="rounded-circle shadow-sm" alt="Avatar" style="width: 120px; height: 120px; object-fit: cover;">
                         </div>
                         <div class="col-md-9">
-                            <h4>Nguyễn Văn Khách Hàng</h4>
-                            <p class="text-muted">Khách hàng đăng ký</p>
+                            <h4 class="fw-bold mb-1" th:text="${account.getFullName()}">Nguyễn Văn Khách Hàng</h4>
+                            <span class="badge bg-info text-dark" th:text="'Hạng: ' + ${account.getRanks()}">Hạng: Bạc</span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Email</label>
-                            <div class="form-control">customer@example.com</div>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">📧 Email</label>
+                            <div class="form-control bg-light" th:text="${account.getEmail()}">customer@example.com</div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Số điện thoại</label>
-                            <div class="form-control">0901234567</div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">📱 Số điện thoại</label>
+                            <div class="form-control bg-light" th:text="${account.getPhone()}">0901234567</div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Ngày tham gia</label>
-                            <div class="form-control">01/01/2025</div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">🏠 Địa chỉ</label>
+                            <div class="form-control bg-light" th:text="${account.getAddress()}">123 Đường ABC, Quận 1, TP.HCM</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">⭐ Điểm tích lũy</label>
+                            <div class="form-control bg-light" th:text="${account.getScore()}">1500</div>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-animated mt-3" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                        <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
-                        <i class="fas fa-user-edit fa-sm"></i> Chỉnh sửa
-                    </button>
+
+                    <div class="text-end mt-4">
+                        <button class="btn btn-outline-primary rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                            <i class="fas fa-user-edit me-2"></i>Chỉnh sửa
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Edit Profile Modal -->
         <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editProfileModalLabel">Chỉnh sửa thông tin cá nhân</h5>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content rounded-4 shadow-lg">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title fw-bold" id="editProfileModalLabel">✏️ Chỉnh sửa thông tin cá nhân</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body px-4">
                         <form id="editProfileForm">
                             <div class="mb-3">
-                                <label for="profileName" class="form-label">Họ và tên</label>
-                                <input type="text" class="form-control" id="profileName" value="Nguyễn Văn Khách Hàng" required>
+                                <label for="profileName" class="form-label fw-semibold">👤 Họ và tên</label>
+                                <input type="text" class="form-control rounded-pill px-3" id="profileName"
+                                       th:value="${account.getFullName()}" required>
                             </div>
                             <div class="mb-3">
-                                <label for="profileEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="profileEmail" value="customer@example.com" required>
+                                <label for="profileAddress" class="form-label fw-semibold">🏠 Địa chỉ</label>
+                                <input type="text" class="form-control rounded-pill px-3" id="profileAddress"
+                                       th:value="${account.getAddress()}">
                             </div>
                             <div class="mb-3">
-                                <label for="profilePhone" class="form-label">Số điện thoại</label>
-                                <input type="text" class="form-control" id="profilePhone" value="0901234567">
+                                <label for="profilePhone" class="form-label fw-semibold">📱 Số điện thoại</label>
+                                <input type="text" class="form-control rounded-pill px-3" id="profilePhone"
+                                       th:value="${account.getPhone()}">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-animated">
-                                <svg><rect x="0" y="0" width="100%" height="100%"></rect></svg>
-                                Lưu thay đổi
-                            </button>
+                            <div class="text-end mt-4">
+                                <button type="submit" class="btn btn-success rounded-pill px-4">
+                                    💾 Lưu
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
