@@ -151,17 +151,19 @@
                                 <td>
                                 <span class="badge"
                                       th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
-                                                      (order.status == 'Chờ xác nhận' ? 'bg-warning' :
-                                                       (order.status == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-                                      th:text="${order.status}">Trạng thái thanh toán
+                                                      (${order.status} == 'Chờ xác nhận' ? 'bg-warning' :
+                                                      (${order.status} == 'Đã hoàn thành' ? 'bg-danger' :
+                                                      (${order.status} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:text="${order.status}">Trạng thái đơn hàng
                                 </span>
                                 </td>
                                 <td>
                                 <span class="badge"
                                       th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
-                                                      (order.paymentstatus == 'Chờ xác nhận' ? 'bg-warning' :
-                                                       (order.paymentstatus == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-                                      th:text="${order.paymentstatus}">Trạng thái đơn hàng
+                                                      (${order.paymentstatus} == 'Chờ xác nhận' ? 'bg-warning' :
+                                                      (${order.paymentstatus} == 'Đã hoàn thành' ? 'bg-danger' :
+                                                      (${order.paymentstatus} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:text="${order.paymentstatus}">Trạng thái thanh toán
                                 </span>
                                 </td>
                             </tr>
@@ -232,20 +234,22 @@
                                 <td th:text="${#dates.format(order.returndate, 'dd/MM/yyyy')}">Ngày trả</td>
                                 <td th:text="${order.paymentmethod}">Phương thức thanh toán</td>
                                 <td>
-        <span class="badge"
-              th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
-                              (order.status == 'Chờ xác nhận' ? 'bg-warning' :
-                               (order.status == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-              th:text="${order.status}">Trạng thái thanh toán
-        </span>
+                                <span class="badge"
+                                      th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
+                                                      (${order.status} == 'Chờ xác nhận' ? 'bg-warning' :
+                                                      (${order.status} == 'Đã hoàn thành' ? 'bg-danger' :
+                                                      (${order.status} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:text="${order.status}">Trạng thái đơn hàng
+                                </span>
                                 </td>
                                 <td>
-        <span class="badge"
-              th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
-                              (order.paymentstatus == 'Chờ xác nhận' ? 'bg-warning' :
-                               (order.paymentstatus == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-              th:text="${order.paymentstatus}">Trạng thái đơn hàng
-        </span>
+                                <span class="badge"
+                                      th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
+                                                      (${order.paymentstatus} == 'Chờ xác nhận' ? 'bg-warning' :
+                                                      (${order.paymentstatus} == 'Đã hoàn thành' ? 'bg-danger' :
+                                                      (${order.paymentstatus} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:text="${order.paymentstatus}">Trạng thái thanh toán
+                                </span>
                                 </td>
                                 <td>
                                     <div class="table-action">
@@ -400,6 +404,7 @@
                                     <option value="Chờ xác nhận">Chờ xác nhận</option>
                                     <option value="Xác nhận">Xác nhận</option>
                                     <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                    <option value="Đã hủy">Đã hủy</option>
                                 </select>
                             </div>
 
@@ -409,6 +414,7 @@
                                     <option value="Chờ xác nhận">Chờ xác nhận</option>
                                     <option value="Xác nhận">Xác nhận</option>
                                     <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                    <option value="Đã hủy">Đã hủy</option>
                                 </select>
                             </div>
 
