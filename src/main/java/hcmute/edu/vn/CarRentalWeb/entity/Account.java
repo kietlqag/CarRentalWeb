@@ -20,6 +20,8 @@ public class Account {
     private String avatar;
     private int ranks;
     private int score;
+    private LocalDateTime createdate;
+
 
     public Account() {
     }
@@ -95,4 +97,13 @@ public class Account {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public LocalDateTime getCreatedate() {
+        return createdate;
+    }
+
+    public void setCreatedate(LocalDateTime createdate) {
+        this.createdate = createdate;
+    }
+
 }
