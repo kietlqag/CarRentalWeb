@@ -8,6 +8,7 @@ import hcmute.edu.vn.CarRentalWeb.service.OrderService;
 import hcmute.edu.vn.CarRentalWeb.service.PromotionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class DashboardController {
@@ -63,7 +65,7 @@ public class DashboardController {
     public ResponseEntity<?> updateOrder(@PathVariable int id, @RequestBody Map<String, String> payload) {
         Order order = orderService.getOrderById(id);
 
-        order.setPaymentstatus(payload.get("note"));
+        order.setNote(payload.get("note"));
         try {
             String receiveDateStr = payload.get("receivedate");
             String returnDateStr = payload.get("returndate");
@@ -75,4 +77,18 @@ public class DashboardController {
         orderService.save(order);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/customer/orders/cancel/{id}")
+    public ResponseEntity<?> cancelOrder(@PathVariable int id) {
+        Optional<Order> optionalOrder = Optional.ofNullable(orderService.getOrderById(id));
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            order.setStatus("Đã huỷ");
+            orderService.save(order);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Đơn hàng không tồn tại.");
+        }
+    }
+
 }

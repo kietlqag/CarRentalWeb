@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('orderPhone').textContent = order.phone;
                     document.getElementById('orderPickLocation').textContent = order.picklocation;
                     document.getElementById('orderNote').textContent = order.note;
+                    document.getElementById('orderDiscount').textContent = order.discount;
                 });
         });
     });
