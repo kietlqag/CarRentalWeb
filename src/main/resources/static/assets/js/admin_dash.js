@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('orderName').textContent = order.name;
                     document.getElementById('orderEmail').textContent = order.accountemail;
                     document.getElementById('orderStatus').textContent = order.status;
-                    document.getElementById('orderCreatedAt').textContent = formatDate(order.createdat);
+                    document.getElementById('orderCreatedAt').textContent = formatDateCreate(order.createdat);
                     document.getElementById('orderTotal').textContent = order.total + 'đ';
                     document.getElementById('orderPaymentStatus').textContent = order.paymentstatus;
                     document.getElementById('orderPaymentMethod').textContent = order.paymentmethod;
@@ -185,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const editModal = document.getElementById('editAccountModal');
 
     if (editModal) {
+        // Gán dữ liệu vào form khi mở modal
         editModal.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             const email = button.getAttribute('data-email');
@@ -194,6 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('editRole').value = role;
         });
 
+        // Gửi request cập nhật vai trò
         document.getElementById('editRoleForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -205,20 +207,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email: email, role: role })
+                body: JSON.stringify({ email, role })
             })
                 .then(res => {
                     if (res.ok) {
                         alert("Đã cập nhật vai trò");
                         location.reload();
                     } else {
-                        return res.text().then(msg => alert("Lỗi: " + msg));
+                        return res.text().then(msg => {
+                            alert("Lỗi: " + msg);
+                        });
                     }
                 })
-                .catch(err => alert("Lỗi hệ thống: " + err));
+                .catch(err => {
+                    alert("Lỗi hệ thống: " + err.message);
+                });
         });
     }
 });
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("carForm");
 
@@ -395,8 +402,16 @@ function attachSectionToggleEvents() {
         });
     });
 }
+function formatDateCreate(isoString) {
+    let date = new Date(isoString);
+    date = new Date(date.getTime() - (7 * 3600000));
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+
+    return `${dd}/${mm}/${yyyy}`;
+}
 function formatDate(isoString) {
-    if (!isoString) return '';
     let date = new Date(isoString);
     const dd = String(date.getDate()).padStart(2, '0');
     const mm = String(date.getMonth() + 1).padStart(2, '0');

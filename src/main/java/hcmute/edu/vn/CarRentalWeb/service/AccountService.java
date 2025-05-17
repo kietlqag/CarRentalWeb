@@ -28,4 +28,9 @@ public void deleteAccountByEmail(String email) {
 public Account getAccountByEmail(String email) {
         return accountRepo.findByEmail(email);
 }
+public void updateRoleAccount(String email,String role) {
+    Account account = accountRepo.findByEmail(email);
+    account.setRole(role);
+    accountRepo.save(account);
+}
 }
