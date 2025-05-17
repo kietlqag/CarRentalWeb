@@ -33,11 +33,26 @@ flatpickr('.date-picker', {
     disableMobile: true
 });
 
-// Hàm xử lý hủy đặt xe
 function cancelBooking(bookingId) {
     if (confirm('Bạn có chắc muốn hủy đặt xe #' + bookingId + '? Hủy chỉ được phép trước 24 giờ.')) {
-        alert('Đặt xe #' + bookingId + ' đã được hủy.');
-        // TODO: Gọi API để hủy
+        fetch(`/customer/orders/cancel/${bookingId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: 'Đã huỷ' })
+        })
+            .then(res => {
+                if (res.ok) {
+                    alert('✅ Đơn hàng #' + bookingId + ' đã được hủy.');
+                    location.reload();
+                } else {
+                    res.text().then(msg => alert('❌ Không thể hủy: ' + msg));
+                }
+            })
+            .catch(error => {
+                alert('❌ Lỗi kết nối: ' + error);
+            });
     }
 }
 
@@ -91,24 +106,22 @@ function attachSectionToggleEvents() {
     });
 }
 
-function formatDateCreate(dateStr) {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('vi-VN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-    });
-}
+function formatDateCreate(isoString) {
+    let date = new Date(isoString);
+    date = new Date(date.getTime() - (7 * 3600000));
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
 
-function formatDate(dateStr) {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('vi-VN', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit'
-    });
+    return `${dd}/${mm}/${yyyy}`;
+}
+function formatDate(isoString) {
+    let date = new Date(isoString);
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+
+    return `${dd}/${mm}/${yyyy}`;
 }
 
 
@@ -148,24 +161,32 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll("button[data-bs-target='#editOrderModal']");
 
+    // Mở modal và load thông tin đơn hàng
     editButtons.forEach(button => {
         button.addEventListener("click", () => {
             const orderId = button.getAttribute("data-booking-id");
+
+            // Gán ID vào input ẩn
+            document.getElementById("editOrderId").value = orderId;
+
             fetch(`/customer/orders/${orderId}`)
                 .then(res => res.json())
                 .then(order => {
-                    document.getElementById("editPaymentStatus").value = order.paymentstatus;
+                    // Gán dữ liệu vào form
                     document.getElementById("editReceiveDate").value = formatDate(order.receivedate);
-                    document.getElementById("editNote").value = order.note;
-                });
+                    document.getElementById("editReturnDate").value = formatDate(order.returndate);
+                    document.getElementById("editNote").value = order.note || "";
+                }).catch(err => alert("Lỗi khi tải dữ liệu đơn hàng: " + err));
         });
     });
 
+    // Khi bấm "Lưu thay đổi"
     document.getElementById("saveEditOrderBtn").addEventListener("click", () => {
         const id = document.getElementById("editOrderId").value;
+
         const payload = {
-            receivedate: convertToISODate(document.getElementById("editReceiveDate").value) || null,
-            returndate: convertToISODate(document.getElementById("editReturnDate").value) || null,
+            receivedate: formatDateInput(document.getElementById("editReceiveDate").value) || null,
+            returndate: formatDateInput(document.getElementById("editReturnDate").value) || null,
             note: document.getElementById("editNote").value || null,
         };
 
@@ -177,15 +198,15 @@ document.addEventListener("DOMContentLoaded", function () {
             body: JSON.stringify(payload)
         }).then(res => {
             if (res.ok) {
-                alert("Cập nhật đơn hàng thành công!");
+                alert("✅ Cập nhật đơn hàng thành công!");
                 location.reload();
             } else {
-                res.text().then(msg => alert("Cập nhật thất bại: " + msg));
+                res.text().then(msg => alert("❌ Cập nhật thất bại: " + msg));
             }
-        }).catch(err => alert("Lỗi kết nối: " + err));
+        }).catch(err => alert("❌ Lỗi kết nối: " + err));
     });
 
-    function convertToISODate(dateStr) {
+    function formatDateInput(dateStr) {
         const [dd, mm, yyyy] = dateStr.split('/');
         const date = new Date(Date.UTC(yyyy, mm - 1, dd, 24, 0, 0));
         const newYear = date.getUTCFullYear();
@@ -195,3 +216,4 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${newYear}-${newMonth}-${newDay}`;
     }
 });
+
