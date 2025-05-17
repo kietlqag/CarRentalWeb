@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,12 @@ public class HomeControllerAdmin {
         model.addAttribute("promotions", promotions);
         List<Order> orders = orderService.getAllOrder();
         model.addAttribute("orders", orders);
+        List<Order> recentOrders = orderService.getRecentOrder();
+        model.addAttribute("recentOrders", recentOrders);
+        BigDecimal totalThisMonth = orderService.getTotalOfCurrentMonthOrdersByStatus("Đã hoàn thành");
+        model.addAttribute("totalThisMonth", totalThisMonth);
+        int newCustomerCount = accountService.countNewCustomersThisMonth();
+        model.addAttribute("newCustomerCount", newCustomerCount);
         return "admin_dashboard";
     }
 

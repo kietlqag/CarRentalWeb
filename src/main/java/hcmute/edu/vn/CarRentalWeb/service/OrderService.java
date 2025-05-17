@@ -7,11 +7,14 @@ import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -33,6 +36,22 @@ public class OrderService {
     public Order getOrderById(int id) {
 
         return orderRepo.findOrderById(id);
+    }
+    public List<Order> getRecentOrder() {
+        List<Order> order = orderRepo.findAll();
+        order.sort((o1, o2) -> o2.getCreatedat().compareTo(o1.getCreatedat()));
+        return order.stream().limit(5).collect(Collectors.toList()); // chỉ lấy 5 đơn mới nhất
+    }
+    public BigDecimal getTotalOfCurrentMonthOrdersByStatus(String status) {
+        LocalDateTime startOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay();
+        LocalDateTime startOfNextMonth = startOfMonth.plusMonths(1);
+
+        List<Order> orders = orderRepo.findByCreatedatBetweenAndStatus(startOfMonth, startOfNextMonth, status);
+
+        return orders.stream()
+                .map(Order::getTotal)
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public void save(Order order ) {
