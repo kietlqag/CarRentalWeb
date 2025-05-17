@@ -181,26 +181,17 @@
                 </div>
                 <div class="card-body">
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action">
+                        <div th:if="${#lists.isEmpty(notificationList)}">
+                            <p>Không có thông báo nào.</p>
+                        </div>
+                        <a th:each="notification : ${notificationList}"
+                           href="#"
+                           class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">Đặt xe mới</h6>
-                                <small>20/04/2025</small>
+                                <h6 class="mb-1" th:text="${notification.getTitle()}">Tiêu đề</h6>
+                                <small th:text="${#dates.format(notification.getCreatedat(), 'dd-MM-yyyy')}">Ngày</small>
                             </div>
-                            <p class="mb-1">Khách hàng Nguyễn Văn A đã đặt xe Toyota Camry (#BK1234).</p>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">Xe cần bảo dưỡng</h6>
-                                <small>20/04/2025</small>
-                            </div>
-                            <p class="mb-1">Xe Toyota Camry (51F-123.45) cần bảo dưỡng định kỳ.</p>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">Yêu cầu tư vấn</h6>
-                                <small>19/04/2025</small>
-                            </div>
-                            <p class="mb-1">Khách hàng Trần Thị B yêu cầu tư vấn về xe SUV.</p>
+                            <p class="mb-1" th:text="${notification.getMessage()}">Nội dung</p>
                         </a>
                     </div>
                 </div>

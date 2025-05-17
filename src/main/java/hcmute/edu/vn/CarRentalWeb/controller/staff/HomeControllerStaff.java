@@ -2,9 +2,12 @@ package hcmute.edu.vn.CarRentalWeb.controller.staff;
 
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
+import hcmute.edu.vn.CarRentalWeb.entity.Notification;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
 import hcmute.edu.vn.CarRentalWeb.repository.AccountRepository;
+import hcmute.edu.vn.CarRentalWeb.repository.NotificationRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
+import hcmute.edu.vn.CarRentalWeb.service.NotificationService;
 import hcmute.edu.vn.CarRentalWeb.service.OrderService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +31,21 @@ public class HomeControllerStaff {
     private OrderService orderService;
     @Autowired
     private AccountRepository accountRepo;
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping("/staff/dashboard")
     public String dashboard(HttpSession session, Model model) {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
 
-        // Lấy danh sách đơn hàng từ database
         List<Order> orders = orderRepository.findAll();
-        model.addAttribute("orders", orders); // truyền vào model để Thymeleaf dùng
+        model.addAttribute("orders", orders);
 
-        return "staff_dashboard"; // trỏ tới file staff_dashboard.html
+        List<Notification> notificationList = notificationService.getAllNotifications(account.getEmail());
+        model.addAttribute("notificationList", notificationList);
+
+        return "staff_dashboard";
     }
 
     @PutMapping("/profile/update")
@@ -50,7 +57,7 @@ public class HomeControllerStaff {
         account.setPhone(payload.get("phone"));
         account.setAddress(payload.get("address"));
         accountRepo.save(account);
-        session.setAttribute("account", account); // cập nhật lại session nếu cần
+        session.setAttribute("account", account);
         return ResponseEntity.ok().build();
     }
 
