@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,12 +37,13 @@ public class CheckoutController {
     private OrderService orderService;
 
     @GetMapping("/checkout")
-    public String checkout(@RequestParam("idCar") int carId, @RequestParam("idService") int serviceId,
-                           @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                           @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+    public String checkout(@RequestParam("idCar") int carId,
+                           @RequestParam(value = "idService", required = false, defaultValue = "-1") int serviceId,
+                           @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+                           @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate,
                            Model model,
-                           HttpSession session)
-    {
+                           HttpSession session) {
+
         List<Integer> types = new ArrayList<>();
         types.add(0);
 
@@ -50,21 +51,29 @@ public class CheckoutController {
             Account account = (Account) session.getAttribute("account");
             if (account != null) {
                 model.addAttribute("account", account);
-                types.add(account.getRanks()); // thêm rank nếu có account
+                types.add(account.getRanks());
             }
         }
 
         Car car = carService.getCarById(carId);
-        Services service = servicesService.getServiceById(serviceId);
-        List<Promotion> promotionList = promotionService.getAllPromotionByTypes(types);
-        long countdate = ChronoUnit.DAYS.between(startDate, endDate) + 1;
-        int total = (int) countdate * car.getPrice();
-        if (service != null) {
-            total += service.getPrice();
+
+        Services service = null;
+        Integer servicePrice = 0;
+
+        // Nếu có idService và hợp lệ thì lấy dịch vụ, không thì bỏ qua
+        if (serviceId != -1) {
+            service = servicesService.getServiceById(serviceId);
+            if (service != null) {
+                servicePrice = service.getPrice();
+            }
         }
 
+        List<Promotion> promotionList = promotionService.getAllPromotionByTypes(types);
+        long countdate = orderService.calculateCountDate(startDate, endDate);
+        long total = orderService.calculateTotal(countdate, car.getPrice(), servicePrice);
+
         model.addAttribute("car", car);
-        model.addAttribute("service", service);
+        model.addAttribute("service", service); // có thể là null
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
         model.addAttribute("countdate", countdate);

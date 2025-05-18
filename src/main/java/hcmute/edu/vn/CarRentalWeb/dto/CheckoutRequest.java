@@ -23,6 +23,7 @@ public class CheckoutRequest {
     private BigDecimal total;
     private int price;
     private int discount;
+    private int carid;
 
     public String getCustomer() {
         return customer;
@@ -126,5 +127,13 @@ public class CheckoutRequest {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public int getCarid() {
+        return carid;
+    }
+
+    public void setCarid(int carid) {
+        this.carid = carid;
     }
 }

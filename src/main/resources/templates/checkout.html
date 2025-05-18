@@ -61,11 +61,12 @@
 
         <input type="hidden" name="name" th:value="${car.getName()}"/>
         <input type="hidden" name="service" th:value="${service != null ? service.getNameService() : 'Không'}"/>
-        <input type="hidden" name="receiveDate" th:value="${startDate}"/>
-        <input type="hidden" name="returnDate" th:value="${endDate}"/>
+        <input type="hidden" name="receiveDate" th:value="${#dates.format(startDate, 'yyyy-MM-dd')}" />
+        <input type="hidden" name="returnDate" th:value="${#dates.format(endDate, 'yyyy-MM-dd')}" />
         <input type="hidden" name="countDate" th:value="${countdate}"/>
         <input type="hidden" id="finalTotal" name="total" th:value="${total}"/>
         <input type="hidden" id="discountValue" name="discount" value="0"/>
+        <input type="hidden" name="carid" th:value="${car.getId()}"/>
 
         <button type="submit" class="btn btn-primary w-100">Thanh toán</button>
       </form>
@@ -82,10 +83,10 @@
                 th:text="${service != null ? service.getNameService() : ''}">Airport Transfer</span>
         </p>
         <p><strong>Ngày nhận:</strong>
-          <span id="summaryDate" th:text="${#temporals.format(startDate, 'dd-MM-yyyy')}">12/06/2025</span>
+          <span id="summaryDate" th:text="${#dates.format(startDate, 'dd/MM/yyyy')}">12/06/2025</span>
         </p>
         <p><strong>Ngày trả:</strong>
-          <span id="summaryPeriod" th:text="${#temporals.format(endDate, 'dd-MM-yyyy')}">14/06/2025</span>
+          <span id="summaryPeriod" th:text="${#dates.format(endDate, 'dd/MM/yyyy')}">14/06/2025</span>
         </p>
 
         <p><strong>Số ngày thuê:</strong>

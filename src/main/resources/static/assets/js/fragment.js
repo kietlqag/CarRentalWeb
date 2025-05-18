@@ -108,7 +108,7 @@ function attachCarDetailButtons() {
                         document.getElementById('car-engine').innerText = car.engine;
                         document.getElementById('car-seat').innerText = car.seat + " chỗ";
                         document.getElementById('car-model').innerText = car.model;
-                        document.getElementById('car-style').innerText = car.style;
+                        document.getElementById('car-style').innerText = car.bodystyle;
 
                         const bookBtn = document.getElementById('bookNowBtn');
                         bookBtn.setAttribute('data-car-id', car.id);

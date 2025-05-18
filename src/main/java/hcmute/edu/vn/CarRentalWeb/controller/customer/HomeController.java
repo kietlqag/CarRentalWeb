@@ -80,7 +80,7 @@ public class HomeController {
                     minPrice = Integer.parseInt(parts[0].trim());
                     maxPrice = Integer.parseInt(parts[1].trim());
                 } catch (NumberFormatException e) {
-                    System.err.println("❌ Lỗi parse giá: " + e.getMessage());
+                    System.err.println("Lỗi parse giá: " + e.getMessage());
                 }
             }
         }
@@ -88,8 +88,6 @@ public class HomeController {
 
         Page<Car> carPage = carService.filterCars("Sẵn sàng", brand, seat, minPrice, maxPrice, PageRequest.of(page, pageSize));
 
-        System.out.println("🚗 Tổng số xe sau lọc: " + carPage.getTotalElements());
-        System.out.println("📄 Tổng số trang: " + carPage.getTotalPages());
 
         model.addAttribute("cars", carPage.getContent());
         model.addAttribute("currentPage", page);
