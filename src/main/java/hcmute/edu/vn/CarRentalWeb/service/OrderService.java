@@ -37,11 +37,17 @@ public class OrderService {
 
         return orderRepo.findOrderById(id);
     }
+
+    public int countOrdersByStatus(String status) {
+        return orderRepo.countByStatus(status);
+    }
+
     public List<Order> getRecentOrder() {
         List<Order> order = orderRepo.findAll();
         order.sort((o1, o2) -> o2.getCreatedat().compareTo(o1.getCreatedat()));
         return order.stream().limit(5).collect(Collectors.toList()); // chỉ lấy 5 đơn mới nhất
     }
+
     public BigDecimal getTotalOfCurrentMonthOrdersByStatus(String status) {
         LocalDateTime startOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay();
         LocalDateTime startOfNextMonth = startOfMonth.plusMonths(1);
@@ -90,5 +96,4 @@ public class OrderService {
             return false;
         }
     }
-
 }

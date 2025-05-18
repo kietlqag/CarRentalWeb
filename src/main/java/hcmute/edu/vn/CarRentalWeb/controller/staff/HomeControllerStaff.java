@@ -26,8 +26,6 @@ import java.util.Map;
 public class HomeControllerStaff {
 
     @Autowired
-    private OrderRepository orderRepository;
-    @Autowired
     private OrderService orderService;
     @Autowired
     private AccountRepository accountRepo;
@@ -39,11 +37,17 @@ public class HomeControllerStaff {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
 
-        List<Order> orders = orderRepository.findAll();
+        List<Order> orders = orderService.getAllOrder();
         model.addAttribute("orders", orders);
 
         List<Notification> notificationList = notificationService.getAllNotifications(account.getEmail());
         model.addAttribute("notificationList", notificationList);
+
+        int totalOrders = orderService.getAllOrder().size();
+        model.addAttribute("totalOrders", totalOrders);
+
+        int pendingOrders = orderService.countOrdersByStatus("Chờ xác nhận");
+        model.addAttribute("pendingOrders", pendingOrders);
 
         return "staff_dashboard";
     }

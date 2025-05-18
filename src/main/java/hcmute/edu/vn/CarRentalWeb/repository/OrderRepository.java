@@ -15,4 +15,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     int countByAccountemail(String accountemail);
     List<Order> findAllByAccountemail(String accountemail);
     List<Order> findByCreatedatBetweenAndStatus(LocalDateTime start, LocalDateTime end, String status);
+    int countByStatus(String status);
 }
