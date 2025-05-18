@@ -37,7 +37,6 @@ public class OrderService {
         for (int i = 1; i <= 12; i++) {
             monthlyRevenue.put(i, BigDecimal.ZERO);
         }
-
         for (Object[] row : results) {
             Integer month = ((Number) row[0]).intValue();
             BigDecimal total = (BigDecimal) row[1];
@@ -71,13 +70,9 @@ public class OrderService {
             order.setCreatedat(LocalDateTime.now());
             order.setName(data.getName());
             order.setService(data.getService() != null ? data.getService() : "Không");
-
-
-
             order.setReceivedate(data.getReceiveDate());
             order.setReturndate(data.getReturnDate());
             order.setCountdate(data.getCountDate());
-
             order.setTotal(data.getTotal());
             order.setDiscount(data.getDiscount());
 
