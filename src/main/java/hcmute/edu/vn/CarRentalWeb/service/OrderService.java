@@ -27,6 +27,9 @@ public class OrderService {
     public int countOrderByEmail(String email){
         return orderRepo.countByAccountemail(email);
     }
+    public int countOrdersByStatus(String status) {
+        return orderRepo.countByStatus(status);
+    }
     public List<Order> getAllOrderByEmail(String email){
         return orderRepo.findAllByAccountemail(email);
     }

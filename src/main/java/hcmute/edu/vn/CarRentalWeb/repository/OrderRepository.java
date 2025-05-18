@@ -16,6 +16,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     Order findOrderById(int id);
     int countByAccountemail(String accountemail);
+    int countByStatus(String status);
     List<Order> findAllByAccountemail(String accountemail);
     @Query("SELECT SUM(o.total) FROM Order o " +
             "WHERE MONTH(o.createdat) = MONTH(CURRENT_DATE) " +
