@@ -3,13 +3,16 @@ package hcmute.edu.vn.CarRentalWeb.service;
 import hcmute.edu.vn.CarRentalWeb.dto.CheckoutRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
+import hcmute.edu.vn.CarRentalWeb.repository.CarRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +20,8 @@ import java.util.List;
 public class OrderService {
     @Autowired
     private OrderRepository orderRepo;
+    @Autowired
+    private CarRepository carRepo;
 
     public List<Order> getAllOrder(){
         return orderRepo.findAll();
@@ -40,6 +45,7 @@ public class OrderService {
         orderRepo.save(order);
     }
 
+    @Transactional
     public boolean saveOrder(CheckoutRequest data){
         try {
             Order order = new Order();
@@ -64,7 +70,11 @@ public class OrderService {
             order.setTotal(data.getTotal());
             order.setDiscount(data.getDiscount());
 
+            Car car = carRepo.findCarById(data.getCarid());
+            car.setStatus("Đang thuê");
+
             orderRepo.save(order);
+            carRepo.save(car);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,4 +82,20 @@ public class OrderService {
         }
     }
 
+    public long calculateCountDate(Date startDate, Date endDate) {
+        LocalDate start = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate end = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return ChronoUnit.DAYS.between(start, end) + 1;
+    }
+
+    public long calculateTotal(long countDate, int carPrice, Integer servicePrice) {
+        long total = countDate * carPrice;
+        if (servicePrice != null) {
+            total += servicePrice;
+        }
+        return total;
+    }
+
+
 }
+
