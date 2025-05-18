@@ -39,44 +39,32 @@
                 <div class="dropdown mx-3">
                     <a class="dropdown-toggle" href="#" role="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-bell fa-fw text-gray-600"></i>
-                        <span class="badge bg-danger badge-counter">3</span>
+                        <span class="badge bg-danger badge-counter" th:text="${#lists.size(notificationList)}">0</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="notificationsDropdown">
                         <h6 class="dropdown-header">Thông báo</h6>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="me-3">
-                                <div class="icon-circle bg-success">
-                                    <i class="fas fa-check text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">20/04/2025</div>
-                                <span>Đặt xe #BK1234 đã được xác nhận.</span>
-                            </div>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="me-3">
-                                <div class="icon-circle bg-warning">
-                                    <i class="fas fa-exclamation-triangle text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">20/04/2025</div>
-                                <span>Xe Toyota Camry cần bảo dưỡng.</span>
-                            </div>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+
+                        <div th:if="${#lists.isEmpty(notificationList)}">
+                            <span class="dropdown-item text-gray-500">Không có thông báo.</span>
+                        </div>
+
+                        <a class="dropdown-item d-flex align-items-center" href="#"
+                           th:each="notification : ${notificationList}">
                             <div class="me-3">
                                 <div class="icon-circle bg-primary">
-                                    <i class="fas fa-user text-white"></i>
+                                    <i class="fas fa-bell text-white"></i>
                                 </div>
                             </div>
                             <div>
-                                <div class="small text-gray-500">19/04/2025</div>
-                                <span>Khách hàng mới yêu cầu tư vấn.</span>
+                                <div class="small text-gray-500"
+                                     th:text="${#dates.format(notification.createdat, 'dd/MM/yyyy')}">Ngày</div>
+                                <span th:text="${notification.title}">Tiêu đề thông báo</span>
                             </div>
                         </a>
-                        <a class="dropdown-item text-center small text-gray-500" href="#" data-section="notifications">Xem tất cả thông báo</a>
+
+                        <a class="dropdown-item text-center small text-gray-500" href="#" data-section="notifications">
+                            Xem tất cả thông báo
+                        </a>
                     </div>
                 </div>
                 <!-- Staff Profile -->
@@ -97,8 +85,8 @@
                     <div class="card shadow h-100">
                         <div class="card-body dashboard-card card-primary">
                             <div>
-                                <div class="text">Đặt xe hôm nay</div>
-                                <div class="value">8</div>
+                                <div class="text">Số đơn đặt xe</div>
+                                <div class="value" th:text="${totalOrders}">0</div>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-car text-primary"></i>
@@ -111,7 +99,7 @@
                         <div class="card-body dashboard-card card-success">
                             <div>
                                 <div class="text">Số đơn chờ xác nhận</div>
-                                <div class="value">15</div>
+                                <div class="value" th:text="${pendingOrders}">0</div>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-car-side text-success"></i>
@@ -151,17 +139,19 @@
                                 <td>
                                 <span class="badge"
                                       th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
-                                                      (order.status == 'Chờ xác nhận' ? 'bg-warning' :
-                                                       (order.status == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-                                      th:text="${order.status}">Trạng thái thanh toán
+                                                      (${order.status} == 'Chờ xác nhận' ? 'bg-warning' :
+                                                      (${order.status} == 'Đã hoàn thành' ? 'bg-danger' :
+                                                      (${order.status} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:text="${order.status}">Trạng thái đơn hàng
                                 </span>
                                 </td>
                                 <td>
                                 <span class="badge"
                                       th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
-                                                      (order.paymentstatus == 'Chờ xác nhận' ? 'bg-warning' :
-                                                       (order.paymentstatus == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-                                      th:text="${order.paymentstatus}">Trạng thái đơn hàng
+                                                      (${order.paymentstatus} == 'Chờ xác nhận' ? 'bg-warning' :
+                                                      (${order.paymentstatus} == 'Đã hoàn thành' ? 'bg-danger' :
+                                                      (${order.paymentstatus} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:text="${order.paymentstatus}">Trạng thái thanh toán
                                 </span>
                                 </td>
                             </tr>
@@ -232,20 +222,22 @@
                                 <td th:text="${#dates.format(order.returndate, 'dd/MM/yyyy')}">Ngày trả</td>
                                 <td th:text="${order.paymentmethod}">Phương thức thanh toán</td>
                                 <td>
-        <span class="badge"
-              th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
-                              (order.status == 'Chờ xác nhận' ? 'bg-warning' :
-                               (order.status == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-              th:text="${order.status}">Trạng thái thanh toán
-        </span>
+                                <span class="badge"
+                                      th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
+                                                      (${order.status} == 'Chờ xác nhận' ? 'bg-warning' :
+                                                      (${order.status} == 'Đã hoàn thành' ? 'bg-danger' :
+                                                      (${order.status} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:text="${order.status}">Trạng thái đơn hàng
+                                </span>
                                 </td>
                                 <td>
-        <span class="badge"
-              th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
-                              (order.paymentstatus == 'Chờ xác nhận' ? 'bg-warning' :
-                               (order.paymentstatus == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-              th:text="${order.paymentstatus}">Trạng thái đơn hàng
-        </span>
+                                <span class="badge"
+                                      th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
+                                                      (${order.paymentstatus} == 'Chờ xác nhận' ? 'bg-warning' :
+                                                      (${order.paymentstatus} == 'Đã hoàn thành' ? 'bg-danger' :
+                                                      (${order.paymentstatus} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:text="${order.paymentstatus}">Trạng thái thanh toán
+                                </span>
                                 </td>
                                 <td>
                                     <div class="table-action">
@@ -264,43 +256,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Activity Section -->
-        <div class="content-section" id="activity">
-            <h1 class="h3 mb-4 text-gray-800" style="font-family: 'Javanese Text', serif;">Hoạt động</h1>
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Lịch sử hoạt động</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Hành động</th>
-                                    <th>Thời gian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Xác nhận đặt xe #BK1234</td>
-                                    <td>20/04/2025 14:30</td>
-                                </tr>
-                                <tr>
-                                    <td>Cập nhật trạng thái xe Toyota Camry thành "Bảo dưỡng"</td>
-                                    <td>20/04/2025 13:50</td>
-                                </tr>
-                                <tr>
-                                    <td>Phản hồi yêu cầu tư vấn của khách hàng Trần Thị B</td>
-                                    <td>19/04/2025 16:22</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -400,6 +355,7 @@
                                     <option value="Chờ xác nhận">Chờ xác nhận</option>
                                     <option value="Xác nhận">Xác nhận</option>
                                     <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                    <option value="Đã hủy">Đã hủy</option>
                                 </select>
                             </div>
 
@@ -409,6 +365,7 @@
                                     <option value="Chờ xác nhận">Chờ xác nhận</option>
                                     <option value="Xác nhận">Xác nhận</option>
                                     <option value="Đã hoàn thành">Đã hoàn thành</option>
+                                    <option value="Đã hủy">Đã hủy</option>
                                 </select>
                             </div>
 
@@ -456,6 +413,7 @@
                         <p><strong>Số điện thoại:</strong> <span id="orderPhone"></span></p>
                         <p><strong>Điểm nhận xe:</strong> <span id="orderPickLocation"></span></p>
                         <p><strong>Ghi chú:</strong> <span id="orderNote"></span></p>
+                        <p><strong>Giảm giá:</strong> <span id="orderDiscount"></span></p>
                     </div>
                 </div>
             </div>

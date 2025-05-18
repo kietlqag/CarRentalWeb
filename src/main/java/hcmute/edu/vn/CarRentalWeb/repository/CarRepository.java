@@ -33,7 +33,7 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
                          @Param("minPrice") Integer minPrice,
                          @Param("maxPrice") Integer maxPrice,
                          Pageable pageable);
-
+    int countByStatus(String status);
 
 
 

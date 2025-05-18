@@ -54,5 +54,8 @@ public class CarService {
         return carRepository.filterCars(status, brand, seat, minPrice, maxPrice, pageable);
 
     }
+    public int getRentedCarCount() {
+        return carRepository.countByStatus("Đang thuê");
+    }
 
 }
