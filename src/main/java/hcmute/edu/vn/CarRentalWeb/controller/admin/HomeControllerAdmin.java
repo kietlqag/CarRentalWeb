@@ -1,5 +1,7 @@
 package hcmute.edu.vn.CarRentalWeb.controller.admin;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hcmute.edu.vn.CarRentalWeb.dto.AccountUpdateRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
@@ -30,6 +32,11 @@ public class HomeControllerAdmin {
     private PromotionService promotionService;
     @Autowired
     private OrderService orderService;
+    private final ObjectMapper objectMapper;
+    public HomeControllerAdmin(OrderService orderService, ObjectMapper objectMapper) {
+        this.orderService = orderService;
+        this.objectMapper = objectMapper;
+    }
 
     @GetMapping("/admin/dashboard")
     public String home(HttpSession session, Model model) {
@@ -45,10 +52,23 @@ public class HomeControllerAdmin {
         model.addAttribute("orders", orders);
         List<Order> recentOrders = orderService.getRecentOrder();
         model.addAttribute("recentOrders", recentOrders);
-        BigDecimal totalThisMonth = orderService.getTotalOfCurrentMonthOrdersByStatus("Đã hoàn thành");
+        BigDecimal totalThisMonth = orderService.getRevenuethisMonth();
         model.addAttribute("totalThisMonth", totalThisMonth);
         int newCustomerCount = accountService.countNewCustomersThisMonth();
         model.addAttribute("newCustomerCount", newCustomerCount);
+        int countOrderCompleted = orderService.countCompletedOrdersThisMonth();
+        model.addAttribute("countOrderCompleted", countOrderCompleted);
+        try {
+            Map<Integer, BigDecimal> monthlyRevenue = orderService.getMonthlyRevenue();
+            String monthlyRevenueJson = objectMapper.writeValueAsString(monthlyRevenue);
+            model.addAttribute("monthlyRevenueJson", monthlyRevenueJson);
+        } catch (JsonProcessingException e) {
+            model.addAttribute("monthlyRevenueJson", "{}");
+        }
+        int countCar= carService.getRentedCarCount();
+        model.addAttribute("countCar", countCar);
+        BigDecimal totalThisYear= orderService.getRevenuethisYear();
+        model.addAttribute("totalThisYear", totalThisYear);
         return "admin_dashboard";
     }
 

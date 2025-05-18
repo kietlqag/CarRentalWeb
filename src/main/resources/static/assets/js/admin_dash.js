@@ -306,6 +306,43 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const canvas = document.getElementById("revenueChart");
+    const revenueDataStr = canvas.getAttribute("data-revenue");
+
+    try {
+        const revenueData = JSON.parse(revenueDataStr);
+        const labels = Array.from({ length: 12 }, (_, i) => `Tháng ${i + 1}`);
+        const data = labels.map((_, i) => revenueData[i + 1] || 0);
+
+        new Chart(canvas, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Doanh thu (VNĐ)",
+                    data: data,
+                    backgroundColor: "rgba(75, 192, 192, 0.6)",
+                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: value => value.toLocaleString("vi-VN") + "đ"
+                        }
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error("Lỗi khi parse JSON doanh thu:", error);
+    }
+});
 function deleteAccount(email) {
     if (confirm("Are you sure you want to delete this account?")) {
         const emailPrefix = email.split('@')[0].toLowerCase();

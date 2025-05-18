@@ -21,7 +21,7 @@
 
     <!-- Bootstrap JS (kèm Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
    
@@ -153,8 +153,9 @@
                     <div class="card shadow h-100">
                         <div class="card-body dashboard-card card-success">
                             <div>
-                                <div class="text">Hợp đồng mới trong tháng</div>
-                                <div class="value">12</div>
+                                <div class="text">Đơn hàng hoàn thành</div>
+                                <div class="text">trong tháng</div>
+                                <p class="card-text fw-bold" th:text="${countOrderCompleted}">0</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-file-contract text-success"></i>
@@ -168,7 +169,7 @@
                         <div class="card-body dashboard-card card-info">
                             <div>
                                 <div class="text">Xe đang thuê</div>
-                                <div class="value">25</div>
+                                <p class="card-text fw-bold" th:text="${countCar}">0</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-car text-info"></i>
@@ -195,17 +196,14 @@
             <!-- Charts Row -->
             <div class="row">
                 <!-- Doanh Thu Chart -->
-                <div class="col-xl-8 col-lg-7">
+                <div class="col-xl-12 col-lg-12">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Doanh thu theo tháng</h6>
                         </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="revenueChart"></canvas>
-                            </div>
+                        <canvas id="revenueChart" height="500"
+                                th:attr="data-revenue=${monthlyRevenueJson}"></canvas>
                         </div>
-                    </div>
                 </div>
 
 
@@ -556,7 +554,8 @@
                         <div class="card-body dashboard-card card-primary">
                             <div>
                                 <div class="text">Tổng doanh thu năm</div>
-                                <div class="value">4,285,000,000đ</div>
+                                <strong th:text="${#numbers.formatDecimal(totalThisYear, 0, 'COMMA', 0, 'POINT') + ' đ'}"></strong>
+
                             </div>
                             <div class="icon">
                                 <i class="fas fa-dollar-sign text-primary"></i>
