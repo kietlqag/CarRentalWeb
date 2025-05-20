@@ -161,5 +161,25 @@ public class OrderService {
         }
     }
 
+    @Transactional
+    public boolean updateCarStatusForStaff(int orderid, int carid) {
+        try {
+            Order order = orderRepo.findOrderById(orderid);
+            Car car = carRepo.findCarById(carid);
+
+            order.setStatus("Đã huỷ");
+            car.setStatus("Sẵn sàng");
+
+            orderRepo.save(order);
+            carRepo.save(car);
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
 

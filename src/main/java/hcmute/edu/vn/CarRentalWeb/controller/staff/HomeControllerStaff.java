@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -70,18 +71,31 @@ public class HomeControllerStaff {
     @ResponseBody
     public ResponseEntity<?> updateOrder(@PathVariable int id, @RequestBody Map<String, String> payload) {
         Order order = orderService.getOrderById(id);
-
-        order.setStatus(payload.get("status"));
+        String receiveDateStr = payload.get("receivedate");
+        String returnDateStr = payload.get("returndate");
+        String statusStr = payload.get("status");
         order.setPaymentstatus(payload.get("paymentstatus"));
         try {
-            String receiveDateStr = payload.get("receivedate");
-            String returnDateStr = payload.get("returndate");
             order.setReceivedate(Date.valueOf(receiveDateStr));
             order.setReturndate(Date.valueOf(returnDateStr));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Lỗi định dạng ngày nhận (receivedate) hoặc trả (returndate)");
         }
-        orderService.save(order);
+        long countdate = orderService.calculateCountDate(Date.valueOf(receiveDateStr), Date.valueOf(returnDateStr));
+        BigDecimal newtotal = orderService.updateTotal(countdate, order.getPrice(), order.getServiceprice(), order.getDiscount());
+        if(statusStr.equals("Đã hủy"))
+        {
+            order.setCountdate((int) countdate);
+            order.setTotal(newtotal);
+            orderService.updateCarStatusForStaff(order.getId(), order.getCarid());
+            orderService.save(order);
+        }
+        else {
+            order.setCountdate((int) countdate);
+            order.setTotal(newtotal);
+            order.setStatus(statusStr);
+            orderService.save(order);
+        }
         return ResponseEntity.ok().build();
     }
 
