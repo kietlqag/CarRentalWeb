@@ -63,7 +63,6 @@ public class HomeControllerStaff {
         account.setPhone(payload.get("phone"));
         account.setAddress(payload.get("address"));
         accountService.save(account);
-        session.setAttribute("account", account);
         return ResponseEntity.ok().build();
     }
 
@@ -75,29 +74,39 @@ public class HomeControllerStaff {
         String returnDateStr = payload.get("returndate");
         String statusStr = payload.get("status");
         order.setPaymentstatus(payload.get("paymentstatus"));
+
         try {
-            order.setReceivedate(Date.valueOf(receiveDateStr));
-            order.setReturndate(Date.valueOf(returnDateStr));
-        } catch (Exception e) {
+            Date receiveDate = Date.valueOf(receiveDateStr);
+            Date returnDate = Date.valueOf(returnDateStr);
+
+            // Kiểm tra receiveDate phải trước returnDate
+            if (!receiveDate.before(returnDate)) {
+                return ResponseEntity.badRequest().body("Ngày nhận phải trước ngày trả.");
+            }
+
+            order.setReceivedate(receiveDate);
+            order.setReturndate(returnDate);
+
+            long countdate = orderService.calculateCountDate(receiveDate, returnDate);
+            BigDecimal newtotal = orderService.updateTotal(countdate, order.getPrice(), order.getServiceprice(), order.getDiscount());
+
+            order.setCountdate((int) countdate);
+            order.setTotal(newtotal);
+
+            if(statusStr.equals("Đã hủy")) {
+                orderService.updateCarStatusForStaff(order.getId(), order.getCarid());
+            } else {
+                order.setStatus(statusStr);
+            }
+
+            orderService.save(order);
+            return ResponseEntity.ok().build();
+
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body("Lỗi định dạng ngày nhận (receivedate) hoặc trả (returndate)");
         }
-        long countdate = orderService.calculateCountDate(Date.valueOf(receiveDateStr), Date.valueOf(returnDateStr));
-        BigDecimal newtotal = orderService.updateTotal(countdate, order.getPrice(), order.getServiceprice(), order.getDiscount());
-        if(statusStr.equals("Đã hủy"))
-        {
-            order.setCountdate((int) countdate);
-            order.setTotal(newtotal);
-            orderService.updateCarStatusForStaff(order.getId(), order.getCarid());
-            orderService.save(order);
-        }
-        else {
-            order.setCountdate((int) countdate);
-            order.setTotal(newtotal);
-            order.setStatus(statusStr);
-            orderService.save(order);
-        }
-        return ResponseEntity.ok().build();
     }
+
 
     @GetMapping("/staff/orders/{id}")
     @ResponseBody
