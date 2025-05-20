@@ -34,42 +34,42 @@
                 <h5 class="mb-0">Chào mừng, <span id="customerName">Khách Hàng</span>!</h5>
             </div>
             <div class="d-flex align-items-center">
+                <div class="mx-2">
+                    <a href="/home" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-home"></i> Trang chủ
+                    </a>
+                </div>
                 <!-- Notifications Dropdown -->
                 <div class="dropdown mx-3">
-                    <a class="dropdown-toggle" href="#" role="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="dropdown-toggle position-relative" href="#" role="button" id="notificationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-bell fa-fw text-gray-600"></i>
-                        <span class="badge bg-danger badge-counter">2</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="notificationsDropdown">
                         <h6 class="dropdown-header">Thông báo</h6>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="me-3">
-                                <div class="icon-circle bg-success">
-                                    <i class="fas fa-check text-white"></i>
+
+                        <!-- Danh sách thông báo -->
+                        <div th:if="${notificationList3.size() > 0}">
+                            <a class="dropdown-item d-flex align-items-center" th:each="n : ${notificationList3}" href="#">
+                                <div class="me-3">
+                                    <div class="icon-circle bg-primary">
+                                        <i class="fas fa-bell text-white"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">20/04/2025</div>
-                                <span>Đặt xe Toyota Camry thành công!</span>
-                            </div>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="me-3">
-                                <div class="icon-circle bg-primary">
-                                    <i class="fas fa-gift text-white"></i>
+                                <div>
+                                    <div class="small text-gray-500" th:text="${#dates.format(n.getCreatedat(), 'dd/MM/yyyy')}">20/04/2025</div>
+                                    <strong th:text="${n.getTitle()}">Tiêu đề thông báo</strong><br>
+                                    <span th:text="${n.getMessage()}">Nội dung thông báo</span>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">19/04/2025</div>
-                                <span>Khuyến mãi 15% cho thuê xe cuối tuần!</span>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
+
+                        <!-- Nếu không có thông báo -->
+                        <div th:if="${notificationList3.size() == 0}">
+                            <span class="dropdown-item text-center small text-gray-500">Không có thông báo nào</span>
+                        </div>
+
                         <a class="dropdown-item text-center small text-gray-500" href="#" data-section="notifications">Xem tất cả thông báo</a>
                     </div>
-                </div>
-                <!-- User Profile -->
-                <div class="user-profile">
-                    <img th:src="${account.getAvatar()}" alt="Customer Profile" class="rounded-circle" style="width: 40px; height: 40px;">
                 </div>
             </div>
         </div>
@@ -303,9 +303,6 @@
             <div class="card shadow rounded-4">
                 <div class="card-body p-4">
                     <div class="row align-items-center mb-4 border-bottom pb-4">
-                        <div class="col-md-3 text-center">
-                            <img th:src="@{${account.getAvatar()}}" class="rounded-circle shadow-sm" alt="Avatar" style="width: 120px; height: 120px; object-fit: cover;">
-                        </div>
                         <div class="col-md-9">
                             <h4 class="fw-bold mb-1" th:text="${account.getFullName()}">Nguyễn Văn Khách Hàng</h4>
                             <span class="badge bg-info text-dark" th:text="'Hạng: ' + ${account.getRanks()}">Hạng: Bạc</span>
@@ -349,37 +346,23 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
                     <div class="modal-body px-4">
-                        <form id="editProfileForm" enctype="multipart/form-data">
-                            <!-- Avatar -->
-                            <div class="mb-3 text-center">
-                                <img id="avatarPreview" src="[[${account.getAvatar()}]]" alt="Avatar" class="rounded-circle mb-2" style="width: 100px; height: 100px; object-fit: cover;">
-                                <div class="form-text">Ảnh đại diện hiện tại</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="avatarFile" class="form-label fw-semibold">🖼️ Chọn ảnh đại diện (file)</label>
-                                <input type="file" class="form-control" id="avatarFile" name="avatarFile" accept="image/*">
-                            </div>
-                            <div class="mb-3">
-                                <label for="avatarUrl" class="form-label fw-semibold">🌐 Hoặc nhập link ảnh (https)</label>
-                                <input type="url" class="form-control rounded-pill px-3" id="avatarUrl" name="avatarUrl"
-                                       placeholder="https://example.com/image.jpg">
-                            </div>
+                        <form id="editProfileForm" th:action="@{/profile/update}" method="post" enctype="multipart/form-data">
 
                             <!-- Other profile fields -->
                             <div class="mb-3">
                                 <label for="profileName" class="form-label fw-semibold">👤 Họ và tên</label>
                                 <input type="text" class="form-control rounded-pill px-3" id="profileName"
-                                       th:value="${account.getFullName()}" required>
+                                       name="fullName" th:value="${account.getFullName()}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="profileAddress" class="form-label fw-semibold">🏠 Địa chỉ</label>
                                 <input type="text" class="form-control rounded-pill px-3" id="profileAddress"
-                                       th:value="${account.getAddress()}">
+                                       name="address" th:value="${account.getAddress()}">
                             </div>
                             <div class="mb-3">
                                 <label for="profilePhone" class="form-label fw-semibold">📱 Số điện thoại</label>
                                 <input type="text" class="form-control rounded-pill px-3" id="profilePhone"
-                                       th:value="${account.getPhone()}">
+                                       name="phone" th:value="${account.getPhone()}">
                             </div>
 
                             <div class="text-end mt-4">

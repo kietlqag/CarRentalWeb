@@ -1,12 +1,13 @@
 package hcmute.edu.vn.CarRentalWeb.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class AccountUpdateRequest {
 
     private String email;
-    private String avatar;
     private String fullName;
-    private String phone;
     private String address;
+    private String phone;
     private String role;
 
     public String getEmail() {
@@ -25,13 +26,6 @@ public class AccountUpdateRequest {
         this.role = role;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
 
     public String getFullName() {
         return fullName;
@@ -56,4 +50,5 @@ public class AccountUpdateRequest {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }
