@@ -67,6 +67,8 @@
         <input type="hidden" id="finalTotal" name="total" th:value="${total}"/>
         <input type="hidden" id="discountValue" name="discount" value="0"/>
         <input type="hidden" name="carid" th:value="${car.getId()}"/>
+        <input type="hidden" name="serviceid" th:value="${service != null ? service.getId() : 0}"/>
+        <input type="hidden" name="serviceprice" th:value="${service != null ? service.getPrice() : 0}"/>
 
         <button type="submit" class="btn btn-primary w-100">Thanh toán</button>
       </form>

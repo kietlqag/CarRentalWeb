@@ -24,6 +24,8 @@ public class CheckoutRequest {
     private int price;
     private int discount;
     private int carid;
+    private int serviceid;
+    private int serviceprice;
 
     public String getCustomer() {
         return customer;
@@ -135,5 +137,21 @@ public class CheckoutRequest {
 
     public void setCarid(int carid) {
         this.carid = carid;
+    }
+
+    public int getServiceid() {
+        return serviceid;
+    }
+
+    public void setServiceid(int serviceid) {
+        this.serviceid = serviceid;
+    }
+
+    public int getServiceprice() {
+        return serviceprice;
+    }
+
+    public void setServiceprice(int serviceprice) {
+        this.serviceprice = serviceprice;
     }
 }
