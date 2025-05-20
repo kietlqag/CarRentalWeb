@@ -117,6 +117,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('orderPickLocation').textContent = order.picklocation;
                     document.getElementById('orderNote').textContent = order.note;
                     document.getElementById('orderDiscount').textContent = order.discount;
+                    document.getElementById('orderCarPrice').textContent = order.price;
+                    document.getElementById('orderCarId').textContent = order.carid;
+                    document.getElementById('orderServiceId').textContent = order.serviceid;
+                    document.getElementById('orderServicePrice').textContent = order.serviceprice;
                 });
         });
     });
