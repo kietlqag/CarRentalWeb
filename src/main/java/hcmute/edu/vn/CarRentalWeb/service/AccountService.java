@@ -18,20 +18,20 @@ public class AccountService {
     public List<Account> getAllAccount() {
         return accountRepo.findAll();
     }
-public void save(Account account) {
+    public void save(Account account) {
         accountRepo.save(account);
 }
     @Transactional
-public void deleteAccountByEmail(String email) {
-        accountRepo.deleteByEmail(email);
-}
-public Account getAccountByEmail(String email) {
-        return accountRepo.findByEmail(email);
-}
-public void updateRoleAccount(String email,String role) {
-    Account account = accountRepo.findByEmail(email);
-    account.setRole(role);
-    accountRepo.save(account);
-}
-public int countNewCustomersThisMonth() {return accountRepo.countAccountsCreatedThisMonth();}
-}
+    public void deleteAccountByEmail(String email) {
+            accountRepo.deleteByEmail(email);
+    }
+    public Account getAccountByEmail(String email) {
+            return accountRepo.findByEmail(email);
+    }
+    public void updateRoleAccount(String email,String role) {
+        Account account = accountRepo.findByEmail(email);
+        account.setRole(role);
+        accountRepo.save(account);
+    }
+    public int countNewCustomersThisMonth() {return accountRepo.countAccountsCreatedThisMonth();}
+    }

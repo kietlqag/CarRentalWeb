@@ -38,7 +38,7 @@ public class OrderService {
         return orderRepo.countByStatus(status);
     }
     public List<Order> getAllOrderByEmail(String email){
-        return orderRepo.findAllByAccountemail(email);
+        return orderRepo.findAllByAccountemailOrderByCreatedatDesc(email);
     }
     public int countCompletedOrdersThisMonth(){return orderRepo.countCompletedOrdersThisMonth();}
     public Map<Integer, BigDecimal> getMonthlyRevenue() {
@@ -87,8 +87,14 @@ public class OrderService {
             order.setCountdate(data.getCountDate());
             order.setTotal(data.getTotal());
             order.setDiscount(data.getDiscount());
+            order.setPrice(data.getPrice());
+            order.setServiceid(data.getServiceid());
+            order.setCarid(data.getCarid());
+            order.setServiceprice(data.getServiceprice());
+
             Car car = carRepo.findCarById(data.getCarid());
             car.setStatus("Đang thuê");
+            order.setPrice(car.getPrice());
             orderRepo.save(order);
             carRepo.save(car);
             return true;
@@ -98,11 +104,20 @@ public class OrderService {
         }
     }
 
-    public long calculateCountDate(Date startDate, Date endDate) {
-        LocalDate start = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate end = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return ChronoUnit.DAYS.between(start, end) + 1;
+    public int calculateCountDate(Date receivedDate, Date returnDate) {
+        Date utilReceived = new Date(receivedDate.getTime());
+        Date utilReturn = new Date(returnDate.getTime());
+
+        LocalDate start = utilReceived.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        LocalDate end = utilReturn.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        return (int) ChronoUnit.DAYS.between(start, end) + 1;
     }
+
+
 
     public long calculateTotal(long countDate, int carPrice, Integer servicePrice) {
         long total = countDate * carPrice;
@@ -112,6 +127,39 @@ public class OrderService {
         return total;
     }
 
+
+    public BigDecimal updateTotal(long countDate, int price, int priceService, int discount) {
+        BigDecimal dailyPrice = BigDecimal.valueOf(price);
+        BigDecimal servicePrice = BigDecimal.valueOf(priceService);
+        BigDecimal discountPercent = BigDecimal.valueOf(discount).divide(BigDecimal.valueOf(100));
+
+        BigDecimal rentalCost = dailyPrice.multiply(BigDecimal.valueOf(countDate));
+        BigDecimal subtotal = rentalCost.add(servicePrice);
+        BigDecimal discountAmount = subtotal.multiply(discountPercent);
+        BigDecimal total = subtotal.subtract(discountAmount);
+
+        return total;
+    }
+
+    @Transactional
+    public boolean updateStatus(int orderid, int carid) {
+        try {
+            Order order = orderRepo.findOrderById(orderid);
+            Car car = carRepo.findCarById(carid);
+
+            order.setStatus("Đã huỷ");
+            car.setStatus("Sẵn sàng");
+
+            orderRepo.save(order);
+            carRepo.save(car);
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
 

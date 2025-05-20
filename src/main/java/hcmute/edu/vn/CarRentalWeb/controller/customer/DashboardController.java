@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,29 +66,37 @@ public class DashboardController {
     public ResponseEntity<?> updateOrder(@PathVariable int id, @RequestBody Map<String, String> payload) {
         Order order = orderService.getOrderById(id);
 
+        String receiveDateStr = payload.get("receivedate");
+        String returnDateStr = payload.get("returndate");
+
         order.setNote(payload.get("note"));
         try {
-            String receiveDateStr = payload.get("receivedate");
-            String returnDateStr = payload.get("returndate");
             order.setReceivedate(Date.valueOf(receiveDateStr));
             order.setReturndate(Date.valueOf(returnDateStr));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Lỗi định dạng ngày nhận (receivedate) hoặc trả (returndate)");
         }
+
+        int countdate = orderService.calculateCountDate(Date.valueOf(receiveDateStr), Date.valueOf(returnDateStr));
+        BigDecimal total = orderService.updateTotal(countdate, order.getPrice(), order.getServiceprice(), order.getDiscount());
+        order.setCountdate((int) countdate);
+        order.setTotal(total);
         orderService.save(order);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/customer/orders/cancel/{id}")
     public ResponseEntity<?> cancelOrder(@PathVariable int id) {
-        Optional<Order> optionalOrder = Optional.ofNullable(orderService.getOrderById(id));
-        if (optionalOrder.isPresent()) {
-            Order order = optionalOrder.get();
-            order.setStatus("Đã huỷ");
-            orderService.save(order);
-            return ResponseEntity.ok().build();
-        } else {
+        Order order = orderService.getOrderById(id);
+        if (order == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Đơn hàng không tồn tại.");
+        }
+
+        boolean success = orderService.updateStatus(order.getId(), order.getCarid());
+        if (success) {
+            return ResponseEntity.ok("Đơn hàng đã được huỷ thành công.");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Không thể huỷ đơn hàng.");
         }
     }
 

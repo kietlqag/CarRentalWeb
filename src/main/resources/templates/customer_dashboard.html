@@ -184,7 +184,6 @@
                         <p><strong>Số điện thoại:</strong> <span id="orderPhone"></span></p>
                         <p><strong>Điểm nhận xe:</strong> <span id="orderPickLocation"></span></p>
                         <p><strong>Ghi chú:</strong> <span id="orderNote"></span></p>
-
                     </div>
                 </div>
             </div>
@@ -341,7 +340,23 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
                     </div>
                     <div class="modal-body px-4">
-                        <form id="editProfileForm">
+                        <form id="editProfileForm" enctype="multipart/form-data">
+                            <!-- Avatar -->
+                            <div class="mb-3 text-center">
+                                <img id="avatarPreview" src="[[${account.getAvatar()}]]" alt="Avatar" class="rounded-circle mb-2" style="width: 100px; height: 100px; object-fit: cover;">
+                                <div class="form-text">Ảnh đại diện hiện tại</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="avatarFile" class="form-label fw-semibold">🖼️ Chọn ảnh đại diện (file)</label>
+                                <input type="file" class="form-control" id="avatarFile" name="avatarFile" accept="image/*">
+                            </div>
+                            <div class="mb-3">
+                                <label for="avatarUrl" class="form-label fw-semibold">🌐 Hoặc nhập link ảnh (https)</label>
+                                <input type="url" class="form-control rounded-pill px-3" id="avatarUrl" name="avatarUrl"
+                                       placeholder="https://example.com/image.jpg">
+                            </div>
+
+                            <!-- Other profile fields -->
                             <div class="mb-3">
                                 <label for="profileName" class="form-label fw-semibold">👤 Họ và tên</label>
                                 <input type="text" class="form-control rounded-pill px-3" id="profileName"
@@ -357,6 +372,7 @@
                                 <input type="text" class="form-control rounded-pill px-3" id="profilePhone"
                                        th:value="${account.getPhone()}">
                             </div>
+
                             <div class="text-end mt-4">
                                 <button type="submit" class="btn btn-success rounded-pill px-4">
                                     💾 Lưu

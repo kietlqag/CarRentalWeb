@@ -60,7 +60,6 @@ public class CheckoutController {
         Services service = null;
         Integer servicePrice = 0;
 
-        // Nếu có idService và hợp lệ thì lấy dịch vụ, không thì bỏ qua
         if (serviceId != -1) {
             service = servicesService.getServiceById(serviceId);
             if (service != null) {

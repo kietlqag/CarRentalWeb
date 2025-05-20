@@ -30,6 +30,10 @@ public class Order {
     private String picklocation;
     private String note;
     private Integer discount;
+    private Integer price;
+    private int carid;
+    private int serviceid;
+    private Integer serviceprice;
 
     public Order() {}
 
@@ -169,5 +173,37 @@ public class Order {
 
     public void setDiscount(Integer discount) {
         this.discount = discount;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public int getCarid() {
+        return carid;
+    }
+
+    public void setCarid(int carid) {
+        this.carid = carid;
+    }
+
+    public int getServiceid() {
+        return serviceid;
+    }
+
+    public void setServiceid(int serviceid) {
+        this.serviceid = serviceid;
+    }
+
+    public Integer getServiceprice() {
+        return serviceprice;
+    }
+
+    public void setServiceprice(Integer serviceprice) {
+        this.serviceprice = serviceprice;
     }
 }
