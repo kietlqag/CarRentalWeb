@@ -39,7 +39,7 @@ public class OrderService {
     public List<Order> getAllOrderByEmail(String email){
         return orderRepo.findAllByAccountemailOrderByCreatedatDesc(email);
     }
-    public int countCompletedOrdersThisMonth(){return orderRepo.countCompletedOrdersThisMonth();}
+    public int countCompletedOrdersThisYear(){return orderRepo.countCompletedOrdersThisYear();}
     public Map<Integer, BigDecimal> getMonthlyRevenue() {
         List<Object[]> results = orderRepo.findMonthlyRevenueByYearAndStatus(currentYear, status);
         Map<Integer, BigDecimal> monthlyRevenue = new HashMap<>();
@@ -54,7 +54,6 @@ public class OrderService {
         return monthlyRevenue;
     }
     public BigDecimal getRevenuethisYear() {return orderRepo.getYearlyRevenueByStatus();}
-    public BigDecimal getRevenuethisMonth() {return orderRepo.getMonthlyRevenueByStatus();}
     public Order getOrderById(int id) {return orderRepo.findOrderById(id);}
     public List<Order> getRecentOrder() {
         return orderRepo.findTop5ByOrderByCreatedatDesc();

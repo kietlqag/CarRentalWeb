@@ -59,11 +59,13 @@ public class HomeControllerAdmin {
 
         List<Order> recentOrders = orderService.getRecentOrder();
         model.addAttribute("recentOrders", recentOrders);
-        BigDecimal totalThisMonth = orderService.getRevenuethisMonth();
-        model.addAttribute("totalThisMonth", totalThisMonth);
-        int newCustomerMonthlyCount = accountService.countNewCustomersThisMonth();
-        model.addAttribute("newCustomerMonthlyCount", newCustomerMonthlyCount);
-        int countOrderCompleted = orderService.countCompletedOrdersThisMonth();
+        BigDecimal totalThisYear = orderService.getRevenuethisYear();
+        model.addAttribute("totalThisYear", totalThisYear);
+        int newCustomerYearlyCount = accountService.countNewCustomersThisYear();
+        model.addAttribute("newCustomerYearlyCount", newCustomerYearlyCount);
+        int countOrderCompleted = orderService.countCompletedOrdersThisYear();
+        int countRentedCar= carService.getRentedCarCount();
+        model.addAttribute("countRentedCar", countRentedCar);
         model.addAttribute("countOrderCompleted", countOrderCompleted);
         try {
             Map<Integer, BigDecimal> monthlyRevenue = orderService.getMonthlyRevenue();
@@ -72,14 +74,6 @@ public class HomeControllerAdmin {
         } catch (JsonProcessingException e) {
             model.addAttribute("monthlyRevenueJson", "{}");
         }
-
-        int newCustomerYearlyCount = accountService.countNewCustomersThisYear();
-        model.addAttribute("newCustomerYearlyCount", newCustomerYearlyCount);
-        int countCar= carService.getRentedCarCount();
-        model.addAttribute("countCar", countCar);
-        BigDecimal totalThisYear= orderService.getRevenuethisYear();
-        model.addAttribute("totalThisYear", totalThisYear);
-
         return "admin_dashboard";
     }
 

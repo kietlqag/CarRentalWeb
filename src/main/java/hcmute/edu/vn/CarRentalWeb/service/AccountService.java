@@ -40,6 +40,5 @@ public class AccountService {
         accountRepo.save(account);
     }
 
-    public int countNewCustomersThisMonth() {return accountRepo.countAccountsCreatedThisMonth();}
-    public int countNewCustomersThisYear(){return accountRepo.countAccountsCreatedThisYear();}
+    public int countNewCustomersThisYear() {return accountRepo.countAccountsCreatedThisYear();}
 }

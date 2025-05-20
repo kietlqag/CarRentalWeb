@@ -109,26 +109,4 @@ public class DashboardController {
         }
     }
 
-    @PostMapping("/profile/update")
-    public String updateProfile(@ModelAttribute AccountUpdateRequest dto,
-                                HttpSession session,
-                                RedirectAttributes redirectAttributes) {
-        Account account = (Account) session.getAttribute("account");
-
-        if (account == null) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Phiên đăng nhập không hợp lệ. Vui lòng đăng nhập lại.");
-            return "redirect:/login";
-        }
-        try {
-            accountService.updateProfile(account.getEmail(), dto);
-            Account updatedAccount = accountService.getAccountByEmail(account.getEmail());
-            session.setAttribute("account", updatedAccount);
-
-            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin thành công!");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Lỗi khi cập nhật: " + e.getMessage());
-        }
-
-        return null;
-    }
 }

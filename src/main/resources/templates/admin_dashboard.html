@@ -135,8 +135,8 @@
                     <div class="card shadow h-100">
                         <div class="card-body dashboard-card card-primary">
                             <div>
-                                <div class="text">Doanh thu tháng</div>
-                                <strong th:text="${#numbers.formatDecimal(totalThisMonth, 0, 'COMMA', 0, 'POINT') + ' đ'}"></strong>
+                                <div class="text">Doanh thu năm</div>
+                                <strong th:text="${#numbers.formatDecimal(totalThisYear, 0, 'COMMA', 0, 'POINT') + ' đ'}"></strong>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-calendar text-primary"></i>
@@ -150,7 +150,7 @@
                         <div class="card-body dashboard-card card-success">
                             <div>
                                 <div class="text">Đơn hàng hoàn thành</div>
-                                <div class="text">trong tháng</div>
+                                <div class="text">trong năm</div>
                                 <p class="card-text fw-bold" th:text="${countOrderCompleted}">0</p>
                             </div>
                             <div class="icon">
@@ -165,7 +165,7 @@
                         <div class="card-body dashboard-card card-info">
                             <div>
                                 <div class="text">Xe đang thuê</div>
-                                <p class="card-text fw-bold" th:text="${countCar}">0</p>
+                                <p class="card-text fw-bold" th:text="${countRentedCar}">0</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-car text-info"></i>
@@ -179,7 +179,7 @@
                         <div class="card-body dashboard-card card-warning">
                             <div>
                                 <div class="text">Khách hàng mới trong tháng</div>
-                                <p class="card-text fw-bold" th:text="${newCustomerMonthlyCount}">0</p>
+                                <p class="card-text fw-bold" th:text="${newCustomerYearlyCount}">0</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-users text-warning"></i>
@@ -246,7 +246,7 @@
                 <div class="col-xl-12 col-lg-12">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Doanh thu theo tháng</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Doanh thu các tháng</h6>
                         </div>
                         <canvas id="revenueChart" height="500"
                                 th:attr="data-revenue=${monthlyRevenueJson}"></canvas>
