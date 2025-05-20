@@ -15,4 +15,8 @@ public class NotificationService {
     public List<Notification> getAllNotifications(String email) {
         return notificationRepository.findAllByAccountemail(email);
     }
+
+    public List<Notification> get3Notifications(String email) {
+        return notificationRepository.findTop3ByAccountemailOrderByCreatedatDesc(email);
+    }
 }

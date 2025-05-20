@@ -17,7 +17,6 @@ public class Account {
     private String phone;
     private String address;
     private String role;
-    private String avatar;
     private int ranks;
     private int score;
     private LocalDateTime createdate;
@@ -72,14 +71,6 @@ public class Account {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public int getRanks() {

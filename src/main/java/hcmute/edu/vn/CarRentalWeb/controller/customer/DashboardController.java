@@ -1,8 +1,10 @@
 package hcmute.edu.vn.CarRentalWeb.controller.customer;
 
+import hcmute.edu.vn.CarRentalWeb.dto.AccountUpdateRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Notification;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
+import hcmute.edu.vn.CarRentalWeb.service.AccountService;
 import hcmute.edu.vn.CarRentalWeb.service.NotificationService;
 import hcmute.edu.vn.CarRentalWeb.service.OrderService;
 import hcmute.edu.vn.CarRentalWeb.service.PromotionService;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -30,6 +33,8 @@ public class DashboardController {
     NotificationService notificationService;
     @Autowired
     PromotionService promotionService;
+    @Autowired
+    AccountService accountService;
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
@@ -44,6 +49,7 @@ public class DashboardController {
         List<Order> Orders = orderService.getAllOrderByEmail(account.getEmail());
         List<Order> ordersfive = orderService.getOrdersByEmail(account.getEmail());
         List<Notification> notificationList = notificationService.getAllNotifications(account.getEmail());
+        List<Notification> notificationList3 = notificationService.get3Notifications(account.getEmail());
 
         long countPromotion = promotionService.countPromotionByTypes(types);
 
@@ -52,6 +58,7 @@ public class DashboardController {
         model.addAttribute("ordersfive", ordersfive);
         model.addAttribute("notificationList", notificationList);
         model.addAttribute("countPromotion", countPromotion);
+        model.addAttribute("notificationList3", notificationList3);
 
         return "customer_dashboard";
     }
@@ -102,4 +109,26 @@ public class DashboardController {
         }
     }
 
+    @PostMapping("/profile/update")
+    public String updateProfile(@ModelAttribute AccountUpdateRequest dto,
+                                HttpSession session,
+                                RedirectAttributes redirectAttributes) {
+        Account account = (Account) session.getAttribute("account");
+
+        if (account == null) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Phiên đăng nhập không hợp lệ. Vui lòng đăng nhập lại.");
+            return "redirect:/login";
+        }
+        try {
+            accountService.updateProfile(account.getEmail(), dto);
+            Account updatedAccount = accountService.getAccountByEmail(account.getEmail());
+            session.setAttribute("account", updatedAccount);
+
+            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thông tin thành công!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Lỗi khi cập nhật: " + e.getMessage());
+        }
+
+        return null;
+    }
 }
