@@ -40,24 +40,28 @@ public class HomeControllerAdmin {
 
     @GetMapping("/admin/dashboard")
     public String home(HttpSession session, Model model) {
+
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
+
         List<Car> cars = carService.getAll();
         model.addAttribute("cars", cars);
+
         List<Account> accounts = accountService.getAllAccount();
         model.addAttribute("accounts", accounts);
+
         List<Promotion> promotions = promotionService.getAllPromotion();
         model.addAttribute("promotions", promotions);
+
         List<Order> orders = orderService.getAllOrder();
         model.addAttribute("orders", orders);
+
         List<Order> recentOrders = orderService.getRecentOrder();
         model.addAttribute("recentOrders", recentOrders);
         BigDecimal totalThisMonth = orderService.getRevenuethisMonth();
         model.addAttribute("totalThisMonth", totalThisMonth);
         int newCustomerMonthlyCount = accountService.countNewCustomersThisMonth();
         model.addAttribute("newCustomerMonthlyCount", newCustomerMonthlyCount);
-        int newCustomerYearlyCount = accountService.countNewCustomersThisYear();
-        model.addAttribute("newCustomerYearlyCount", newCustomerYearlyCount);
         int countOrderCompleted = orderService.countCompletedOrdersThisMonth();
         model.addAttribute("countOrderCompleted", countOrderCompleted);
         try {
@@ -67,10 +71,14 @@ public class HomeControllerAdmin {
         } catch (JsonProcessingException e) {
             model.addAttribute("monthlyRevenueJson", "{}");
         }
+
+        int newCustomerYearlyCount = accountService.countNewCustomersThisYear();
+        model.addAttribute("newCustomerYearlyCount", newCustomerYearlyCount);
         int countCar= carService.getRentedCarCount();
         model.addAttribute("countCar", countCar);
         BigDecimal totalThisYear= orderService.getRevenuethisYear();
         model.addAttribute("totalThisYear", totalThisYear);
+
         return "admin_dashboard";
     }
 

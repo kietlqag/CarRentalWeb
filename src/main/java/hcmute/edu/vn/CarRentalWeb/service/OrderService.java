@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -58,10 +57,8 @@ public class OrderService {
     public BigDecimal getRevenuethisMonth() {return orderRepo.getMonthlyRevenueByStatus();}
     public Order getOrderById(int id) {return orderRepo.findOrderById(id);}
     public List<Order> getRecentOrder() {
-        List<Order> order = orderRepo.findAll();
-        order.sort((o1, o2) -> o2.getCreatedat().compareTo(o1.getCreatedat()));
-        return order.stream().limit(5).collect(Collectors.toList()); // chỉ lấy 5 đơn mới nhất
-    }
+        return orderRepo.findTop5ByOrderByCreatedatDesc();
+}
     public void save(Order order ) {
 
         orderRepo.save(order);
@@ -179,6 +176,11 @@ public class OrderService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<Order> getOrdersByEmail(String email) {
+        List<Order> orderList = orderRepo.findAllByAccountemailOrderByCreatedatDesc(email);
+        return orderList.stream().limit(5).collect(Collectors.toList());
     }
 
 }

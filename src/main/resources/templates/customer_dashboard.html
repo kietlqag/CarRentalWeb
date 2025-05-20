@@ -126,7 +126,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="order : ${Orders}">
+                            <tr th:each="order : ${ordersfive}">
                                 <td th:text="${order.getId()}">#BK1233</td>
                                 <td th:text="${order.getName()}">Honda Civic</td>
                                 <td th:text="${#dates.format(order.getReceivedate(), 'dd/MM/yyyy')}">15/04/2025</td>
@@ -239,7 +239,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="order : ${Orders}">
+                            <tr th:each="order : ${Orders}"
+                                th:with="daysRemaining=${T(java.time.temporal.ChronoUnit).DAYS.between(
+                                    #dates.createNow().toInstant().atZone(T(java.time.ZoneId).systemDefault()).toLocalDate(),
+                                    order.getReceivedate().toInstant().atZone(T(java.time.ZoneId).systemDefault()).toLocalDate())}">
+
                                 <td th:text="${order.getId()}">#BK1233</td>
                                 <td th:text="${order.getName()}">Honda Civic</td>
                                 <td th:text="${#dates.format(order.getReceivedate(), 'dd-MM-yyyy')}">15/04/2025</td>
@@ -247,19 +251,20 @@
                                 <td th:text="${order.getTotal()}">4,500,000đ</td>
 
                                 <td>
-                                    <span class="badge"
-                                          th:classappend=" ' ' +
-                                              (${order.getStatus()} == 'Đã xác nhận' ? 'bg-success' :
-                                              (${order.getStatus()} == 'Đã huỷ' ? 'bg-danger' :
-                                              (${order.getStatus()} == 'Chờ xác nhận' ? 'bg-secondary' : 'bg-light')))"
-                                          th:text="${order.status}">Chờ xác nhận</span>
+                            <span class="badge"
+                                  th:classappend="' ' +
+                                      (${order.getStatus()} == 'Đã xác nhận' ? 'bg-success' :
+                                      (${order.getStatus()} == 'Đã huỷ' ? 'bg-danger' :
+                                      (${order.getStatus()} == 'Chờ xác nhận' ? 'bg-secondary' : 'bg-light')))"
+                                  th:text="${order.status}">Chờ xác nhận</span>
                                 </td>
 
                                 <td>
-                                    <span class="badge"
-                                          th:classappend="${order.getPaymentstatus()} == 'Đã thanh toán' ? ' bg-success' : ' bg-secondary'"
-                                          th:text="${order.paymentstatus}">Chưa thanh toán</span>
+                            <span class="badge"
+                                  th:classappend="${order.getPaymentstatus()} == 'Đã thanh toán' ? ' bg-success' : ' bg-secondary'"
+                                  th:text="${order.paymentstatus}">Chưa thanh toán</span>
                                 </td>
+
                                 <td>
                                     <div class="table-action">
                                         <button class="btn btn-sm btn-primary"
@@ -271,11 +276,15 @@
                                         <button class="btn btn-sm btn-warning"
                                                 th:attr="data-booking-id=${order.id}"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#editOrderModal">
+                                                data-bs-target="#editOrderModal"
+                                                th:disabled="${daysRemaining <= 1}"
+                                                th:title="${daysRemaining <= 1 ? 'Không thể sửa trong vòng 1 ngày trước khi trả xe' : ''}">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button class="btn btn-sm btn-danger"
-                                                th:onclick="'cancelBooking(' + ${order.id} + ')'">
+                                                th:onclick="'cancelBooking(' + ${order.id} + ')'"
+                                                th:disabled="${daysRemaining <= 1}"
+                                                th:title="${daysRemaining <= 1 ? 'Không thể huỷ trong vòng 1 ngày trước khi trả xe' : ''}">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </div>

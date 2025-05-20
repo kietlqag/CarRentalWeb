@@ -42,12 +42,14 @@ public class DashboardController {
 
         int countOrder = orderService.countOrderByEmail(account.getEmail());
         List<Order> Orders = orderService.getAllOrderByEmail(account.getEmail());
+        List<Order> ordersfive = orderService.getOrdersByEmail(account.getEmail());
         List<Notification> notificationList = notificationService.getAllNotifications(account.getEmail());
 
         long countPromotion = promotionService.countPromotionByTypes(types);
 
         model.addAttribute("countOrder", countOrder);
         model.addAttribute("Orders", Orders);
+        model.addAttribute("ordersfive", ordersfive);
         model.addAttribute("notificationList", notificationList);
         model.addAttribute("countPromotion", countPromotion);
 

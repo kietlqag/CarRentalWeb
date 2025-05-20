@@ -14,9 +14,27 @@ public class Promotion {
     public int id;
     public String code;
     public String description;
+    public String validfrom;
+    public String validto;
     public int discountpercent;
     public int type;
     public int isactive;
+
+    public String getValidfrom() {
+        return validfrom;
+    }
+
+    public void setValidfrom(String validfrom) {
+        this.validfrom = validfrom;
+    }
+
+    public String getValidto() {
+        return validto;
+    }
+
+    public void setValidto(String validto) {
+        this.validto = validto;
+    }
 
     public int getIsactive() {
         return isactive;
@@ -57,7 +75,6 @@ public class Promotion {
     public void setDiscountpercent(int discountpercent) {
         this.discountpercent = discountpercent;
     }
-
 
 
     public int getType() {
