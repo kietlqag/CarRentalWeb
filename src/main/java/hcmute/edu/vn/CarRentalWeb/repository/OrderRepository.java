@@ -34,4 +34,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "FROM Order o " +
             "WHERE YEAR(o.createdat) = YEAR(CURRENT_DATE) AND o.status = 'Đã hoàn thành' ")
     BigDecimal getYearlyRevenueByStatus();
+    List<Order> findTop5ByOrderByCreatedatDesc();
 }
