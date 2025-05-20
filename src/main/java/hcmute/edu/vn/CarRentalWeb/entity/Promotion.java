@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "promotions")
@@ -14,25 +15,25 @@ public class Promotion {
     public int id;
     public String code;
     public String description;
-    public String validfrom;
-    public String validto;
+    public Date validfrom;
+    public Date validto;
     public int discountpercent;
     public int type;
     public int isactive;
 
-    public String getValidfrom() {
+    public Date getValidfrom() {
         return validfrom;
     }
 
-    public void setValidfrom(String validfrom) {
+    public void setValidfrom(Date validfrom) {
         this.validfrom = validfrom;
     }
 
-    public String getValidto() {
+    public Date getValidto() {
         return validto;
     }
 
-    public void setValidto(String validto) {
+    public void setValidto(Date validto) {
         this.validto = validto;
     }
 

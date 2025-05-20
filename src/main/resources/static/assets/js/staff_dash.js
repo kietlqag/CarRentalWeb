@@ -168,17 +168,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }).catch(err => alert("Lỗi kết nối: " + err));
     });
-
-    function convertToISODate(dateStr) {
-        const [dd, mm, yyyy] = dateStr.split('/');
-        const date = new Date(Date.UTC(yyyy, mm - 1, dd, 24, 0, 0));
-        const newYear = date.getUTCFullYear();
-        const newMonth = String(date.getUTCMonth() + 1).padStart(2, '0');
-        const newDay = String(date.getUTCDate()).padStart(2, '0');
-
-        return `${newYear}-${newMonth}-${newDay}`;
-    }
 });
+function convertToISODate(dateStr) {
+    const [dd, mm, yyyy] = dateStr.split('/');
+    const date = new Date(Date.UTC(yyyy, mm - 1, dd, 24, 0, 0));
+    const newYear = date.getUTCFullYear();
+    const newMonth = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const newDay = String(date.getUTCDate()).padStart(2, '0');
+
+    return `${newYear}-${newMonth}-${newDay}`;
+}
 function formatDateCreate(isoString) {
     let date = new Date(isoString);
     date = new Date(date.getTime() - (7 * 3600000));

@@ -104,10 +104,6 @@
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#" data-section="profile">
-                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Thông tin cá nhân
-                        </a>
                         <a class="dropdown-item" href="#">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Cài đặt
@@ -192,27 +188,10 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Charts Row -->
-            <div class="row">
-                <!-- Doanh Thu Chart -->
-                <div class="col-xl-12 col-lg-12">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Doanh thu theo tháng</h6>
-                        </div>
-                        <canvas id="revenueChart" height="500"
-                                th:attr="data-revenue=${monthlyRevenueJson}"></canvas>
-                        </div>
-                </div>
-
-
-            </div>
-
             <!-- Recent Contracts -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Hợp đồng gần đây</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Đơn hàng gần đây</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -240,20 +219,20 @@
                                 <td th:text="${#dates.format(order.returndate, 'dd/MM/yyyy')}">Ngày trả</td>
                                 <td th:text="${order.paymentmethod}">Phương thức thanh toán</td>
                                 <td>
-        <span class="badge"
-              th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
-                              (order.status == 'Chờ xác nhận' ? 'bg-warning' :
-                               (order.status == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-              th:text="${order.status}">Trạng thái thanh toán
-        </span>
+                                    <span class="badge"
+                                            th:classappend="${order.status} == 'Xác nhận' ? 'bg-success' :
+                                                (order.status == 'Chờ xác nhận' ? 'bg-warning' :
+                                                (order.status == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
+                                            th:text="${order.status}">Trạng thái thanh toán
+                                    </span>
                                 </td>
                                 <td>
-        <span class="badge"
-              th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
-                              (order.paymentstatus == 'Chờ xác nhận' ? 'bg-warning' :
-                               (order.paymentstatus == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
-              th:text="${order.paymentstatus}">Trạng thái đơn hàng
-        </span>
+                                <span class="badge"
+                                      th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
+                                            (order.paymentstatus == 'Chờ xác nhận' ? 'bg-warning' :
+                                            (order.paymentstatus == 'Đã hoàn thành' ? 'bg-danger' : 'bg-secondary'))"
+                                      th:text="${order.paymentstatus}">Trạng thái đơn hàng
+                                </span>
                                 </td>
                             </tr>
                             </tbody>
@@ -261,6 +240,22 @@
                     </div>
                 </div>
             </div>
+            <!-- Charts Row -->
+            <div class="row">
+                <!-- Doanh Thu Chart -->
+                <div class="col-xl-12 col-lg-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Doanh thu theo tháng</h6>
+                        </div>
+                        <canvas id="revenueChart" height="500"
+                                th:attr="data-revenue=${monthlyRevenueJson}"></canvas>
+                        </div>
+                </div>
+
+
+            </div>
+
         </div>
 
         <!-- Users Management Section -->
@@ -278,7 +273,6 @@
                         <table class="account-table">
                             <thead>
                             <tr>
-                                <th>Avatar</th>
                                 <th>Email</th>
                                 <th>Full Name</th>
                                 <th>Phone</th>
@@ -289,9 +283,6 @@
                             </thead>
                             <tbody>
                             <tr th:each="account : ${accounts}">
-                                <td>
-                                    <img th:src="@{${account.avatar}}" class="avatar" alt="avatar"/>
-                                </td>
                                 <td th:text="${account.email}"></td>
                                 <td th:text="${account.fullName}"></td>
                                 <td th:text="${account.phone}"></td>
@@ -484,6 +475,8 @@
                             <tr>
                                 <th>Mã KM</th>
                                 <th>Tên khuyến mãi</th>
+                                <th>Ngày áp dụng</th>
+                                <th>Ngày kết thúc</th>
                                 <th>Giảm giá</th>
                                 <th>Loại</th>
                                 <th>Trạng thái</th>
@@ -495,7 +488,9 @@
                             <tr th:each="promotion : ${promotions}">
                                 <td th:text="${promotion.code}">SUMMER2025</td>
                                 <td th:text="${promotion.description}">Khuyến mãi hè 2025</td>
-                                <td th:text="${promotion.discountpercent + '%'}">15%</td>
+                                <td th:text="${#dates.format(promotion.validfrom, 'dd/MM/yyyy')}">01/06/2025</td>
+                                <td th:text="${#dates.format(promotion.validto, 'dd/MM/yyyy')}">30/06/2025</td>
+                                <td th:text="${promotion.discountpercent}">0</td>
                                 <td th:text="${promotion.type}">1</td>
                                 <td>
                                 <span th:classappend="${promotion.isactive == 1} ? 'badge bg-success' : 'badge bg-danger'"
@@ -510,12 +505,14 @@
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#editPromotionModal"
                                                 th:attr="
-                                                    data-id=${promotion.id},
-                                                    data-code=${promotion.code},
-                                                    data-description=${promotion.description},
-                                                    data-discountpercent=${promotion.discountpercent},
-                                                    data-type=${promotion.type},
-                                                    data-isactive=${promotion.isactive}">
+                                                data-id=${promotion.id},
+                                                data-code=${promotion.code},
+                                                data-description=${promotion.description},
+                                                data-validfrom=${#dates.format(promotion.validfrom, 'yyyy-MM-dd')},
+                                                data-validto=${#dates.format(promotion.validto, 'yyyy-MM-dd')},
+                                                data-discountpercent=${promotion.discountpercent},
+                                                data-type=${promotion.type},
+                                                data-isactive=${promotion.isactive}">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                         <button th:onclick="|deletePromotion(${promotion.id})|" class="btn btn-sm btn-danger">
@@ -526,400 +523,6 @@
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- Reports Section -->
-        <div class="content-section" id="reports">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800" style="font-family: 'Javanese Text', serif;">Báo cáo doanh số</h1>
-            </div>
-
-            <!-- Report Overview Cards -->
-            <div class="row">
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card shadow h-100">
-                        <div class="card-body dashboard-card card-primary">
-                            <div>
-                                <div class="text">Tổng doanh thu năm</div>
-                                <strong th:text="${#numbers.formatDecimal(totalThisYear, 0, 'COMMA', 0, 'POINT') + ' đ'}"></strong>
-
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-dollar-sign text-primary"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card shadow h-100">
-                        <div class="card-body dashboard-card card-success">
-                            <div>
-                                <div class="text">So với năm trước</div>
-                                <div class="value">+15.7%</div>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-chart-line text-success"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card shadow h-100">
-                        <div class="card-body dashboard-card card-warning">
-                            <div>
-                                <div class="text">Khách hàng mới</div>
-                                <p class="card-text fw-bold" th:text="${newCustomerYearlyCount}">0</p>
-                            </div>
-                            <div class="icon">
-                                <i class="fas fa-user-plus text-warning"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Yearly Revenue Chart -->
-            <div class="row">
-                <div class="col-xl-8 col-lg-7">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                            <h6 class="m-0 font-weight-bold text-primary">Doanh thu hàng năm</h6>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="yearDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    2025
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="yearDropdown">
-                                    <li><a class="dropdown-item" href="#">2025</a></li>
-                                    <li><a class="dropdown-item" href="#">2024</a></li>
-                                    <li><a class="dropdown-item" href="#">2023</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="yearlyRevenueChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Top Revenue Cars -->
-                <div class="col-xl-4 col-lg-5">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Xe mang lại doanh thu cao nhất</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="revenue-cars">
-                                <div class="revenue-car-item">
-                                    <div class="car-info">
-                                        <img src="/img/lcAvatar.jpg" alt="Toyota Camry" class="img-thumbnail car-img">
-                                        <div>
-                                            <h6 class="mb-0">Toyota Camry</h6>
-                                            <small class="text-muted">51F-123.45</small>
-                                        </div>
-                                    </div>
-                                    <div class="revenue-value">
-                                        <span>82,400,000đ</span>
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="revenue-car-item">
-                                    <div class="car-info">
-                                        <img src="/img/rangeroveravt.jpg" alt="Ford Ranger" class="img-thumbnail car-img">
-                                        <div>
-                                            <h6 class="mb-0">Ford Ranger</h6>
-                                            <small class="text-muted">51F-345.67</small>
-                                        </div>
-                                    </div>
-                                    <div class="revenue-value">
-                                        <span>76,800,000đ</span>
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 93%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="revenue-car-item">
-                                    <div class="car-info">
-                                        <img src="/img/21fe9c67cc9c285528f900816c1c8199.jpg" alt="Honda Civic" class="img-thumbnail car-img">
-                                        <div>
-                                            <h6 class="mb-0">Honda Civic</h6>
-                                            <small class="text-muted">51F-234.56</small>
-                                        </div>
-                                    </div>
-                                    <div class="revenue-value">
-                                        <span>63,000,000đ</span>
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 76%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="revenue-car-item">
-                                    <div class="car-info">
-                                        <img src="/img/fordavt.jpg" alt="Mazda CX-5" class="img-thumbnail car-img">
-                                        <div>
-                                            <h6 class="mb-0">Mazda CX-5</h6>
-                                            <small class="text-muted">51F-567.89</small>
-                                        </div>
-                                    </div>
-                                    <div class="revenue-value">
-                                        <span>57,750,000đ</span>
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 70%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="revenue-car-item">
-                                    <div class="car-info">
-                                        <img src="/img/linconavt.jpg" alt="Hyundai Tucson" class="img-thumbnail car-img">
-                                        <div>
-                                            <h6 class="mb-0">Hyundai Tucson</h6>
-                                            <small class="text-muted">51F-456.78</small>
-                                        </div>
-                                    </div>
-                                    <div class="revenue-value">
-                                        <span>49,500,000đ</span>
-                                        <div class="progress" style="height: 5px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 60%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Revenue by Vehicle Type & Customer Demographics -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Doanh thu theo loại xe</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="vehicleTypeChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Thống kê khách hàng</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="chart-container">
-                                <canvas id="customerDemographicsChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Promotion Effectiveness -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Hiệu quả chương trình khuyến mãi</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Mã KM</th>
-                                    <th>Tên khuyến mãi</th>
-                                    <th>Thời gian</th>
-                                    <th>Số lượng sử dụng</th>
-                                    <th>Tổng giảm giá</th>
-                                    <th>Doanh thu tạo ra</th>
-                                    <th>Hiệu quả</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>SUMMER2025</td>
-                                    <td>Khuyến mãi hè 2025</td>
-                                    <td>01/04 - 30/06/2025</td>
-                                    <td>23</td>
-                                    <td>12,650,000đ</td>
-                                    <td>84,300,000đ</td>
-                                    <td>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 85%"></div>
-                                        </div>
-                                        <small class="text-success">Rất tốt</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>NEWUSER</td>
-                                    <td>Người dùng mới</td>
-                                    <td>01/01 - 31/12/2025</td>
-                                    <td>45</td>
-                                    <td>22,500,000đ</td>
-                                    <td>135,000,000đ</td>
-                                    <td>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%"></div>
-                                        </div>
-                                        <small class="text-success">Rất tốt</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>LONGTERM</td>
-                                    <td>Thuê dài hạn</td>
-                                    <td>01/03 - 31/05/2025</td>
-                                    <td>12</td>
-                                    <td>28,800,000đ</td>
-                                    <td>144,000,000đ</td>
-                                    <td>
-                                        <div class="progress" style="height: 6px;">
-                                            <div class="progress-bar bg-success" role="progressbar" style="width: 90%"></div>
-                                        </div>
-                                        <small class="text-success">Rất tốt</small>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Staff Activity Section -->
-        <div class="content-section" id="staff-activity">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Hoạt động nhân viên</h1>
-            </div>
-
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Lịch sử hoạt động gần đây</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nhân viên</th>
-                                    <th>Vai trò</th>
-                                    <th>Hành động</th>
-                                    <th>Thời gian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Trần Thị Nhân Viên</td>
-                                    <td>Nhân viên</td>
-                                    <td>Chỉnh sửa hợp đồng #HD1234</td>
-                                    <td>18/04/2025 14:30</td>
-                                </tr>
-                                <tr>
-                                    <td>Lê Văn Tư Vấn</td>
-                                    <td>Tư vấn viên</td>
-                                    <td>Tạo mới khách hàng</td>
-                                    <td>18/04/2025 13:50</td>
-                                </tr>
-                                <tr>
-                                    <td>Nguyễn Văn Quản Lý</td>
-                                    <td>Admin</td>
-                                    <td>Xóa xe Ford Ranger</td>
-                                    <td>17/04/2025 16:22</td>
-                                </tr>
-                                <tr>
-                                    <td>Phạm Thị Khách Hàng</td>
-                                    <td>Khách hàng</td>
-                                    <td>Gửi yêu cầu thuê xe</td>
-                                    <td>17/04/2025 09:10</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profile Section -->
-        <div class="content-section" id="profile">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Thông tin cá nhân</h1>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">
-                    <i class="fas fa-user-edit fa-sm"></i> Chỉnh sửa
-                </button>
-            </div>
-
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <div class="row mb-4">
-                        <div class="col-md-3 text-center">
-                            <img src="/api/placeholder/100/100" class="rounded-circle img-thumbnail" alt="Avatar">
-                        </div>
-                        <div class="col-md-9">
-                            <h4>Nguyễn Văn Quản Lý</h4>
-                            <p class="text-muted">Quản trị viên hệ thống</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Email</label>
-                            <div class="form-control">admin@example.com</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Số điện thoại</label>
-                            <div class="form-control">0901234567</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Vai trò</label>
-                            <div class="form-control">Admin</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Ngày tham gia</label>
-                            <div class="form-control">01/01/2023</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Edit Profile Modal -->
-        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editProfileModalLabel">Chỉnh sửa thông tin cá nhân</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="profileName" class="form-label">Họ và tên</label>
-                                <input type="text" class="form-control" id="profileName" value="Nguyễn Văn Quản Lý">
-                            </div>
-                            <div class="mb-3">
-                                <label for="profileEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="profileEmail" value="admin@example.com">
-                            </div>
-                            <div class="mb-3">
-                                <label for="profilePhone" class="form-label">Số điện thoại</label>
-                                <input type="text" class="form-control" id="profilePhone" value="0901234567">
-                            </div>
-                            <div class="mb-3">
-                                <label for="profileRole" class="form-label">Vai trò</label>
-                                <input type="text" class="form-control" id="profileRole" value="Admin" disabled>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -1065,6 +668,15 @@
                             <textarea class="form-control" id="promotionDescription" name="description" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
+                            <label for="promotionValidfrom" class="form-label">Ngày áp dụng</label>
+                            <input type="date" class="form-control date-picker" id="promotionValidfrom">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="promotionValidto" class="form-label">Ngày kết thúc</label>
+                            <input type="date" class="form-control date-picker" id="promotionValidto">
+                        </div>
+                        <div class="mb-3">
                             <label for="promotionDiscountPercent" class="form-label">Phần Trăm Giảm Giá</label>
                             <input type="number" class="form-control" id="promotionDiscountPercent" name="discountpercent" required>
                         </div>
@@ -1108,6 +720,15 @@
                             <label for="newPromotionDescription" class="form-label">Mô tả</label>
                             <textarea class="form-control" id="newPromotionDescription" name="description" required></textarea>
                         </div>
+                    <div class="mb-3">
+                        <label for="newPromotionValidfrom" class="form-label">Ngày áp dụng</label>
+                        <input type="date" class="form-control date-picker" id="newPromotionValidfrom">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="newPromotionValidto" class="form-label">Ngày kết thúc</label>
+                        <input type="date" class="form-control date-picker" id="newPromotionValidto">
+                    </div>
                         <div class="mb-3">
                             <label for="newPromotionDiscountPercent" class="form-label">Giảm giá (%)</label>
                             <input type="number" class="form-control" id="newPromotionDiscountPercent" name="discountpercent" required>
@@ -1165,4 +786,3 @@
     </div>
 </body>
 <script src="/assets/js/admin_dash.js"></script>
-<!-- <script src="/assets/js/switched-sb.js"></script> -->

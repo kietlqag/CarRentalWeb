@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -106,7 +107,6 @@ public class HomeControllerAdmin {
     @DeleteMapping("/admin/accounts/delete")
     @ResponseBody
     public ResponseEntity<?> deleteAccount(@RequestParam("email") String email) {
-        System.out.println("👉 Received DELETE for email: " + email);
             accountService.deleteAccountByEmail(email);
         return ResponseEntity.ok().build();
     }
@@ -138,6 +138,8 @@ public class HomeControllerAdmin {
         Promotion promotion = promotionService.getPromotionById(id);
         promotion.setDiscountpercent(Integer.parseInt(payload.get("discountpercent")));
         promotion.setDescription(payload.get("description"));
+        promotion.setValidfrom(Date.valueOf(payload.get("validfrom")));
+        promotion.setValidto(Date.valueOf(payload.get("validto")));
         promotion.setCode(payload.get("code"));
         promotion.setType(Integer.parseInt(payload.get("type")));
         promotion.setIsactive(Integer.parseInt(payload.get("isactive")));
