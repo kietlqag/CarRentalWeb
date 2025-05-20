@@ -54,8 +54,10 @@ public class HomeControllerAdmin {
         model.addAttribute("recentOrders", recentOrders);
         BigDecimal totalThisMonth = orderService.getRevenuethisMonth();
         model.addAttribute("totalThisMonth", totalThisMonth);
-        int newCustomerCount = accountService.countNewCustomersThisMonth();
-        model.addAttribute("newCustomerCount", newCustomerCount);
+        int newCustomerMonthlyCount = accountService.countNewCustomersThisMonth();
+        model.addAttribute("newCustomerMonthlyCount", newCustomerMonthlyCount);
+        int newCustomerYearlyCount = accountService.countNewCustomersThisYear();
+        model.addAttribute("newCustomerYearlyCount", newCustomerYearlyCount);
         int countOrderCompleted = orderService.countCompletedOrdersThisMonth();
         model.addAttribute("countOrderCompleted", countOrderCompleted);
         try {

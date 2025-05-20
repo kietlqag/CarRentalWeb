@@ -12,4 +12,6 @@ public interface AccountRepository extends JpaRepository<Account, String> {
     void deleteByEmail(String email);
     @Query("SELECT COUNT(a) FROM Account a WHERE a.role = 'CUSTOMER' AND MONTH(a.createdate) = MONTH(CURRENT_DATE) AND YEAR(a.createdate) = YEAR(CURRENT_DATE)")
     int countAccountsCreatedThisMonth();
+    @Query("SELECT COUNT(a) FROM Account a WHERE a.role = 'CUSTOMER' AND YEAR(a.createdate) = YEAR(CURRENT_DATE) AND YEAR(a.createdate) = YEAR(CURRENT_DATE)")
+    int countAccountsCreatedThisYear();
 }

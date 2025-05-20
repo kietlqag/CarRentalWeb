@@ -33,5 +33,6 @@ public void updateRoleAccount(String email,String role) {
     account.setRole(role);
     accountRepo.save(account);
 }
-public int countNewCustomersThisMonth() {return accountRepo.countAccountsCreatedThisMonth();}
+    public int countNewCustomersThisMonth() {return accountRepo.countAccountsCreatedThisMonth();}
+    public int countNewCustomersThisYear(){return accountRepo.countAccountsCreatedThisYear();}
 }
