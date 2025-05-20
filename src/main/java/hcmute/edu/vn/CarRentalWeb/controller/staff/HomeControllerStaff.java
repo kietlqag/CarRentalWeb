@@ -7,6 +7,7 @@ import hcmute.edu.vn.CarRentalWeb.entity.Order;
 import hcmute.edu.vn.CarRentalWeb.repository.AccountRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.NotificationRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
+import hcmute.edu.vn.CarRentalWeb.service.AccountService;
 import hcmute.edu.vn.CarRentalWeb.service.NotificationService;
 import hcmute.edu.vn.CarRentalWeb.service.OrderService;
 import jakarta.servlet.http.HttpSession;
@@ -28,7 +29,7 @@ public class HomeControllerStaff {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private AccountRepository accountRepo;
+    private AccountService accountService;
     @Autowired
     private NotificationService notificationService;
 
@@ -60,7 +61,7 @@ public class HomeControllerStaff {
 
         account.setPhone(payload.get("phone"));
         account.setAddress(payload.get("address"));
-        accountRepo.save(account);
+        accountService.save(account);
         session.setAttribute("account", account);
         return ResponseEntity.ok().build();
     }
