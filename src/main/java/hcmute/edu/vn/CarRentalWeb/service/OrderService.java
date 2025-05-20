@@ -161,5 +161,10 @@ public class OrderService {
         }
     }
 
+    public List<Order> getOrdersByEmail(String email) {
+        List<Order> orderList = orderRepo.findAllByAccountemailOrderByCreatedatDesc(email);
+        return orderList.stream().limit(5).collect(Collectors.toList());
+    }
+
 }
 
