@@ -269,11 +269,6 @@
             <div class="card shadow mb-4">
                 <div class="card-body">
                     <div class="row mb-4">
-                        <div class="col-md-3 text-center">
-                            <img th:src="${account?.avatar ?: '/img/default_avatar.jpg'}"
-                                 class="rounded-circle img-thumbnail" alt="Avatar"
-                                 style="width: 100px; height: 100px;">
-                        </div>
                         <div class="col-md-9">
                             <h4 th:text="${account.fullName}">Tên nhân viên</h4>
                             <p class="text-muted" th:text="${account.role}">Vai trò</p>
