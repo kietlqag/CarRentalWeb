@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Handle form submissions
     const forms = [
-        { id: "addUserForm", name: "Người dùng" },
         { id: "addCarForm", name: "Xe" },
         { id: "addContractForm", name: "Hợp đồng" },
         { id: "addPromotionForm", name: "Khuyến mãi" },
