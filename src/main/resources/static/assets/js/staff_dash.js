@@ -90,6 +90,7 @@ function attachSectionToggleEvents() {
     });
 }
 
+//Chi tiet don hang
 document.addEventListener('DOMContentLoaded', function () {
     const viewButtons = document.querySelectorAll('[data-bs-target="#viewOrderModal"]');
 
@@ -126,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+//Chinh sua don hang
 document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll("button[data-bs-target='#editOrderModal']");
 
@@ -196,6 +198,7 @@ function formatDate(isoString) {
     return `${dd}/${mm}/${yyyy}`;
 }
 
+//Chinh sua ho so
 document.getElementById('editProfileForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -222,6 +225,7 @@ document.getElementById('editProfileForm').addEventListener('submit', function(e
         });
 });
 
+//Modal chinh sua ho so
 document.addEventListener("DOMContentLoaded", function () {
     const profileModal = document.getElementById('editProfileModal');
 
