@@ -19,20 +19,15 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     int countByStatus(String status);
     List<Order> findAllByAccountemailOrderByCreatedatDesc(String accountemail);
     @Query("SELECT SUM(o.total) FROM Order o " +
-            "WHERE MONTH(o.createdat) = MONTH(CURRENT_DATE) " +
-            "AND YEAR(o.createdat) = YEAR(CURRENT_DATE) " +
+            "WHERE YEAR(o.createdat) = YEAR(CURRENT_DATE) " +
             "AND o.status = 'Đã hoàn thành'")
-    BigDecimal getMonthlyRevenueByStatus();
-    @Query("SELECT COUNT(o) FROM Order o WHERE o.status = 'Đã hoàn thành' AND MONTH(o.createdat) = MONTH(CURRENT_DATE) AND YEAR(o.createdat) = YEAR(CURRENT_DATE)")
-    int countCompletedOrdersThisMonth();
+    BigDecimal getYearlyRevenueByStatus();
+    @Query("SELECT COUNT(o) FROM Order o WHERE o.status = 'Đã hoàn thành' AND YEAR(o.createdat) = YEAR(CURRENT_DATE)")
+    int countCompletedOrdersThisYear();
     @Query("SELECT MONTH(o.createdat) as month, SUM(o.total) as total " +
             "FROM Order o " +
             "WHERE YEAR(o.createdat) = :year AND o.status = :status " +
             "GROUP BY MONTH(o.createdat)")
     List<Object[]> findMonthlyRevenueByYearAndStatus(@Param("year") int year, @Param("status") String status);
-    @Query("SELECT SUM(o.total) as total " +
-            "FROM Order o " +
-            "WHERE YEAR(o.createdat) = YEAR(CURRENT_DATE) AND o.status = 'Đã hoàn thành' ")
-    BigDecimal getYearlyRevenueByStatus();
     List<Order> findTop5ByOrderByCreatedatDesc();
 }

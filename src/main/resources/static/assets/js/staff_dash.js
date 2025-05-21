@@ -90,6 +90,7 @@ function attachSectionToggleEvents() {
     });
 }
 
+//Chi tiet don hang
 document.addEventListener('DOMContentLoaded', function () {
     const viewButtons = document.querySelectorAll('[data-bs-target="#viewOrderModal"]');
 
@@ -126,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+//Chinh sua don hang
 document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll("button[data-bs-target='#editOrderModal']");
 
@@ -168,17 +170,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }).catch(err => alert("Lỗi kết nối: " + err));
     });
-
-    function convertToISODate(dateStr) {
-        const [dd, mm, yyyy] = dateStr.split('/');
-        const date = new Date(Date.UTC(yyyy, mm - 1, dd, 24, 0, 0));
-        const newYear = date.getUTCFullYear();
-        const newMonth = String(date.getUTCMonth() + 1).padStart(2, '0');
-        const newDay = String(date.getUTCDate()).padStart(2, '0');
-
-        return `${newYear}-${newMonth}-${newDay}`;
-    }
 });
+function convertToISODate(dateStr) {
+    const [dd, mm, yyyy] = dateStr.split('/');
+    const date = new Date(Date.UTC(yyyy, mm - 1, dd, 24, 0, 0));
+    const newYear = date.getUTCFullYear();
+    const newMonth = String(date.getUTCMonth() + 1).padStart(2, '0');
+    const newDay = String(date.getUTCDate()).padStart(2, '0');
+
+    return `${newYear}-${newMonth}-${newDay}`;
+}
 function formatDateCreate(isoString) {
     let date = new Date(isoString);
     date = new Date(date.getTime() - (7 * 3600000));
@@ -197,6 +198,7 @@ function formatDate(isoString) {
     return `${dd}/${mm}/${yyyy}`;
 }
 
+//Chinh sua ho so
 document.getElementById('editProfileForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -223,6 +225,7 @@ document.getElementById('editProfileForm').addEventListener('submit', function(e
         });
 });
 
+//Modal chinh sua ho so
 document.addEventListener("DOMContentLoaded", function () {
     const profileModal = document.getElementById('editProfileModal');
 

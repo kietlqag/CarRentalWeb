@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,11 +59,13 @@ public class HomeControllerAdmin {
 
         List<Order> recentOrders = orderService.getRecentOrder();
         model.addAttribute("recentOrders", recentOrders);
-        BigDecimal totalThisMonth = orderService.getRevenuethisMonth();
-        model.addAttribute("totalThisMonth", totalThisMonth);
-        int newCustomerMonthlyCount = accountService.countNewCustomersThisMonth();
-        model.addAttribute("newCustomerMonthlyCount", newCustomerMonthlyCount);
-        int countOrderCompleted = orderService.countCompletedOrdersThisMonth();
+        BigDecimal totalThisYear = orderService.getRevenuethisYear();
+        model.addAttribute("totalThisYear", totalThisYear);
+        int newCustomerYearlyCount = accountService.countNewCustomersThisYear();
+        model.addAttribute("newCustomerYearlyCount", newCustomerYearlyCount);
+        int countOrderCompleted = orderService.countCompletedOrdersThisYear();
+        int countRentedCar= carService.getRentedCarCount();
+        model.addAttribute("countRentedCar", countRentedCar);
         model.addAttribute("countOrderCompleted", countOrderCompleted);
         try {
             Map<Integer, BigDecimal> monthlyRevenue = orderService.getMonthlyRevenue();
@@ -71,14 +74,6 @@ public class HomeControllerAdmin {
         } catch (JsonProcessingException e) {
             model.addAttribute("monthlyRevenueJson", "{}");
         }
-
-        int newCustomerYearlyCount = accountService.countNewCustomersThisYear();
-        model.addAttribute("newCustomerYearlyCount", newCustomerYearlyCount);
-        int countCar= carService.getRentedCarCount();
-        model.addAttribute("countCar", countCar);
-        BigDecimal totalThisYear= orderService.getRevenuethisYear();
-        model.addAttribute("totalThisYear", totalThisYear);
-
         return "admin_dashboard";
     }
 
@@ -106,7 +101,6 @@ public class HomeControllerAdmin {
     @DeleteMapping("/admin/accounts/delete")
     @ResponseBody
     public ResponseEntity<?> deleteAccount(@RequestParam("email") String email) {
-        System.out.println("👉 Received DELETE for email: " + email);
             accountService.deleteAccountByEmail(email);
         return ResponseEntity.ok().build();
     }
@@ -138,6 +132,8 @@ public class HomeControllerAdmin {
         Promotion promotion = promotionService.getPromotionById(id);
         promotion.setDiscountpercent(Integer.parseInt(payload.get("discountpercent")));
         promotion.setDescription(payload.get("description"));
+        promotion.setValidfrom(Date.valueOf(payload.get("validfrom")));
+        promotion.setValidto(Date.valueOf(payload.get("validto")));
         promotion.setCode(payload.get("code"));
         promotion.setType(Integer.parseInt(payload.get("type")));
         promotion.setIsactive(Integer.parseInt(payload.get("isactive")));

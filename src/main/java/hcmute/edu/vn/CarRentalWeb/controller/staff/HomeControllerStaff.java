@@ -103,7 +103,7 @@ public class HomeControllerStaff {
             return ResponseEntity.ok().build();
 
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Lỗi định dạng ngày nhận (receivedate) hoặc trả (returndate)");
+            return ResponseEntity.badRequest().body("error");
         }
     }
 

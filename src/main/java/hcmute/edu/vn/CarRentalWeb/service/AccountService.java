@@ -5,6 +5,7 @@ import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.PasswordResetToken;
 import hcmute.edu.vn.CarRentalWeb.repository.AccountRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.PasswordResetTokenRepository;
+import hcmute.edu.vn.CarRentalWeb.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,6 +21,8 @@ import java.util.UUID;
 
 @Service
 public class AccountService {
+    @Autowired
+    NotificationRepository notificationRepo;
     @Autowired
     AccountRepository accountRepo;
     @Autowired
@@ -39,18 +42,21 @@ public class AccountService {
 }
     @Transactional
     public void deleteAccountByEmail(String email) {
-            accountRepo.deleteByEmail(email);
+        notificationRepo.deleteNotificationByAccountemail(email);
+        accountRepo.deleteByEmail(email);
     }
     public Account getAccountByEmail(String email) {
-            return accountRepo.findByEmail(email);
-    }
+        return accountRepo.findByEmail(email);
+}
+
+
     public void updateRoleAccount(String email,String role) {
         Account account = accountRepo.findByEmail(email);
         account.setRole(role);
         accountRepo.save(account);
     }
-    public int countNewCustomersThisMonth() {return accountRepo.countAccountsCreatedThisMonth();}
-    public int countNewCustomersThisYear(){return accountRepo.countAccountsCreatedThisYear();}
+
+    public int countNewCustomersThisYear() {return accountRepo.countAccountsCreatedThisYear();}
 
     public void updateProfile(String email, AccountUpdateRequest dto) {
         Account account = accountRepo.findByEmail(email);

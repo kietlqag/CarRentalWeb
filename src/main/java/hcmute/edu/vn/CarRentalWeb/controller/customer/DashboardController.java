@@ -108,7 +108,6 @@ public class DashboardController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Không thể huỷ đơn hàng.");
         }
     }
-
     @PostMapping("/profile/update")
     public String updateProfile(@ModelAttribute AccountUpdateRequest dto,
                                 HttpSession session,
@@ -120,7 +119,7 @@ public class DashboardController {
             return "redirect:/login";
         }
         try {
-            accountService.updateProfile(account.getEmail(), dto);
+            //accountService.updateProfile(account.getEmail(), dto);
             Account updatedAccount = accountService.getAccountByEmail(account.getEmail());
             session.setAttribute("account", updatedAccount);
 
