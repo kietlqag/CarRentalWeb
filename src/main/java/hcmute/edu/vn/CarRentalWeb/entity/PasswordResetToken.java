@@ -17,7 +17,7 @@ public class PasswordResetToken {
     @Column(name = "expiry_date")
     private LocalDateTime expiryDate;
 
-    @Column(name = "accountemail")   // map thẳng vào cột accountemail kiểu String
+    @Column(name = "accountemail")
     private String accountEmail;
 
     public PasswordResetToken(String token, String accountEmail) {
