@@ -1,5 +1,6 @@
 package hcmute.edu.vn.CarRentalWeb.entity;
 
+import hcmute.edu.vn.CarRentalWeb.decorator.OrderComponent;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -8,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -206,4 +207,5 @@ public class Order {
     public void setServiceprice(Integer serviceprice) {
         this.serviceprice = serviceprice;
     }
+
 }

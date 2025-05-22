@@ -1,5 +1,8 @@
 package hcmute.edu.vn.CarRentalWeb.service;
 
+import hcmute.edu.vn.CarRentalWeb.decorator.BasicOrder;
+import hcmute.edu.vn.CarRentalWeb.decorator.OrderComponent;
+import hcmute.edu.vn.CarRentalWeb.decorator.ServiceDecorator;
 import hcmute.edu.vn.CarRentalWeb.dto.CheckoutRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
@@ -146,11 +149,11 @@ public class OrderService {
 
 
     public long calculateTotal(long countDate, int carPrice, Integer servicePrice) {
-        long total = countDate * carPrice;
-        if (servicePrice != null) {
-            total += servicePrice;
+        OrderComponent basicOrder = new BasicOrder(countDate, carPrice);
+        if (servicePrice != null && servicePrice > 0) {
+            basicOrder = new ServiceDecorator(basicOrder, servicePrice);
         }
-        return total;
+        return basicOrder.calculateTotal();
     }
 
 
