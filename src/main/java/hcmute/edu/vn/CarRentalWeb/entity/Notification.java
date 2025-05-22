@@ -8,12 +8,13 @@ import java.util.Date;
 @Table(name = "notifications")
 public class Notification {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String accountemail;
     private String title;
     private String message;
-    private Date createdat;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdat = new Date();
 
     public int getId() {
         return id;

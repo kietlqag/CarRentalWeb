@@ -19,4 +19,13 @@ public class NotificationService {
     public List<Notification> get3Notifications(String email) {
         return notificationRepository.findTop3ByAccountemailOrderByCreatedatDesc(email);
     }
+
+    public void createNotification(String email, String title, String message) {
+        Notification noti = new Notification();
+        noti.setAccountemail(email);
+        noti.setTitle(title);
+        noti.setMessage(message);
+        noti.setCreatedat(new java.util.Date());
+        notificationRepository.save(noti);
+    }
 }

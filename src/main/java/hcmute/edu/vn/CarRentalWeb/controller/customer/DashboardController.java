@@ -119,7 +119,7 @@ public class DashboardController {
             return "redirect:/login";
         }
         try {
-            //accountService.updateProfile(account.getEmail(), dto);
+            accountService.updateProfile(account.getEmail(), dto);
             Account updatedAccount = accountService.getAccountByEmail(account.getEmail());
             session.setAttribute("account", updatedAccount);
 

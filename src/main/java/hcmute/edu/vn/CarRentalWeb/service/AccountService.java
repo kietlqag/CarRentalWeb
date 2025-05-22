@@ -118,5 +118,8 @@ public class AccountService {
         return true;
     }
 
+    public List<Account> getByRole(String role) {
+        return accountRepo.findByRole(role);
+    }
 
 }

@@ -3,8 +3,13 @@ package hcmute.edu.vn.CarRentalWeb.service;
 import hcmute.edu.vn.CarRentalWeb.dto.CheckoutRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
+import hcmute.edu.vn.CarRentalWeb.observer.CarStatusUpdater;
+import hcmute.edu.vn.CarRentalWeb.observer.CustomerNotifier;
+import hcmute.edu.vn.CarRentalWeb.observer.OrderSubject;
+import hcmute.edu.vn.CarRentalWeb.observer.StaffNotifier;
 import hcmute.edu.vn.CarRentalWeb.repository.CarRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +28,24 @@ public class OrderService {
     private OrderRepository orderRepo;
     @Autowired
     CarRepository carRepo;
+
+    //Observer
+    @Autowired
+    private OrderSubject orderSubject;
+    @Autowired
+    private CarStatusUpdater carStatusUpdater;
+    @Autowired
+    private StaffNotifier staffNotifier;
+    @Autowired
+    private CustomerNotifier customerNotifier;
+
+    @PostConstruct
+    public void initObservers() {
+        orderSubject.register(carStatusUpdater);
+        orderSubject.register(staffNotifier);
+        orderSubject.register(customerNotifier);
+    }
+
 
     public int currentYear = LocalDate.now().getYear();
     public String status = "Đã hoàn thành";
@@ -88,11 +111,9 @@ public class OrderService {
             order.setCarid(data.getCarid());
             order.setServiceprice(data.getServiceprice());
 
-            Car car = carRepo.findCarById(data.getCarid());
-            car.setStatus("Đang thuê");
-            order.setPrice(car.getPrice());
             orderRepo.save(order);
-            carRepo.save(car);
+            orderSubject.notifyAll(order);
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
