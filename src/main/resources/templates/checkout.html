@@ -45,6 +45,20 @@
           <textarea name="note" class="form-control" rows="3" placeholder="Ghi chú thêm..."></textarea>
         </div>
 
+        <div class="mb-3">
+          <label class="form-label">Phương thức thanh toán</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="paymentmethod" id="paymentCash" value="CASH" checked>
+              <label class="form-check-label" for="paymentCash">Tiền mặt</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="paymentmethod" id="paymentWallet" value="WALLET">
+              <label class="form-check-label" for="paymentWallet">Ví điện tử</label>
+            </div>
+          </div>
+        </div>
+
         <select class="form-select" id="discountSelect">
           <option value="0" data-percent="0" selected>Không áp dụng</option>
           <option th:each="p : ${promotionList}"

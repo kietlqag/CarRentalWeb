@@ -12,6 +12,7 @@ public class CheckoutRequest {
     private String phone;
     private String picklocation;
     private String note;
+    private String paymentmethod;
 
     private String name;
     private String service;
@@ -65,6 +66,14 @@ public class CheckoutRequest {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getPaymentmethod() {
+        return paymentmethod;
+    }
+
+    public void setPaymentmethod(String paymentmethod) {
+        this.paymentmethod = paymentmethod;
     }
 
     public String getName() {

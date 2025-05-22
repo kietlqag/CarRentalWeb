@@ -9,6 +9,7 @@ import hcmute.edu.vn.CarRentalWeb.observer.OrderSubject;
 import hcmute.edu.vn.CarRentalWeb.observer.StaffNotifier;
 import hcmute.edu.vn.CarRentalWeb.repository.CarRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
+import hcmute.edu.vn.CarRentalWeb.strategy.PaymentStrategy;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ public class OrderService {
     @Autowired
     private CustomerNotifier customerNotifier;
 
+
     @PostConstruct
     public void initObservers() {
         orderSubject.register(carStatusUpdater);
@@ -46,6 +48,12 @@ public class OrderService {
         orderSubject.register(customerNotifier);
     }
 
+    //strategy
+    private final PaymentContextService paymentContext;
+
+    public OrderService(PaymentContextService paymentContext) {
+        this.paymentContext = paymentContext;
+    }
 
     public int currentYear = LocalDate.now().getYear();
     public String status = "Đã hoàn thành";
@@ -96,8 +104,6 @@ public class OrderService {
             order.setPicklocation(data.getPicklocation());
             order.setNote(data.getNote());
             order.setStatus("Chờ xác nhận");
-            order.setPaymentstatus("Chưa thanh toán");
-            order.setPaymentmethod("CASH");
             order.setCreatedat(LocalDateTime.now());
             order.setName(data.getName());
             order.setService(data.getService() != null ? data.getService() : "Không");
@@ -110,6 +116,9 @@ public class OrderService {
             order.setServiceid(data.getServiceid());
             order.setCarid(data.getCarid());
             order.setServiceprice(data.getServiceprice());
+
+            PaymentStrategy paymentStrategy = paymentContext.getPaymentStrategy(data.getPaymentmethod());
+            paymentStrategy.pay(order);
 
             orderRepo.save(order);
             orderSubject.notifyAll(order);
