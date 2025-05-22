@@ -147,10 +147,8 @@
                                 </td>
                                 <td>
                                 <span class="badge"
-                                      th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
-                                                      (${order.paymentstatus} == 'Chờ xác nhận' ? 'bg-warning' :
-                                                      (${order.paymentstatus} == 'Đã hoàn thành' ? 'bg-danger' :
-                                                      (${order.paymentstatus} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:classappend="${order.paymentstatus} == 'Đã thanh toán ' ? 'bg-success' :
+                                                      (${order.paymentstatus} == 'Chưa thanh toán' ? 'bg-danger' : 'bg-secondary')"
                                       th:text="${order.paymentstatus}">Trạng thái thanh toán
                                 </span>
                                 </td>
@@ -232,10 +230,8 @@
                                 </td>
                                 <td>
                                 <span class="badge"
-                                      th:classappend="${order.paymentstatus} == 'Xác nhận' ? 'bg-success' :
-                                                      (${order.paymentstatus} == 'Chờ xác nhận' ? 'bg-warning' :
-                                                      (${order.paymentstatus} == 'Đã hoàn thành' ? 'bg-danger' :
-                                                      (${order.paymentstatus} == 'Đã hủy' ? 'bg-dark' : 'bg-secondary')))"
+                                      th:classappend="${order.paymentstatus} == 'Đã thanh toán' ? 'bg-success' :
+                                                      (${order.paymentstatus} == 'Chưa thanh toán' ? 'bg-danger': 'bg-secondary')"
                                       th:text="${order.paymentstatus}">Trạng thái thanh toán
                                 </span>
                                 </td>
@@ -357,10 +353,8 @@
                             <div class="mb-3">
                                 <label for="editPaymentStatus" class="form-label">Trạng thái thanh toán</label>
                                 <select class="form-control" id="editPaymentStatus">
-                                    <option value="Chờ xác nhận">Chờ xác nhận</option>
-                                    <option value="Xác nhận">Xác nhận</option>
-                                    <option value="Đã hoàn thành">Đã hoàn thành</option>
-                                    <option value="Đã hủy">Đã hủy</option>
+                                    <option value="Đã thanh toán">Đã thanh toán</option>
+                                    <option value="Chưa thanh toán">Chưa thanh toán</option>
                                 </select>
                             </div>
 

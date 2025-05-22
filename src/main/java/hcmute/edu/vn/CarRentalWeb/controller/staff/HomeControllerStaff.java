@@ -76,10 +76,9 @@ public class HomeControllerStaff {
         order.setPaymentstatus(payload.get("paymentstatus"));
 
         try {
-            Date receiveDate = Date.valueOf(receiveDateStr);
+            Date receiveDate = Date.valueOf(receiveDateStr); 
             Date returnDate = Date.valueOf(returnDateStr);
 
-            // Kiểm tra receiveDate phải trước returnDate
             if (!receiveDate.before(returnDate)) {
                 return ResponseEntity.badRequest().body("Ngày nhận phải trước ngày trả.");
             }

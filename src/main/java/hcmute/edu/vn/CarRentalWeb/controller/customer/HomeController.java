@@ -51,6 +51,7 @@ public class HomeController {
         return "index";
     }
 
+    //Phân trang
     @GetMapping("/home/services")
     public String getPagedServices(@RequestParam(defaultValue = "0") int page, Model model) {
         int pageSize = 4; // mỗi trang 3 service

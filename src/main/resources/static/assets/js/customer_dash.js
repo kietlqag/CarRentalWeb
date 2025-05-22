@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Load dữ liệu từ be lên
 document.addEventListener("DOMContentLoaded", function () {
     const editButtons = document.querySelectorAll("button[data-bs-target='#editOrderModal']");
 
@@ -180,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Khi bấm "Lưu thay đổi"
+    // Save thông tin đã chỉnh sửa lại
     document.getElementById("saveEditOrderBtn").addEventListener("click", () => {
         const id = document.getElementById("editOrderId").value;
 
