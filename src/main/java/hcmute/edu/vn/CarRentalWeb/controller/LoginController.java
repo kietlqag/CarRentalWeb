@@ -1,5 +1,6 @@
 package hcmute.edu.vn.CarRentalWeb.controller;
 
+import hcmute.edu.vn.CarRentalWeb.controller.singleton.UserSession;
 import hcmute.edu.vn.CarRentalWeb.dto.LoginRequest;
 import hcmute.edu.vn.CarRentalWeb.dto.RegisterRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
@@ -41,6 +42,16 @@ public class LoginController {
         }
 
         session.setAttribute("account", account);
+
+        UserSession userSession = UserSession.getInstance();
+        userSession.setEmail(account.getEmail());
+        userSession.setPassword(account.getPassword());
+        userSession.setFullName(account.getFullName());
+        userSession.setPhone(account.getPhone());
+        userSession.setAddress(account.getAddress());
+        userSession.setRole(account.getRole());
+        userSession.setRanks(account.getRanks());
+        userSession.setScore(account.getScore());
 
         return "redirect:/context";
     }
