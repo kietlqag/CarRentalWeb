@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ContextController {
 
-    @Autowired
-    UserSession userSession;
+//    @Autowired
+//    UserSession userSession;
 
     @GetMapping("/context")
     public String context(Model model) {
+        UserSession userSession = UserSession.getInstance();
         model.addAttribute("account", userSession);
         if ("ADMIN".equals(userSession.getRole())) {
             return "redirect:/admin/dashboard";
