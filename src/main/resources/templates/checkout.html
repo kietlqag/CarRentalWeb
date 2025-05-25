@@ -81,6 +81,7 @@
         <input type="hidden" id="finalTotal" name="total" th:value="${total}"/>
         <input type="hidden" id="discountValue" name="discount" value="0"/>
         <input type="hidden" name="carid" th:value="${car.getId()}"/>
+        <input type="hidden" name="price" th:value="${car.getPrice()}">
         <input type="hidden" name="serviceid" th:value="${service != null ? service.getId() : 0}"/>
         <input type="hidden" name="serviceprice" th:value="${service != null ? service.getPrice() : 0}"/>
 

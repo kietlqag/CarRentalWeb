@@ -88,7 +88,7 @@ public class DashboardController {
 
         int countdate = orderService.calculateCountDate(Date.valueOf(receiveDateStr), Date.valueOf(returnDateStr));
         BigDecimal total = orderService.updateTotal(countdate, order.getPrice(), order.getServiceprice(), order.getDiscount());
-        order.setCountdate((int) countdate);
+        order.setCountdate(countdate);
         order.setTotal(total);
         orderService.save(order);
         return ResponseEntity.ok().build();
@@ -128,6 +128,6 @@ public class DashboardController {
             redirectAttributes.addFlashAttribute("errorMessage", "Lỗi khi cập nhật: " + e.getMessage());
         }
 
-        return null;
+        return "redirect:/dashboard";
     }
 }
