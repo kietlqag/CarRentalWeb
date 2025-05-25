@@ -1,17 +1,13 @@
-# 1. Dùng hình ảnh JDK 17 làm nền
-FROM openjdk:17-jdk-slim
-
-# 2. Biến môi trường tên file JAR
-ENV APP_NAME=CarRentalWeb-1.0.0.jar
-
-# 3. Tạo thư mục làm việc trong container
+# Stage 1: Build ứng dụng
+FROM maven:3.8.5-openjdk-17 AS builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# 4. Copy file JAR từ target/ vào container
-COPY target/*.jar ${APP_NAME}
-
-# 5. Mở cổng ứng dụng
+# Stage 2: Tạo image chạy ứng dụng
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+ENV APP_NAME=CarRentalWeb-1.0.0.jar
+COPY --from=builder /app/target/${APP_NAME} ${APP_NAME}
 EXPOSE 5000
-
-# 6. Câu lệnh chạy ứng dụng
 ENTRYPOINT ["java", "-jar", "CarRentalWeb-1.0.0.jar"]
