@@ -14,4 +14,4 @@ COPY target/*.jar ${APP_NAME}
 EXPOSE 5000
 
 # 6. Câu lệnh chạy ứng dụng
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "CarRentalWeb-1.0.0.jar"]
