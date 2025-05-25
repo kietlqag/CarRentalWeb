@@ -59,7 +59,7 @@
           </div>
         </div>
 
-        <select class="form-select" id="discountSelect">
+        <select class="form-select mb-3" id="discountSelect">
           <option value="0" data-percent="0" selected>Không áp dụng</option>
           <option th:each="p : ${promotionList}"
                   th:value="${p.getId()}"
@@ -68,7 +68,7 @@
           </option>
         </select>
 
-        <div class="mb-3 form-check">
+        <div class="form-check">
           <input type="checkbox" class="form-check-input" id="termsCheck" required>
           <label class="form-check-label" for="termsCheck">Tôi đồng ý với Chính sách và Điều khoản dịch vụ</label>
         </div>
@@ -85,7 +85,8 @@
         <input type="hidden" name="serviceid" th:value="${service != null ? service.getId() : 0}"/>
         <input type="hidden" name="serviceprice" th:value="${service != null ? service.getPrice() : 0}"/>
 
-        <button type="submit" class="btn btn-primary w-100">Thanh toán</button>
+        <button type="submit" class="btn btn-primary w-100 mt-3">Đặt xe</button>
+
       </form>
     </div>
 
