@@ -23,7 +23,7 @@ public class ResetPassController {
     public String handleForgotPassword(@RequestParam("email") String email, Model model) {
         boolean success = accountService.sendResetPasswordLink(email);
         if (success) {
-            model.addAttribute("message", "Đã gửi liên kết đặt lại mật khẩu đến email của bạn.");
+            model.addAttribute("message", "Đã gửi liên kết đến email của bạn.");
         } else {
             model.addAttribute("error", "Email không tồn tại trong hệ thống.");
         }
@@ -35,10 +35,10 @@ public class ResetPassController {
         boolean valid = accountService.isResetTokenValid(token);
         if (!valid) {
             model.addAttribute("error", "Liên kết không hợp lệ hoặc đã hết hạn.");
-            return "forgot-password"; // Hoặc có thể redirect về forgot-password nếu token không hợp lệ
+            return "forgot-password";
         }
         model.addAttribute("token", token);
-        return "reset-password";  // **trả về trang reset-password.html**
+        return "reset-password";
     }
 
     @PostMapping("/reset-password")
@@ -51,17 +51,17 @@ public class ResetPassController {
         if (!password.equals(confirmPassword)) {
             model.addAttribute("error", "Mật khẩu xác nhận không khớp.");
             model.addAttribute("token", token);
-            return "reset-password";  // **trả về trang reset-password.html**
+            return "reset-password";
         }
 
         boolean result = accountService.updatePassword(token, password);
         if (result) {
-            model.addAttribute("message", "Mật khẩu đã được cập nhật. Bạn có thể đăng nhập ngay bây giờ.");
+            model.addAttribute("message", "Mật khẩu đã được cập nhật.");
         } else {
             model.addAttribute("error", "Đã có lỗi xảy ra. Vui lòng thử lại.");
         }
         model.addAttribute("token", token);
-        return "reset-password";  // **trả về trang reset-password.html**
+        return "reset-password";
     }
 
 }

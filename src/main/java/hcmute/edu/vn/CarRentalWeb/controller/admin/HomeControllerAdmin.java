@@ -45,6 +45,11 @@ public class HomeControllerAdmin {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
 
+        if(!account.getRole().equals("ADMIN")) {
+            model.addAttribute("errorMessage", "Bạn không có quyền truy cập trang này.");
+            return "access-denied";
+        }
+
         List<Car> cars = carService.getAll();
         model.addAttribute("cars", cars);
 

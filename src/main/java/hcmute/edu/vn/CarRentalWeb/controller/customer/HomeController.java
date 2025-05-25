@@ -40,11 +40,6 @@ public class HomeController {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
 
-        if(!account.getRole().equals("CUSTOMER")) {
-            model.addAttribute("errorMessage", "Bạn không có quyền truy cập trang này.");
-            return "access-denied";
-        }
-
         Page<Services> services = servicesService.getServicePage("Hoạt động", PageRequest.of(page, 4));
         model.addAttribute("services", services);
         model.addAttribute("currentPage", page);

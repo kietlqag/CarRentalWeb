@@ -41,6 +41,11 @@ public class DashboardController {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
 
+        if(!account.getRole().equals("CUSTOMER")) {
+            model.addAttribute("errorMessage", "Bạn không có quyền truy cập trang này.");
+            return "access-denied";
+        }
+
         List<Integer> types = new ArrayList<>();
         types.add(0);
         types.add(account.getRanks());
@@ -80,6 +85,13 @@ public class DashboardController {
 
         order.setNote(payload.get("note"));
         try {
+            Date receiveDate = Date.valueOf(receiveDateStr);
+            Date returnDate = Date.valueOf(returnDateStr);
+
+            if (!receiveDate.before(returnDate)) {
+                return ResponseEntity.badRequest().body("Ngày nhận phải trước ngày trả.");
+            }
+
             order.setReceivedate(Date.valueOf(receiveDateStr));
             order.setReturndate(Date.valueOf(returnDateStr));
         } catch (Exception e) {

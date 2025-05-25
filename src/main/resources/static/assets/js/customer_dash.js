@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     document.getElementById('orderPaymentStatus').textContent = order.paymentstatus;
                     document.getElementById('orderPaymentMethod').textContent = order.paymentmethod;
                     document.getElementById('orderService').textContent = order.service;
-                    document.getElementById('promotion').textContent = order.discount;
+                    document.getElementById('promotion').textContent = "Giảm " + order.discount + "%";
                     document.getElementById('orderReceiveDate').textContent = formatDate(order.receivedate);
                     document.getElementById('orderReturnDate').textContent = formatDate(order.returndate);
                     document.getElementById('orderCountDate').textContent = order.countdate;

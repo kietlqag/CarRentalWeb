@@ -9,8 +9,8 @@
 <body>
 
 <div class="container checkout-container">
+  <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
   <h2 class="mb-4 text-center">Xác Nhận Đặt Xe</h2>
-
   <div class="row">
     <!-- Left Side: Customer Info -->
     <div class="col-md-7">
@@ -139,7 +139,7 @@
       const discountPercent = parseFloat(selectedOption.getAttribute("data-percent")) || 0;
 
       const discountedTotal = originalTotal - (originalTotal * discountPercent / 100);
-      totalAmountEl.textContent = discountedTotal.toLocaleString('vi-VN');
+      totalAmountEl.textContent = discountedTotal;
 
       // Gán discount vào input hidden để gửi về server
       discountInput.value = discountPercent;

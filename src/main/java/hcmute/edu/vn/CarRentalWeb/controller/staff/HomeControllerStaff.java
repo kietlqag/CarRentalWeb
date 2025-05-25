@@ -39,6 +39,11 @@ public class HomeControllerStaff {
         Account account = (Account) session.getAttribute("account");
         model.addAttribute("account", account);
 
+        if(!account.getRole().equals("STAFF")) {
+            model.addAttribute("errorMessage", "Bạn không có quyền truy cập trang này.");
+            return "access-denied";
+        }
+
         List<Order> orders = orderService.getAllOrder();
         model.addAttribute("orders", orders);
 

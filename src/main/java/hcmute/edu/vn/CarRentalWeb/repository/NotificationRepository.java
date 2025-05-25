@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Integer> {
-    List<Notification> findAllByAccountemail(String email);
+    List<Notification> findAllByAccountemailOrderByCreatedatDesc(String email);
     List<Notification> findTop3ByAccountemailOrderByCreatedatDesc(String email);
     void deleteNotificationByAccountemail(String accountemail);
 

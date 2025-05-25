@@ -5,10 +5,7 @@ import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.entity.Promotion;
 import hcmute.edu.vn.CarRentalWeb.entity.Services;
-import hcmute.edu.vn.CarRentalWeb.service.CarService;
-import hcmute.edu.vn.CarRentalWeb.service.OrderService;
-import hcmute.edu.vn.CarRentalWeb.service.PromotionService;
-import hcmute.edu.vn.CarRentalWeb.service.ServicesService;
+import hcmute.edu.vn.CarRentalWeb.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,6 +34,8 @@ public class CheckoutController {
     private PromotionService promotionService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("/checkout")
     public String checkout(@RequestParam("idCar") int carId,
@@ -84,7 +85,24 @@ public class CheckoutController {
 
 
     @PostMapping("/checkout/save")
-    public String saveCheckout(@ModelAttribute CheckoutRequest checkoutData, Model model) {
+    public String saveCheckout(@ModelAttribute CheckoutRequest checkoutData, Model model, HttpSession session, RedirectAttributes redirect) {
+
+        Account account = (Account) session.getAttribute("account");
+
+        if (account == null) {
+            if (accountService.emailExists(checkoutData.getEmail())) {
+                redirect.addFlashAttribute("errorMessage", "Email đã được đăng ký tài khoản, vui lòng đăng nhập hoặc nhập email khác để đặt xe.");
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String start = sdf.format(checkoutData.getReceiveDate());
+                String end = sdf.format(checkoutData.getReturnDate());
+
+                return "redirect:/checkout?idCar=" + checkoutData.getCarid()
+                        + "&idService=" + checkoutData.getServiceid()
+                        + "&startDate=" + start
+                        + "&endDate=" + end;
+            }
+        }
 
         boolean isSuccess = orderService.saveOrder(checkoutData);
 
