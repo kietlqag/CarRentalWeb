@@ -1,8 +1,7 @@
 package hcmute.edu.vn.CarRentalWeb.controller;
 
-import hcmute.edu.vn.CarRentalWeb.controller.singleton.UserSession;
+import hcmute.edu.vn.CarRentalWeb.singleton.UserSession;
 import hcmute.edu.vn.CarRentalWeb.dto.LoginRequest;
-import hcmute.edu.vn.CarRentalWeb.dto.RegisterRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Account;
 import hcmute.edu.vn.CarRentalWeb.repository.AccountRepository;
 import jakarta.servlet.http.HttpSession;
@@ -13,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {

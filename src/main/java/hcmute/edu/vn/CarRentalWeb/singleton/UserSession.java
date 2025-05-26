@@ -1,4 +1,4 @@
-package hcmute.edu.vn.CarRentalWeb.controller.singleton;
+package hcmute.edu.vn.CarRentalWeb.singleton;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

@@ -138,8 +138,9 @@
                                     <span class="badge"
                                           th:classappend=" ' ' +
                                               (${order.getStatus()} == 'Đã xác nhận' ? 'bg-success' :
+                                              (${order.getStatus()} == 'Đã hoàn thành' ? 'bg-success' :
                                               (${order.getStatus()} == 'Đã huỷ' ? 'bg-danger' :
-                                              (${order.getStatus()} == 'Chờ xác nhận' ? 'bg-secondary' : 'bg-light')))"
+                                              (${order.getStatus()} == 'Chờ xác nhận' ? 'bg-secondary' : 'bg-light'))))"
                                           th:text="${order.status}">Chờ xác nhận</span>
                                 </td>
 
@@ -254,8 +255,9 @@
                             <span class="badge"
                                   th:classappend="' ' +
                                       (${order.getStatus()} == 'Đã xác nhận' ? 'bg-success' :
+                                      (${order.getStatus()} == 'Đã hoàn thành' ? 'bg-success' :
                                       (${order.getStatus()} == 'Đã huỷ' ? 'bg-danger' :
-                                      (${order.getStatus()} == 'Chờ xác nhận' ? 'bg-secondary' : 'bg-light')))"
+                                      (${order.getStatus()} == 'Chờ xác nhận' ? 'bg-secondary' : 'bg-light'))))"
                                   th:text="${order.status}">Chờ xác nhận</span>
                                 </td>
 
