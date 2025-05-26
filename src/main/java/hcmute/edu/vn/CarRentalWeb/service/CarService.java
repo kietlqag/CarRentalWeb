@@ -1,7 +1,11 @@
 package hcmute.edu.vn.CarRentalWeb.service;
 
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
+import hcmute.edu.vn.CarRentalWeb.observer.CarNewNotifier;
+import hcmute.edu.vn.CarRentalWeb.observer.CarStatusUpdater;
+import hcmute.edu.vn.CarRentalWeb.observer.CarSubject;
 import hcmute.edu.vn.CarRentalWeb.repository.CarRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +17,14 @@ import java.util.List;
 public class CarService {
     @Autowired
     private CarRepository carRepository;
+    @Autowired
+    private CarNewNotifier carNewNotifier;
+    @Autowired
+    private CarSubject carSubject;
+    @PostConstruct
+    public void initObservers() {
+        carSubject.register(carNewNotifier);
+    }
     public List<Car> getAll() {
         return carRepository.findAll();
     }
@@ -39,6 +51,7 @@ public class CarService {
     public void save(Car car) {
 
         carRepository.save(car);
+        carSubject.notifyAll(car);
     }
 
     public List<String> getBrandList(){
