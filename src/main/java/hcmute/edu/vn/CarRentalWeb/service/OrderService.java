@@ -43,6 +43,10 @@ public class OrderService {
     private OrderStatusSubject orderStatusSubject;
     @Autowired
     private OrderStatusNotifier orderStatusNotifier;
+    @Autowired
+    private OrderPaymentStatusSubject orderPaymentStatusSubject;
+    @Autowired
+    private OrderPaymentStatusNotifier orderPaymentStatusNotifier;
 
 
     @PostConstruct
@@ -51,6 +55,7 @@ public class OrderService {
         orderSubject.register(staffNotifier);
         orderSubject.register(customerNotifier);
         orderStatusSubject.register(orderStatusNotifier);
+        orderPaymentStatusSubject.register(orderPaymentStatusNotifier);
     }
 
     //strategy
@@ -98,6 +103,7 @@ public class OrderService {
 
         orderRepo.save(order);
         orderStatusSubject.notifyAll(order);
+        orderPaymentStatusSubject.notifyAll(order);
     }
 
     @Transactional
