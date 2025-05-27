@@ -528,7 +528,119 @@
             </div>
         </div>
 
+        <!-- Services Management Section -->
+        <div class="content-section" id="services" >">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800" style="font-family: 'Javanese Text', serif;">Quản lý dịch vụ</h1>
+                <button class="btn btn-primary btn-animated" data-bs-toggle="modal" data-bs-target="#addServiceModal">
+                    <svg>
+                        <rect x="0" y="0" width="100%" height="100%"></rect>
+                    </svg>
+                    <i class="fas fa-plus fa-sm"></i> Thêm dịch vụ mới
+                </button>
+            </div>
 
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Danh sách dịch vụ</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Tên dịch vụ</th>
+                                <th>Giá</th>
+                                <th>Trạng thái</th>
+                                <th>Hình ảnh</th>
+                                <th>Thao tác</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="service : ${services}">
+                                <td th:text="${service.nameService}">Rửa xe</td>
+                                <td th:text="${service.price}">100000</td>
+                                <td th:text="${service.status}">Hoạt động</td>
+                                <td>
+                                    <img th:src="${service.picture}" alt="Ảnh dịch vụ" style="height: 40px;">                                </td>
+                                <td>
+                                    <div class="table-action">
+                                        <button class="btn btn-sm btn-warning"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editServiceModal"
+                                                th:attr="
+                                                data-id=${service.id},
+                                                data-nameservice=${service.nameService},
+                                                data-price=${service.price},
+                                                data-status=${service.status},
+                                                data-picture=${service.picture}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button th:onclick="|deleteService(${service.id})|" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Services Modal -->
+        <div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="addServiceForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Thêm dịch vụ mới</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input class="form-control mb-2" name="nameService" placeholder="Tên dịch vụ" required>
+                            <input class="form-control mb-2" name="price" type="number" placeholder="Giá" required>
+                            <select class="form-control mb-2" name="status" required>
+                                <option value="">-- Chọn trạng thái --</option>
+                                <option value="Hoạt động">Hoạt động</option>
+                                <option value="Không hoạt động">Không hoạt động</option>
+                            </select>
+                            <input class="form-control mb-2" name="picture" placeholder="Đường dẫn hình ảnh">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Edit Services Modal -->
+        <div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="editServiceForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Chỉnh sửa dịch vụ</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="id">
+                            <input class="form-control mb-2" name="nameService" placeholder="Tên dịch vụ" required>
+                            <input class="form-control mb-2" name="price" type="number" placeholder="Giá" required>
+                            <select class="form-control mb-2" name="status" required>
+                                <option value="Hoạt động">Hoạt động</option>
+                                <option value="Không hoạt động">Không hoạt động</option>
+                            </select>
+                            <input class="form-control mb-2" name="picture" placeholder="Đường dẫn hình ảnh">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Cập nhật</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     <!-- Edit Car Modal -->
     <div class="modal fade" id="editCarModal" tabindex="-1" aria-labelledby="editCarModalLabel" aria-hidden="true">
         <div class="modal-dialog">

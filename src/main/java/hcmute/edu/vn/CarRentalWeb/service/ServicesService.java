@@ -14,6 +14,10 @@ public class ServicesService {
     @Autowired
     private ServiceRepository serviceRepository;
 
+    public List<Services> getAllServices(){
+        return serviceRepository.findAll();
+    }
+
     public List<Services> getServiceList(String status){
         return serviceRepository.findAllByStatus(status);
     }
@@ -25,4 +29,13 @@ public class ServicesService {
     public Services getServiceById(int id){
         return serviceRepository.findById(id);
     }
+    public void save(Services service)
+    {
+        serviceRepository.save(service);
+    }
+    public void deleteById(int id)
+    {
+        serviceRepository.deleteById(id);
+    }
+
 }

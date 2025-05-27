@@ -3,14 +3,8 @@ package hcmute.edu.vn.CarRentalWeb.controller.admin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hcmute.edu.vn.CarRentalWeb.dto.AccountUpdateRequest;
-import hcmute.edu.vn.CarRentalWeb.entity.Account;
-import hcmute.edu.vn.CarRentalWeb.entity.Car;
-import hcmute.edu.vn.CarRentalWeb.entity.Order;
-import hcmute.edu.vn.CarRentalWeb.entity.Promotion;
-import hcmute.edu.vn.CarRentalWeb.service.AccountService;
-import hcmute.edu.vn.CarRentalWeb.service.CarService;
-import hcmute.edu.vn.CarRentalWeb.service.OrderService;
-import hcmute.edu.vn.CarRentalWeb.service.PromotionService;
+import hcmute.edu.vn.CarRentalWeb.entity.*;
+import hcmute.edu.vn.CarRentalWeb.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +27,9 @@ public class HomeControllerAdmin {
     private PromotionService promotionService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private ServicesService servicesService;
+
     private final ObjectMapper objectMapper;
     public HomeControllerAdmin(OrderService orderService, ObjectMapper objectMapper) {
         this.orderService = orderService;
@@ -61,6 +58,9 @@ public class HomeControllerAdmin {
 
         List<Order> orders = orderService.getAllOrder();
         model.addAttribute("orders", orders);
+
+        List<Services> services = servicesService.getAllServices();
+        model.addAttribute("services", services);
 
         List<Order> recentOrders = orderService.getRecentOrder();
         model.addAttribute("recentOrders", recentOrders);
@@ -145,6 +145,32 @@ public class HomeControllerAdmin {
         promotionService.save(promotion);
         return ResponseEntity.ok().build();
     }
+    @DeleteMapping("/admin/services/delete/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deleteService(@PathVariable int id) {
+        servicesService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/admin/services/create")
+    @ResponseBody
+    public ResponseEntity<String> createService(@RequestBody Services service) {
+        servicesService.save(service);
+        return ResponseEntity.ok("Service created");
+    }
+
+    @PutMapping("/admin/services/update/{id}")
+    @ResponseBody
+    public ResponseEntity<?> updateService(@PathVariable int id, @RequestBody Map<String, String> payload) {
+        Services service = servicesService.getServiceById(id);
+        service.setNameService(payload.get("nameService"));
+        service.setPrice(Integer.parseInt(payload.get("price")));
+        service.setStatus(payload.get("status"));
+        service.setPicture(payload.get("picture"));
+        servicesService.save(service);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/admin/orders/{id}")
     @ResponseBody
     public ResponseEntity<Order> getOrderDetails(@PathVariable int id) {

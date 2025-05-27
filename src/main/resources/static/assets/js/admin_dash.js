@@ -49,10 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle form submissions
     const forms = [
         { id: "addCarForm", name: "Xe" },
-        { id: "addContractForm", name: "Hợp đồng" },
         { id: "addPromotionForm", name: "Khuyến mãi" },
-        { id: "addPaymentMethodForm", name: "Phương thức thanh toán" },
-        { id: "addContentForm", name: "Nội dung" },
+        {id: "addServiceForm", name: "Dịch vụ"}
     ];
 
     forms.forEach(({ id, name }) => {
@@ -71,7 +69,79 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+// Edit buttons for Services
+    const editServiceButtons = document.querySelectorAll('.btn-warning');
+    editServiceButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const id = button.getAttribute('data-id');
+            document.getElementById('serviceId').value = id;
+            document.getElementById('serviceName').value = button.getAttribute('data-nameService');
+            document.getElementById('servicePrice').value = button.getAttribute('data-price');
+            document.getElementById('serviceStatus').value = button.getAttribute('data-status');
+            document.getElementById('servicePicture').value = button.getAttribute('data-picture');
+        });
+    });
 
+// Save (Update) service button
+    document.getElementById('saveServiceButton')?.addEventListener('click', function () {
+        const id = document.getElementById('serviceId').value;
+        const payload = {
+            nameService: document.getElementById('serviceName').value,
+            price: parseFloat(document.getElementById('servicePrice').value),
+            status: document.getElementById('serviceStatus').value,
+            picture: document.getElementById('servicePicture').value
+        };
+
+        fetch(`/admin/services/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Cập nhật dịch vụ thành công');
+                    $('#editServiceModal').modal('hide');
+
+                } else {
+                    alert('Cập nhật dịch vụ thất bại');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi dữ liệu:', error);
+            });
+    });
+
+// Create service button
+    document.getElementById('createServiceButton')?.addEventListener('click', function () {
+        const payload = {
+            nameService: document.getElementById('newServiceName').value,
+            price: parseFloat(document.getElementById('newServicePrice').value),
+            status: document.getElementById('newServiceStatus').value,
+            picture: document.getElementById('newServicePicture').value
+        };
+
+        fetch('/admin/services/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Tạo dịch vụ thành công');
+                    $('#addServiceModal').modal('hide');
+                    document.getElementById('addServiceForm').reset();
+                } else {
+                    alert('Tạo dịch vụ thất bại');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi tạo dịch vụ:', error);
+            });
+    });
     // Promotion edit buttons
     const editButtons = document.querySelectorAll('.btn-warning');
     editButtons.forEach(button => {
@@ -337,6 +407,33 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Utility functions
+function deleteService(id) {
+    if (confirm("Bạn có chắc chắn muốn xóa dịch vụ này không?")) {
+        fetch(`/admin/services/delete/${id}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(text || 'Xóa thất bại!');
+                    });
+                }
+                return response;
+            })
+            .then(() => {
+                // Giả sử mỗi dòng trong bảng dịch vụ có thuộc tính data-service-id
+                const serviceRow = document.querySelector(`tr[data-service-id="${id}"]`);
+                if (serviceRow) {
+                    serviceRow.remove();
+                }
+                alert("Xóa dịch vụ thành công!");
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.message || "Có lỗi xảy ra khi xóa dịch vụ!");
+            });
+    }
+}
 function deleteAccount(email) {
     if (confirm("Are you sure you want to delete this account?")) {
         fetch('/admin/accounts/delete?email=' + encodeURIComponent(email), {
