@@ -6,10 +6,7 @@ import hcmute.edu.vn.CarRentalWeb.decorator.ServiceDecorator;
 import hcmute.edu.vn.CarRentalWeb.dto.CheckoutRequest;
 import hcmute.edu.vn.CarRentalWeb.entity.Car;
 import hcmute.edu.vn.CarRentalWeb.entity.Order;
-import hcmute.edu.vn.CarRentalWeb.observer.CarStatusUpdater;
-import hcmute.edu.vn.CarRentalWeb.observer.CustomerNotifier;
-import hcmute.edu.vn.CarRentalWeb.observer.OrderSubject;
-import hcmute.edu.vn.CarRentalWeb.observer.StaffNotifier;
+import hcmute.edu.vn.CarRentalWeb.observer.*;
 import hcmute.edu.vn.CarRentalWeb.repository.CarRepository;
 import hcmute.edu.vn.CarRentalWeb.repository.OrderRepository;
 import hcmute.edu.vn.CarRentalWeb.strategy.PaymentStrategy;
@@ -42,6 +39,10 @@ public class OrderService {
     private StaffNotifier staffNotifier;
     @Autowired
     private CustomerNotifier customerNotifier;
+    @Autowired
+    private OrderStatusSubject orderStatusSubject;
+    @Autowired
+    private OrderStatusNotifier orderStatusNotifier;
 
 
     @PostConstruct
@@ -49,6 +50,7 @@ public class OrderService {
         orderSubject.register(carStatusUpdater);
         orderSubject.register(staffNotifier);
         orderSubject.register(customerNotifier);
+        orderStatusSubject.register(orderStatusNotifier);
     }
 
     //strategy
@@ -95,6 +97,7 @@ public class OrderService {
     public void save(Order order ) {
 
         orderRepo.save(order);
+        orderStatusSubject.notifyAll(order);
     }
 
     @Transactional
